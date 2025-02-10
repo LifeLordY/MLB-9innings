@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一個網頁</title>
+</head>
+<body>
+    <header>
+        <h1>歡迎來到我的網頁！</h1>
+    </header>
+
+    <section>
+        <h2>關於我</h2>
+        <p>這是一個用 HTML 寫的簡單網頁示例。</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 我的網站. 版權所有。</p>
+    </footer>
+</body>
+</html>
