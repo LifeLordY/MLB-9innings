@@ -39,7 +39,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" class="position-header">位置</th>
-                        <th colspan="5">球員</th>
+                        <th colspan="5" class="player-header">球員</th>
                         <th rowspan="2" class="rank-header">階級</th>
                     </tr>
                     <tr>
@@ -63,13 +63,19 @@
                             </select>
                         </th>
                         <th colspan="4">
-                            <select id="player" onchange="populateStats()">
+                            <select id="player" onchange="populateStats(); calculateTotals()">
                                 <option value="">請選擇球員</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select id="rank" onchange="calculateTotals()">
+                                <option value="白金">白金</option>
+                                <option value="黑鑽">黑鑽</option>
                             </select>
                         </th>
                     </tr>
                     <tr>
-                        <th></th>
+                        <th><input type="checkbox" checked disabled></th>
                         <th>項目</th>
                         <th>接觸</th>
                         <th>力量</th>
@@ -81,7 +87,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td></td>
+                        <th><input type="checkbox" checked disabled></th>
                         <td>基本能力值</td>
                         <td id="base-contact">0</td>
                         <td id="base-power">0</td>
@@ -91,55 +97,45 @@
                         <td id="base-avg">0.0</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
-                        <td>基本校正</td>
-                        <td><input type="number" value="0" id="adjust-contact"></td>
-                        <td><input type="number" value="0" id="adjust-power"></td>
-                        <td><input type="number" value="0" id="adjust-eye"></td>
-                        <td><input type="number" value="0" id="adjust-speed"></td>
-                        <td><input type="number" value="0" id="adjust-fielding"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
+                        <th><input type="checkbox" checked disabled></th>
                         <td>階級上升量</td>
-                        <td><input type="number" value="0" id="rankup-contact"></td>
-                        <td><input type="number" value="0" id="rankup-power"></td>
-                        <td><input type="number" value="0" id="rankup-eye"></td>
-                        <td><input type="number" value="0" id="rankup-speed"></td>
-                        <td><input type="number" value="0" id="rankup-fielding"></td>
+                        <td><input type="number" value="0" id="rankup-contact" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="rankup-power" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="rankup-eye" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="rankup-speed" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="rankup-fielding" onchange="calculateTotals()"></td>
                         <td id="rankup-total">0</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-enforce" onchange="calculateTotals()"></th>
                         <td>強化量</td>
-                        <td><input type="number" value="0" id="enforce-contact"></td>
-                        <td><input type="number" value="0" id="enforce-power"></td>
-                        <td><input type="number" value="0" id="enforce-eye"></td>
-                        <td><input type="number" value="0" id="enforce-speed"></td>
-                        <td><input type="number" value="0" id="enforce-fielding"></td>
+                        <td><input type="number" value="0" id="enforce-contact" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="enforce-power" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="enforce-eye" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="enforce-speed" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="enforce-fielding" onchange="calculateTotals()"></td>
                         <td>0</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-coach" onchange="calculateTotals()"></th>
                         <td>教練</td>
-                        <td><input type="number" value="0" id="coach-contact"></td>
-                        <td><input type="number" value="0" id="coach-power"></td>
-                        <td><input type="number" value="0" id="coach-eye"></td>
-                        <td><input type="number" value="0" id="coach-speed"></td>
-                        <td><input type="number" value="0" id="coach-fielding"></td>
+                        <td><input type="number" value="0" id="coach-contact" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="coach-power" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="coach-eye" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="coach-speed" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="coach-fielding" onchange="calculateTotals()"></td>
                         <td>0</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-special" onchange="calculateTotals()"></th>
                         <td>特別訓練</td>
-                        <td><span id="special-training-contact"></span></td>
-                        <td><span id="special-training-power"></span></td>
-                        <td><span id="special-training-eye"></span></td>
-                        <td><span id="special-training-speed"></span></td>
-                        <td><span id="special-training-fielding"></span></td>
+                        <td id="special-training-contact"></td>
+                        <td id="special-training-power"></td>
+                        <td id="special-training-eye"></td>
+                        <td id="special-training-speed"></td>
+                        <td id="special-training-fielding"></td>
                         <td>
-                            <select id="special-training" onchange="updateSpecialTrainingValues()">
+                            <select id="special-training" onchange="updateSpecialTrainingValues(); calculateTotals()">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -155,7 +151,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-mentor" onchange="calculateTotals()"></th>
                         <td>指導球員</td>
                         <td id="mentor-player-contact"></td>
                         <td id="mentor-player-power"></td>
@@ -163,7 +159,7 @@
                         <td id="mentor-player-speed"></td>
                         <td id="mentor-player-fielding"></td>
                         <td>
-                            <select id="mentor-player" onchange="updateMentorPlayerValues()">
+                            <select id="mentor-player" onchange="updateMentorPlayerValues(); calculateTotals()">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -174,7 +170,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-black" onchange="calculateTotals()"></th>
                         <td>黑鑽</td>
                         <td id="black-diamond-contact"></td>
                         <td id="black-diamond-power"></td>
@@ -184,13 +180,13 @@
                         <td>0</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-team" onchange="calculateTotals()"></th>
                         <td>團隊加成</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><input type="number" value="0" id="team-contact" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="team-power" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="team-eye" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="team-speed" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="team-fielding" onchange="calculateTotals()"></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -204,7 +200,7 @@
                     </tr>
                     <tr class="empty-row"><td colspan="8"></td></tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-condition" onchange="calculateTotals()"></th>
                         <td>狀態</td>
                         <td id="condition-contact"></td>
                         <td id="condition-power"></td>
@@ -212,40 +208,32 @@
                         <td id="condition-speed"></td>
                         <td id="condition-fielding"></td>
                         <td>
-                            <select id="condition" onchange="updateConditionValues()">
+                            <select id="condition" onchange="updateConditionValues(); calculateTotals()">
                                 <option value="-3">-3</option>
-                                <option value="0">0</option>
+                                <option value="0" selected>0</option>
                                 <option value="3">3</option>
                                 <option value="6">6</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-equipment" onchange="calculateTotals()"></th>
                         <td>裝備</td>
+                        <td><input type="number" value="0" id="equipment-contact" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="equipment-power" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="equipment-eye" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="equipment-speed" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="equipment-fielding" onchange="calculateTotals()"></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <select id="equipment">
-                                <option value="無">無</option>
-                                <option value="銅">銅</option>
-                                <option value="銀">銀</option>
-                                <option value="金">金</option>
-                                <option value="白">白</option>
-                            </select>
-                        </td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
+                        <th><input type="checkbox" id="checkbox-skill" onchange="calculateTotals()"></th>
                         <td>技能</td>
-                        <td><input type="number" value="0" id="skill-contact"></td>
-                        <td><input type="number" value="0" id="skill-power"></td>
-                        <td><input type="number" value="0" id="skill-eye"></td>
-                        <td><input type="number" value="0" id="skill-speed"></td>
-                        <td><input type="number" value="0" id="skill-fielding"></td>
+                        <td><input type="number" value="0" id="skill-contact" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="skill-power" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="skill-eye" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="skill-speed" onchange="calculateTotals()"></td>
+                        <td><input type="number" value="0" id="skill-fielding" onchange="calculateTotals()"></td>
                         <td></td>
                     </tr>
                     <tr>
