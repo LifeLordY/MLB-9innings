@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLB九局職棒 球員能力值</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script> </head>
+    <script src="script.js"></script>
+</head>
 <body>
     <div class="container">
         <h1>MLB九局職棒 球員能力值</h1>
@@ -37,8 +38,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th rowspan="2">位置</th> <th colspan="5">球員</th>
-                        <th rowspan="2">階級</th> </tr>
+                        <th rowspan="2" class="position-header">位置</th>
+                        <th colspan="5">球員</th>
+                        <th rowspan="2" class="rank-header">階級</th>
+                    </tr>
                     <tr>
                         <th>
                             <select id="position-filter" onchange="updatePlayerOptions()">
@@ -60,8 +63,9 @@
                             </select>
                         </th>
                         <th colspan="4">
-                            <select id="player" >
-                                <option value="">請選擇球員</option> </select>
+                            <select id="player" onchange="populateStats()">
+                                <option value="">請選擇球員</option>
+                            </select>
                         </th>
                     </tr>
                     <tr>
@@ -99,11 +103,11 @@
                     <tr>
                         <td></td>
                         <td>階級上升量</td>
-                        <td id="rankup-contact">0</td>
-                        <td id="rankup-power">0</td>
-                        <td id="rankup-eye">0</td>
-                        <td id="rankup-speed">0</td>
-                        <td id="rankup-fielding">0</td>
+                        <td><input type="number" value="0" id="rankup-contact"></td>
+                        <td><input type="number" value="0" id="rankup-power"></td>
+                        <td><input type="number" value="0" id="rankup-eye"></td>
+                        <td><input type="number" value="0" id="rankup-speed"></td>
+                        <td><input type="number" value="0" id="rankup-fielding"></td>
                         <td id="rankup-total">0</td>
                     </tr>
                     <tr>
@@ -129,13 +133,13 @@
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>特別訓練</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><span id="special-training-contact"></span></td>
+                        <td><span id="special-training-power"></span></td>
+                        <td><span id="special-training-eye"></span></td>
+                        <td><span id="special-training-speed"></span></td>
+                        <td><span id="special-training-fielding"></span></td>
                         <td>
-                            <select id="special-training">
+                            <select id="special-training" onchange="updateSpecialTrainingValues()">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -153,13 +157,13 @@
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>指導球員</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td id="mentor-player-contact"></td>
+                        <td id="mentor-player-power"></td>
+                        <td id="mentor-player-eye"></td>
+                        <td id="mentor-player-speed"></td>
+                        <td id="mentor-player-fielding"></td>
                         <td>
-                            <select id="mentor-player">
+                            <select id="mentor-player" onchange="updateMentorPlayerValues()">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -172,11 +176,11 @@
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>黑鑽</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td id="black-diamond-contact"></td>
+                        <td id="black-diamond-power"></td>
+                        <td id="black-diamond-eye"></td>
+                        <td id="black-diamond-speed"></td>
+                        <td id="black-diamond-fielding"></td>
                         <td>0</td>
                     </tr>
                     <tr>
@@ -202,13 +206,13 @@
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>狀態</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td id="condition-contact"></td>
+                        <td id="condition-power"></td>
+                        <td id="condition-eye"></td>
+                        <td id="condition-speed"></td>
+                        <td id="condition-fielding"></td>
                         <td>
-                            <select id="condition">
+                            <select id="condition" onchange="updateConditionValues()">
                                 <option value="-3">-3</option>
                                 <option value="0">0</option>
                                 <option value="3">3</option>
