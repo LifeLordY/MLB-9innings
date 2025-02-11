@@ -53,15 +53,17 @@
         }
 
         table {
-            width: auto; /*  表格寬度自動適應內容 */
+            width: 100%; /*  **強制表格寬度為 100%** */
             border-collapse: collapse;
             font-size: 0.75em; /*  縮小表格字體大小 */
+            table-layout: fixed; /*  **設定表格佈局為 fixed** */
         }
 
         th, td {
             border: 1px solid #555;
             padding: 6px; /*  稍微縮小 padding */
             text-align: center;
+            word-break: break-word; /*  **強制單字斷行** */
         }
 
         th {
