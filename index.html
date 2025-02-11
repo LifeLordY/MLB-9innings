@@ -5,21 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLB九局職棒 球員能力值</title>
     <style>
-        body { /* ... (body 樣式維持不變) ... */ }
-        .container { /* ... (container 樣式維持不變) ... */ }
-        h2 { /* ... (h2 樣式維持不變) ... */ }
-        .filters { /* ... (filters 樣式維持不變) ... */ }
-        .filters label { /* ... (filters label 樣式維持不變) ... */ }
-        .filters select, .filters input { /* ... (filters select, .filters input 樣式維持不變) ... */ }
-        table { /* ... (table 樣式維持不變) ... */ }
-        th, td { /* ... (th, td 樣式維持不變) ... */ }
-        th { /* ... (th 樣式維持不變) ... */ }
-        tr:nth-child(odd) { /* ... (tr:nth-child(odd) 樣式維持不變) ... */ }
-        tr:nth-child(even) { /* ... (tr:nth-child(even) 樣式維持不變) ... */ }
-        input[type="checkbox"] { /* ... (input[type="checkbox"] 樣式維持不變) ... */ }
-        select { /* ... (select 樣式維持不變) ... */ }
-        .blank-row td { /* ... (.blank-row td 樣式維持不變) ... */ }
-        .average-value { /* ... (.average-value 樣式維持不變) ... */ }
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 95%;
+            max-width: 900px; /* 縮減外框最大寬度 */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .filters label {
+            font-size: 0.8em;
+        }
+
+        .filters select, .filters input {
+            background-color: #333;
+            color: #ffffff;
+            border: 1px solid #555;
+            padding: 6px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8em;
+        }
+
+        th, td {
+            border: 1px solid #555;
+            padding: 6px 4px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th {
+            background-color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #2a2a2a;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1e1e1e;
+        }
+
+        input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+        }
+
+        select {
+            background-color: #333;
+            color: #ffffff;
+            border: 1px solid #555;
+            padding: 4px;
+            border-radius: 5px;
+            font-size: 0.75em;
+            height: 28px;
+            line-height: 28px;
+        }
+
+        .blank-row td {
+            border: none;
+            background-color: transparent;
+            padding: 3px 0;
+        }
+
+        .average-value {
+            font-weight: bold;
+        }
 
         /* 設定欄寬 (維持不變) */
         table tr th:nth-child(1),
