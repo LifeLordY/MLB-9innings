@@ -2,50 +2,149 @@
     "NYY": {
         "一般": {
             "打者": [
-                {"name": "指定打者1", "position": "DH", "接觸": 60, "力量": 70, "選球": 55, "速度": 65, "守備": 40, "rankBonus": 5, "blackDiamondBonus": 8},
-                {"name": "一壘手1", "position": "1B", "接觸": 75, "力量": 80, "選球": 65, "速度": 50, "守備": 60, "rankBonus": 7, "blackDiamondBonus": 10},
-                {"name": "二壘手1", "position": "2B", "接觸": 70, "力量": 65, "選球": 70, "速度": 70, "守備": 75, "rankBonus": 6, "blackDiamondBonus": 9},
-                {"name": "三壘手1", "position": "3B", "接觸": 65, "力量": 75, "選球": 60, "速度": 55, "守備": 65, "rankBonus": 8, "blackDiamondBonus": 11},
-                {"name": "游擊手1", "position": "SS", "接觸": 80, "力量": 60, "選球": 75, "速度": 80, "守備": 85, "rankBonus": 9, "blackDiamondBonus": 12},
-                {"name": "左外野手1", "position": "OF", "接觸": 70, "力量": 70, "選球": 65, "速度": 75, "守備": 70, "rankBonus": 7, "blackDiamondBonus": 10},
-                {"name": "中外野手1", "position": "OF", "接觸": 85, "力量": 65, "選球": 80, "速度": 90, "守備": 90, "rankBonus": 10, "blackDiamondBonus": 13},
-                {"name": "右外野手1", "position": "OF", "接觸": 75, "力量": 75, "選球": 70, "速度": 80, "守備": 75, "rankBonus": 8, "blackDiamondBonus": 11},
-                {"name": "捕手1", "position": "C", "接觸": 65, "力量": 70, "選球": 55, "速度": 45, "守備": 80, "rankBonus": 6, "blackDiamondBonus": 9}
+                {
+                    "name": "吉特",
+                    "position": "SS",
+                    "base_stats": {
+                        "接觸": 70,
+                        "力量": 60,
+                        "選球": 80,
+                        "速度": 75,
+                        "守備": 75
+                    },
+                    "tier_increase": {
+                        "接觸": 5,
+                        "力量": 4,
+                        "選球": 6,
+                        "速度": 5,
+                        "守備": 5
+                    }
+                },
+                {
+                    "name": "賈吉",
+                    "position": "OF",
+                    "base_stats": {
+                        "接觸": 65,
+                        "力量": 95,
+                        "選球": 85,
+                        "速度": 70,
+                        "守備": 70
+                    },
+                    "tier_increase": {
+                        "接觸": 4,
+                        "力量": 7,
+                        "選球": 6,
+                        "速度": 5,
+                        "守備": 5
+                    }
+                }
             ],
             "投手": [
-                {"name": "先發投手1", "position": "SP", "控球": 85, "球威": 90, "體力": 80, "直球": 88, "變化": 85, "rankBonus": 10, "blackDiamondBonus": 14},
-                {"name": "後援投手1", "position": "RP", "控球": 75, "球威": 85, "體力": 60, "直球": 85, "變化": 80, "rankBonus": 8, "blackDiamondBonus": 12},
-                {"name": "終結投手1", "position": "CP", "控球": 80, "球威": 95, "體力": 65, "直球": 92, "變化": 88, "rankBonus": 9, "blackDiamondBonus": 13}
+                {
+                    "name": "柯爾",
+                    "position": "SP",
+                    "base_stats": {
+                        "控球": 85,
+                        "球威": 90,
+                        "體力": 80,
+                        "直球": 95,
+                        "變化": 85
+                    },
+                    "tier_increase": {
+                        "控球": 6,
+                        "球威": 7,
+                        "體力": 6,
+                        "直球": 7,
+                        "變化": 6
+                    }
+                }
             ]
         },
         "經典": {
             "打者": [
-                {"name": "經典打者1", "position": "DH", "接觸": 90, "力量": 95, "選球": 85, "速度": 75, "守備": 60, "rankBonus": 12, "blackDiamondBonus": 16},
-                {"name": "經典一壘手1", "position": "1B", "接觸": 95, "力量": 100, "選球": 90, "速度": 65, "守備": 75, "rankBonus": 14, "blackDiamondBonus": 18}
+                {
+                    "name": "貝比魯斯",
+                    "position": "OF",
+                    "base_stats": {
+                        "接觸": 95,
+                        "力量": 99,
+                        "選球": 90,
+                        "速度": 50,
+                        "守備": 60
+                    },
+                    "tier_increase": {
+                        "接觸": 7,
+                        "力量": 8,
+                        "選球": 7,
+                        "速度": 3,
+                        "守備": 4
+                    }
+                }
             ],
             "投手": [
-                {"name": "經典先發投手1", "position": "SP", "控球": 95, "球威": 100, "體力": 90, "直球": 98, "變化": 95, "rankBonus": 15, "blackDiamondBonus": 20}
+                {
+                    "name": "李維拉",
+                    "position": "CP",
+                    "base_stats": {
+                        "控球": 99,
+                        "球威": 95,
+                        "體力": 70,
+                        "直球": 90,
+                        "變化": 99
+                    },
+                    "tier_increase": {
+                        "控球": 8,
+                        "球威": 7,
+                        "體力": 5,
+                        "直球": 6,
+                        "變化": 8
+                    }
+                }
             ]
-        },
-        "BOS": {
-            "一般": {
-                "打者": [
-                    {"name": "指定打者2", "position": "DH", "接觸": 55, "力量": 65, "選球": 50, "速度": 60, "守備": 35, "rankBonus": 4, "blackDiamondBonus": 7},
-                    {"name": "一壘手2", "position": "1B", "接觸": 70, "力量": 75, "選球": 60, "速度": 45, "守備": 55, "rankBonus": 6, "blackDiamondBonus": 9}
-                ],
-                "投手": [
-                    {"name": "先發投手2", "position": "SP", "控球": 80, "球威": 85, "體力": 75, "直球": 83, "變化": 80, "rankBonus": 9, "blackDiamondBonus": 13},
-                    {"name": "後援投手2", "position": "RP", "控球": 70, "球威": 80, "體力": 55, "直球": 80, "變化": 75, "rankBonus": 7, "blackDiamondBonus": 11}
-                ]
-            },
-             "經典": {
-                "打者": [
-                    {"name": "經典打者2", "position": "DH", "接觸": 85, "力量": 90, "選球": 80, "速度": 70, "守備": 55, "rankBonus": 11, "blackDiamondBonus": 15},
-                    {"name": "經典一壘手2", "position": "1B", "接觸": 90, "力量": 95, "選球": 85, "速度": 60, "守備": 70, "rankBonus": 13, "blackDiamondBonus": 17}
-                ],
-                "投手": [
-                    {"name": "經典先發投手2", "position": "SP", "控球": 90, "球威": 95, "體力": 85, "直球": 93, "變化": 90, "rankBonus": 14, "blackDiamondBonus": 19}
-                ]
-            }
         }
+    },
+    "BOS": {
+        "一般": {
+            "打者": [
+                {
+                    "name": "貝茲",
+                    "position": "OF",
+                    "base_stats": {
+                        "接觸": 85,
+                        "力量": 80,
+                        "選球": 90,
+                        "速度": 85,
+                        "守備": 85
+                    },
+                    "tier_increase": {
+                        "接觸": 6,
+                        "力量": 6,
+                        "選球": 7,
+                        "速度": 6,
+                        "守備": 6
+                    }
+                }
+            ],
+            "投手": [
+                {
+                    "name": "塞爾",
+                    "position": "SP",
+                    "base_stats": {
+                        "控球": 80,
+                        "球威": 92,
+                        "體力": 75,
+                        "直球": 92,
+                        "變化": 90
+                    },
+                    "tier_increase": {
+                        "控球": 6,
+                        "球威": 7,
+                        "體力": 5,
+                        "直球": 7,
+                        "變化": 7
+                    }
+                }
+            ]
+        }
+    }
 }
