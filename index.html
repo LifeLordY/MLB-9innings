@@ -120,6 +120,15 @@
         table tr th:nth-child(n+3):nth-child(-n+7),
         table tr td:nth-child(n+3):nth-child(-n+7) {
             width: 30px;
+            max-width: 30px; /* 新增 max-width，更強制限制最大寬度 */
+        }
+        
+        th {
+            background-color: #333;
+            font-weight: bold;
+            text-overflow: ellipsis; /* 確保 th 也有文字溢出省略效果 */
+            overflow: hidden;       /* 確保 th 內容溢出時隱藏 */
+            white-space: nowrap;    /* 確保 th 文字不換行 */
         }
 
         table tr th:nth-child(8),
