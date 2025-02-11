@@ -167,7 +167,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>項目</td>
                     <td>接觸</td>
                     <td>力量</td>
@@ -186,7 +186,7 @@
                     <td id="base-average" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>基本校正</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -205,7 +205,7 @@
                     <td id="tier-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>強化量</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -215,7 +215,7 @@
                     <td id="enhance-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>教練</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -225,13 +225,13 @@
                     <td id="coach-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>特別訓練</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <select>
                             <option value="0">0</option>
@@ -248,16 +248,16 @@
                         </select>
                     </td>
                 </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
+                <tr id="coaching-player-row">
+                    <td><input type="checkbox" checked></td>
                     <td>指導球員</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
                     <td>
-                        <select>
+                        <select id="coaching-player-select">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -268,23 +268,23 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>黑鑽</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td id="black-diamond-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>團隊加成</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -297,31 +297,31 @@
                     <td id="roster-average" class="average-value"></td>
                 </tr>
                 <tr class="blank-row"><td colspan="8"></td></tr>
-                <tr>
-                    <td><input type="checkbox"></td>
+                <tr id="status-row">
+                    <td><input type="checkbox" checked></td>
                     <td>狀態</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
                     <td>
-                        <select>
+                        <select id="status-select">
                             <option value="-3">-3</option>
-                            <option value="0">0</option>
+                            <option value="0" selected>0</option>
                             <option value="3">3</option>
                             <option value="6">6</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>裝備</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <select>
                             <option value="無">無</option>
@@ -333,7 +333,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>技能</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -354,5 +354,41 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const coachingPlayerSelect = document.getElementById('coaching-player-select');
+            const statusSelect = document.getElementById('status-select');
+            const coachingPlayerRow = document.getElementById('coaching-player-row');
+            const statusRow = document.getElementById('status-row');
+
+            // Function to set "同上" values
+            function setSameAsDropdownValues(row, dropdown) {
+                const dropdownValue = dropdown.value;
+                const sameAsCells = row.querySelectorAll('.same-as-dropdown');
+                sameAsCells.forEach(cell => {
+                    cell.textContent = dropdownValue;
+                });
+            }
+
+            // Set initial values for "指導球員" row
+            setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
+
+            // Set initial values for "狀態" row
+            setSameAsDropdownValues(statusRow, statusSelect);
+
+
+            // Update "指導球員" "同上" values when dropdown changes
+            coachingPlayerSelect.addEventListener('change', function() {
+                setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
+            });
+
+            // Update "狀態" "同上" values when dropdown changes
+            statusSelect.addEventListener('change', function() {
+                setSameAsDropdownValues(statusRow, statusSelect);
+            });
+        });
+    </script>
+
 </body>
 </html>
