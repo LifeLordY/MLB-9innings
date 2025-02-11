@@ -480,7 +480,7 @@
                 // 自動選取球隊和位置下拉選單
                 teamSelect.value = Object.keys(playerData.find(teamData => teamData[Object.keys(teamData)[0]].includes(selectedPlayerData)))[0]; // 根據球員資料反查球隊代碼並設定球隊選單
                 positionSelect.value = selectedPlayerData.position;
-            
+                updatePlayerDropdown();
                 // 自動填入球員名稱輸入框 (假設您的球員輸入框 ID 是 'player-input')
                 const playerInput = document.getElementById('player-input');
                 if (playerInput) {
