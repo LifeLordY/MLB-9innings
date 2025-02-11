@@ -145,3 +145,10 @@ tbody tr:nth-last-child(2) { /* 倒數第二列 */
 .selector select {
     /* 這裡可以保持之前的選單樣式 */
 }
+/* 調整 th 的 rowspan 樣式，垂直置中 */
+thead th[rowspan="2"].position-header,
+thead th[rowspan="2"].rank-header {
+    vertical-align: middle; /* 垂直置中對齊 */
+    background-color: #555;
+    color: #fff;
+}
