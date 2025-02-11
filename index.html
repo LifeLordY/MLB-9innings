@@ -477,7 +477,16 @@
                 let typeData = null;
                 let playerBaseState = selectedPlayerData.base_state; // 取得球員基本能力值
                 let playerTierIncrease = selectedPlayerData.tier_increase; // 取得球員基本階級上升量
-
+                // 自動選取球隊和位置下拉選單
+                teamSelect.value = Object.keys(playerData.find(teamData => teamData[Object.keys(teamData)[0]].includes(selectedPlayerData)))[0]; // 根據球員資料反查球隊代碼並設定球隊選單
+                positionSelect.value = selectedPlayerData.position;
+            
+                // 自動填入球員名稱輸入框 (假設您的球員輸入框 ID 是 'player-input')
+                const playerInput = document.getElementById('player-input');
+                if (playerInput) {
+                    playerInput.value = selectedPlayerName;
+                }
+                
                 if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend') {
                     typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
                 } else if (selectedType === 'epic') {
