@@ -69,8 +69,18 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       let data = null;
+      // 全域定義五項 stat 名稱
+      const stats = ["接觸", "力量", "選球", "速度", "守備"];
+      
+      // 用來儲存每一項校正下拉選單的參照
+      let calibrationSelects = [];
+      // 用來儲存總評第六橫排中各 stat 總和的儲存格參照（第 2~6 格）
+      let totalCells = [];
+      // 用來儲存第六橫排中顯示平均值的儲存格參照（第 7 格）
+      let totalAvgCell = null;
+      
       // 讀取外部 JSON 資料
-      fetch('data.json?v=' + new Date().getTime())
+      fetch('data.json')
         .then(response => {
           if (!response.ok) { throw new Error("無法載入 data.json"); }
           return response.json();
@@ -84,7 +94,7 @@
       const playerSelect = document.getElementById("playerSelect");
       const tableContainer = document.getElementById("tableContainer");
       
-      // 當球隊/位置/年份改變時，更新球員下拉式選單
+      // 當球隊/位置/年份改變時，更新球員下拉選單
       function updatePlayerOptions() {
         const team = teamSelect.value;
         const position = positionSelect.value;
@@ -105,21 +115,19 @@
       positionSelect.addEventListener("change", updatePlayerOptions);
       yearSelect.addEventListener("change", updatePlayerOptions);
       
-      // 用來儲存校正下拉選單的參照，以便稍後計算總和
-      let calibrationSelects = [];
-      // 儲存第六橫排中顯示「基礎校正與階級上升量總和」的儲存格參照
-      let summaryCalibCell = null;
-      
-      // 當校正改變時更新第六排的數值
+      // 當校正下拉選單改變時，重新計算並更新總評那一橫排的數值
       function updateSummaryRow(player) {
-        let totalCalibLevel = 0;
-        const stats = ["接觸", "力量", "選球", "速度", "守備"];
-        calibrationSelects.forEach((sel, i) => {
-          const calibVal = parseInt(sel.value) || 0;
-          const levelVal = player.levelUp[stats[i]] || 0;
-          totalCalibLevel += (calibVal + levelVal);
+        let totalSum = 0;
+        stats.forEach((stat, i) => {
+          const basicVal = player.basic[stat] || 0;
+          const calibVal = parseInt(calibrationSelects[i].value) || 0;
+          const levelVal = player.levelUp[stat] || 0;
+          const total = basicVal + calibVal + levelVal;
+          totalCells[i].textContent = total;
+          totalSum += total;
         });
-        if (summaryCalibCell) { summaryCalibCell.textContent = totalCalibLevel; }
+        const avg = (totalSum / stats.length).toFixed(1);
+        totalAvgCell.textContent = avg;
       }
       
       // 當球員選定後產生表格
@@ -133,12 +141,13 @@
           return;
         }
         const player = data[team][position][year][playerIndex];
-        const stats = ["接觸", "力量", "選球", "速度", "守備"];
         
-        // 先清空校正下拉選單陣列
+        // 先清空校正下拉選單的參照陣列
         calibrationSelects = [];
+        // 也重置總評儲存格陣列
+        totalCells = [];
+        totalAvgCell = null;
         
-        // 建立表格
         const table = document.createElement("table");
         
         /* --- 第一橫排 ---
@@ -197,7 +206,7 @@
         
         /* --- 第四橫排 ---
            第 1 格：基礎校正
-           第 2~6 格：各項放下拉式選單（-5~5）
+           第 2~6 格：各項放下拉式選單（選項 -5 至 5）
            第 7 格：空白
         */
         const row4 = document.createElement("tr");
@@ -214,7 +223,7 @@
             select.appendChild(opt);
           }
           select.value = 0;
-          // 當校正改變時，重新計算第六橫排的數值
+          // 當校正值改變時，更新第六橫排（總評）
           select.addEventListener("change", function() { updateSummaryRow(player); });
           calibrationSelects.push(select);
           td.appendChild(select);
@@ -248,39 +257,31 @@
         
         /* --- 第六橫排（總評） ---
            第 1 格：顯示「總評」
-           第 2 格：合併 colspan=3，顯示「接觸、力量、選球、速度、守備」的基礎值（以逗號分隔）
-           第 3 格：合併 colspan=2，顯示「基礎校正與階級上升量」的總和（每項：校正值+階級上升量，再全部相加）
-           第 4 格：顯示前五項平均（與 row3 相同）
+           第 2～6 格：分別顯示每一項 (接觸、力量、選球、速度、守備) 的總和
+                     計算公式：基礎值 + 校正值 + 階級上升量
+           第 7 格：顯示這五項總和的平均值
         */
         const row6 = document.createElement("tr");
         const tdTotalLabel = document.createElement("td");
         tdTotalLabel.textContent = "總評";
         row6.appendChild(tdTotalLabel);
-        
-        const tdBaseValues = document.createElement("td");
-        tdBaseValues.colSpan = 3;
-        let baseValuesStr = stats.map(stat => stat + ": " + (player.basic[stat] || 0)).join(", ");
-        tdBaseValues.textContent = baseValuesStr;
-        row6.appendChild(tdBaseValues);
-        
-        const tdCalibLevelSum = document.createElement("td");
-        tdCalibLevelSum.colSpan = 2;
-        // 初始計算校正+階級上升量總和（各項校正預設 0）
-        let totalCalibLevel = 0;
+        let statTotalSum = 0;
         stats.forEach((stat, i) => {
-          const calib = parseInt(calibrationSelects[i]?.value) || 0;
-          totalCalibLevel += (calib + (player.levelUp[stat] || 0));
+          const td = document.createElement("td");
+          const basicVal = player.basic[stat] || 0;
+          const calibVal = parseInt(calibrationSelects[i].value) || 0;
+          const levelVal = player.levelUp[stat] || 0;
+          const total = basicVal + calibVal + levelVal;
+          td.textContent = total;
+          totalCells.push(td);
+          row6.appendChild(td);
+          statTotalSum += total;
         });
-        tdCalibLevelSum.textContent = totalCalibLevel;
-        summaryCalibCell = tdCalibLevelSum;  // 儲存參照以便更新
-        row6.appendChild(tdCalibLevelSum);
-        
-        const tdFinalAvg = document.createElement("td");
-        tdFinalAvg.textContent = baseAvg;
-        row6.appendChild(tdFinalAvg);
+        totalAvgCell = document.createElement("td");
+        totalAvgCell.textContent = (statTotalSum / stats.length).toFixed(1);
+        row6.appendChild(totalAvgCell);
         table.appendChild(row6);
         
-        // 將產生的表格放入頁面
         tableContainer.innerHTML = "";
         tableContainer.appendChild(table);
       }
