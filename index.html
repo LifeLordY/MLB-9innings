@@ -14,56 +14,57 @@
             align-items: center;
             /* 移除或註解掉 min-height: 100vh;  如果需要縮減整體網頁高度 */
             margin: 0;
+            font-size: 16px; /*  **增加 body 基礎字體大小**  */
         }
 
         .container {
             background-color: #1e1e1e;
-            padding: 15px; /* 稍微縮小 padding */
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: fit-content; /* 容器寬度適應內容 */
-            max-width: 600px; /*  大幅縮小 max-width */
-            margin: 20px; /*  增加一些 margin，讓容器不要緊貼邊緣 */
+            width: fit-content;
+            max-width: 600px; /*  **修改容器最大寬度為 600px**  */
+            margin: 20px;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 15px; /* 稍微縮小 margin-bottom */
-            font-size: 1.2em; /*  稍微縮小標題字體 */
+            margin-bottom: 15px;
+            font-size: 1.3em; /*  標題字體可以稍微再大一些，配合整體字體放大 */
         }
 
         .filters {
             display: flex;
-            gap: 8px; /* 稍微縮小 gap */
-            margin-bottom: 10px; /* 稍微縮小 margin-bottom */
+            gap: 8px;
+            margin-bottom: 10px;
             align-items: center;
         }
 
         .filters label {
-            font-size: 0.85em; /* 稍微縮小 label 字體 */
+            font-size: 0.9em; /*  篩選器 label 字體稍微調整，配合整體字體放大 */
         }
 
         .filters select, .filters input {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 6px; /* 稍微縮小 padding */
+            padding: 6px;
             border-radius: 5px;
-            font-size: 0.8em; /* 稍微縮小 input 和 select 字體 */
+            font-size: 0.9em; /*  篩選器 input 和 select 字體稍微調整，配合整體字體放大 */
         }
 
         table {
-            width: 100%; /*  **強制表格寬度為 100%** */
+            width: 100%;
             border-collapse: collapse;
-            font-size: 0.75em; /*  縮小表格字體大小 */
-            table-layout: fixed; /*  **設定表格佈局為 fixed** */
+            font-size: 0.8em; /*  表格字體大小也稍微調整，配合整體字體放大 */
+            /* table-layout: fixed;  移除 fixed layout，讓欄寬自動調整 */
         }
 
         th, td {
             border: 1px solid #555;
-            padding: 6px; /*  稍微縮小 padding */
+            padding: 6px;
             text-align: center;
-            word-break: break-word; /*  **強制單字斷行** */
+            word-break: break-word;
         }
 
         th {
@@ -80,47 +81,70 @@
         }
 
         input[type="checkbox"] {
-            width: 14px; /* 稍微縮小 checkbox */
-            height: 14px; /* 稍微縮小 checkbox */
+            width: 14px;
+            height: 14px;
         }
 
         select {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 5px; /* 稍微縮小 padding */
+            padding: 5px;
             border-radius: 5px;
-            font-size: 0.75em; /* 稍微縮小 select 字體 */
+            font-size: 0.8em; /*  select 字體大小也稍微調整，配合整體字體放大 */
         }
 
         .blank-row td {
             border: none;
             background-color: transparent;
-            padding: 3px 0; /* 稍微縮小 padding */
+            padding: 3px 0;
         }
 
         .average-value {
             font-weight: bold;
         }
 
-        /*  **修改 input 樣式，使其適應表格大小**  */
         input[type="number"] {
-            width: 100%;          /*  **設定 input 寬度為 100%**  */
-            box-sizing: border-box; /*  **設定 box-sizing 為 border-box**  */
-            padding: 5px;         /*  可以稍微調整 padding  */
-            font-size: 0.75em;    /*  可以調整字體大小，與表格字體一致  */
-            border: 1px solid #555; /* 保持邊框樣式 */
-            background-color: #333; /* 保持背景顏色 */
-            color: #ffffff;         /* 保持文字顏色 */
-            border-radius: 5px;    /* 保持圓角 */
-            margin: 0;             /*  移除 input 預設 margin，避免影響佈局  */
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+            font-size: 0.8em; /*  input 字體大小也稍微調整，配合整體字體放大 */
+            border: 1px solid #555;
+            background-color: #333;
+            color: #ffffff;
+            border-radius: 5px;
+            margin: 0;
         }
 
-        /*  **微調 filters 區域的 input 樣式，保持一致性 (可選)**  */
         .filters input {
-            width: auto; /*  filters 區域的 input  寬度改為 auto，讓篩選器區域的輸入框寬度自適應 */
-            box-sizing: border-box; /*  同樣設定 box-sizing  */
+            width: auto;
+            box-sizing: border-box;
         }
+
+        /*  **調整勾選欄寬度**  */
+        th:nth-child(1), /*  針對第一個 <th> (勾選欄標題)  */
+        td:nth-child(1)  /*  針對 tbody 內第一個 <td> (勾選框)  */
+         {
+            width: 30px; /*  設定較小的固定寬度，您可以根據需要調整數值  */
+            min-width: 30px; /*  設定最小寬度，避免內容過於擠壓 */
+            max-width: 40px; /*  設定最大寬度，限制寬度不超過此值 */
+            overflow: hidden; /*  隱藏超出寬度的內容 (如果需要)  */
+            text-overflow: ellipsis; /*  超出寬度的文字顯示省略號 (如果需要)  */
+            white-space: nowrap; /*  強制文字不換行 (如果需要)  */
+        }
+
+
+        /*  **表格數字靠左對齊**  */
+        tbody td {
+            text-align: left; /*  設定 tbody 內所有 <td> 文字靠左對齊  */
+            padding-left: 10px; /*  可以增加一些左內距，讓文字更易讀  */
+            padding-right: 5px; /*  可以稍微縮減右內距  */
+        }
+
+        /*  **針對 "值" 欄位，維持置中對齊 (可選，如果您希望 "值" 欄位仍然置中)**  */
+        /* tbody td:nth-child(8), th:nth-child(8) {
+            text-align: center;
+        } */
 
 
     </style>
