@@ -12,8 +12,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            /* 移除或註解掉 min-height: 100vh;  如果需要縮減整體網頁高度 */
             margin: 0;
-            font-size: 0.9em;
+            font-size: 0.9em; /* **再次加大網頁基礎字體大小** */
         }
 
         .container {
@@ -60,13 +61,14 @@
 
         th, td {
             border: 1px solid #555;
-            padding: 6px;
+            padding: 6px; /* **維持水平 padding，垂直 padding 縮減** */
             padding-top: 4px;
             padding-bottom: 4px;
             text-align: center;
             word-break: break-word;
             width: auto;
         }
+
 
         th {
             background-color: #333;
@@ -82,8 +84,8 @@
         }
 
         input[type="checkbox"] {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
         }
 
         select {
@@ -115,7 +117,7 @@
             color: #ffffff;
             border-radius: 5px;
             margin: 0;
-            text-align: left;
+            text-align: left; /* **移除數字置中效果，改為靠左對齊** */
         }
 
         .filters input {
@@ -125,23 +127,6 @@
 
         .number-font {
             font-size: 0.85em;
-        }
-
-        /* **加大特定標籤字體** */
-        .table-header-label {
-            font-size: 0.95em;
-            font-weight: bold; /* 可以考慮加粗 */
-        }
-
-        /* **加大特定下拉選單字體** */
-        .table-header-select {
-            font-size: 0.95em;
-        }
-
-        /* **加大特定列字體** */
-        .summary-row-font {
-            font-size: 0.95em;
-            font-weight: bold; /* 可以考慮加粗 */
         }
 
     </style>
@@ -173,15 +158,15 @@
         <table>
             <thead>
                 <tr>
-                    <th colspan="2" class="table-header-label">位置</th>
-                    <th colspan="5" class="table-header-label">球員</th>
-                    <th class="table-header-label">階級</th>
+                    <th colspan="2">位置</th>
+                    <th colspan="5">球員</th>
+                    <th>階級</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td colspan="2">
-                        <select id="position" name="position" class="table-header-select">
+                        <select id="position" name="position">
                             <option value="">-- 請選擇位置 --</option>
                             <optgroup label="打者">
                                 <option value="C">C</option>
@@ -201,12 +186,12 @@
                     </td>
                     <td colspan="5">
                         <input type="text" id="player-input" placeholder="自行輸入球員">
-                        <select id="player-select" name="player-select" class="table-header-select">
+                        <select id="player-select" name="player-select">
                             <option value="">-- 或選擇球員 --</option>
                         </select>
                     </td>
                     <td>
-                        <select id="tier" name="tier" class="table-header-select">
+                        <select id="tier" name="tier">
                             <option value="白金">白金</option>
                             <option value="黑鑽">黑鑽</option>
                         </select>
@@ -224,11 +209,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">基本能力值</td>
-                    <td><input type="number" id="base-contact" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="base-power" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="base-eye" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="base-speed" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="base-fielding" class="average-value number-font" value="0"></td>
+                    <td><input type="number" id="base-contact" class="average-value number-font"></td>
+                    <td><input type="number" id="base-power" class="average-value number-font"></td>
+                    <td><input type="number" id="base-eye" class="average-value number-font"></td>
+                    <td><input type="number" id="base-speed" class="average-value number-font"></td>
+                    <td><input type="number" id="base-fielding" class="average-value number-font"></td>
                     <td id="base-average" class="average-value number-font"></td>
                 </tr>
                 <tr>
@@ -243,11 +228,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">階級上升量</td>
-                    <td><input type="number" id="tier-contact" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="tier-power" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="tier-eye" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="tier-speed" class="average-value number-font" value="0"></td>
-                    <td><input type="number" id="tier-fielding" class="average-value number-font" value="0"></td>
+                    <td><input type="number" id="tier-contact" class="average-value number-font"></td>
+                    <td><input type="number" id="tier-power" class="average-value number-font"></td>
+                    <td><input type="number" id="tier-eye" class="average-value number-font"></td>
+                    <td><input type="number" id="tier-speed" class="average-value number-font"></td>
+                    <td><input type="number" id="tier-fielding" class="average-value number-font"></td>
                     <td id="tier-sum" class="average-value number-font"></td>
                 </tr>
                 <tr>
@@ -273,34 +258,33 @@
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>特別訓練</td>
-                    <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td >
-                         </td>
+                    <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td>
+                        <input type="number" value="0" class="average-value number-font"> </td>
                 </tr>
                 <tr id="coaching-player-row">
                     <td><input type="checkbox" checked></td>
                     <td>指導球員</td>
-                    <td><input type="number" class="same-as-dropdown number-font" value="0"></td> <td><input type="number" class="same-as-dropdown number-font" value="0"></td> <td><input type="number" class="same-as-dropdown number-font" value="0"></td> <td><input type="number" class="same-as-dropdown number-font" value="0"></td> <td><input type="number" class="same-as-dropdown number-font" value="0"></td> <td >
-                         </td>
+                    <td><input type="number" class="same-as-dropdown number-font"></td> <td><input type="number" class="same-as-dropdown number-font"></td> <td><input type="number" class="same-as-dropdown number-font"></td> <td><input type="number" class="same-as-dropdown number-font"></td> <td><input type="number" class="same-as-dropdown number-font"></td> <td>
+                        <input type="number" id="coaching-player-select" class="average-value number-font"> </td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>黑鑽</td>
-                    <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td id="black-diamond-sum" class="average-value number-font"></td>
+                    <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td id="black-diamond-sum" class="average-value number-font"></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>團隊加成</td>
-                    <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td >
-                         </td>
+                    <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="summary-row-font">一般陣容能力值</td>
-                    <td id="roster-contact" class="average-value number-font summary-row-font"></td>
-                    <td id="roster-power" class="average-value number-font summary-row-font"></td>
-                    <td id="roster-eye" class="average-value number-font summary-row-font"></td>
-                    <td id="roster-speed" class="average-value number-font summary-row-font"></td>
-                    <td id="roster-fielding" class="average-value number-font summary-row-font"></td>
-                    <td id="roster-average" class="average-value number-font summary-row-font"></td>
+                    <td colspan="2">一般陣容能力值</td>
+                    <td id="roster-contact" class="average-value number-font"></td>
+                    <td id="roster-power" class="average-value number-font"></td>
+                    <td id="roster-eye" class="average-value number-font"></td>
+                    <td id="roster-speed" class="average-value number-font"></td>
+                    <td id="roster-fielding" class="average-value number-font"></td>
+                    <td id="roster-average" class="average-value number-font"></td>
                 </tr>
                 <tr class="blank-row"><td colspan="8"></td></tr>
                 <tr id="status-row">
@@ -322,8 +306,8 @@
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>裝備</td>
-                     <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td >
-                         </td>
+                    <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td><input type="number" class="number-font"></td> <td>
+                        <input type="number" class="number-font"> </td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" checked></td>
@@ -333,17 +317,16 @@
                     <td><input type="number" value="0" class="number-font"></td>
                     <td><input type="number" value="0" class="number-font"></td>
                     <td><input type="number" value="0" class="number-font"></td>
-                    <td >
-                         </td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="summary-row-font">上場能力值</td>
-                    <td id="on-field-contact" class="average-value number-font summary-row-font"></td>
-                    <td id="on-field-power" class="average-value number-font summary-row-font"></td>
-                    <td id="on-field-eye" class="average-value number-font summary-row-font"></td>
-                    <td id="on-field-speed" class="average-value number-font summary-row-font"></td>
-                    <td id="on-field-fielding" class="average-value number-font summary-row-font"></td>
-                    <td id="on-field-average" class="average-value number-font summary-row-font"></td>
+                    <td colspan="2">上場能力值</td>
+                    <td id="on-field-contact" class="average-value number-font"></td>
+                    <td id="on-field-power" class="average-value number-font"></td>
+                    <td id="on-field-eye" class="average-value number-font"></td>
+                    <td id="on-field-speed" class="average-value number-font"></td>
+                    <td id="on-field-fielding" class="average-value number-font"></td>
+                    <td id="on-field-average" class="average-value number-font"></td>
                 </tr>
             </tbody>
         </table>
