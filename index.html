@@ -27,39 +27,43 @@
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* 減少 margin-bottom */
+            font-size: 1.2em; /* 稍微縮小標題字體 */
         }
 
         .filters {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* 減少 margin-bottom */
             align-items: center;
         }
 
         .filters label {
-            font-size: 0.9em;
+            font-size: 0.8em; /* 縮小篩選器標籤字體 */
         }
 
         .filters select, .filters input {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 8px;
+            padding: 6px; /* 縮小篩選器內距 */
             border-radius: 5px;
-            font-size: 0.9em;
+            font-size: 0.8em; /* 縮小篩選器字體 */
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85em;
+            font-size: 0.8em; /* 縮小表格字體 */
         }
 
         th, td {
             border: 1px solid #555;
-            padding: 8px;
+            padding: 6px 4px; /* 縮小垂直和水平內距 */
             text-align: center;
+            white-space: nowrap; /* 防止文字換行 */
+            overflow: hidden;       /* 隱藏溢出文字 */
+            text-overflow: ellipsis; /* 超過寬度以省略符號顯示 */
         }
 
         th {
@@ -76,27 +80,51 @@
         }
 
         input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
+            width: 14px; /* 縮小勾選框 */
+            height: 14px;
+            vertical-align: middle; /* 垂直置中 */
         }
 
         select {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 6px;
+            padding: 4px; /* 縮小選單內距 */
             border-radius: 5px;
-            font-size: 0.85em;
+            font-size: 0.75em; /* 縮小選單字體 */
+            height: 28px;       /* 設定選單高度 */
+            line-height: 28px;  /* 設定行高，垂直置中 */
         }
 
         .blank-row td {
             border: none;
             background-color: transparent;
-            padding: 5px 0;
+            padding: 3px 0; /* 減少空白列垂直內距 */
         }
 
         .average-value {
             font-weight: bold;
+        }
+
+        /* 設定欄寬 */
+        table tr th:nth-child(1), /* 勾選欄 */
+        table tr td:nth-child(1) {
+            width: 30px; /* 調整勾選欄寬度 */
+        }
+
+        table tr th:nth-child(2), /* 項目/位置欄 */
+        table tr td:nth-child(2) {
+            width: 80px; /*  調整項目/位置欄寬度，約四個中文字 */
+        }
+
+        table tr th:nth-child(n+3):nth-child(-n+7), /* 能力值欄位 3-7 */
+        table tr td:nth-child(n+3):nth-child(-n+7) {
+            width: 50px; /* 調整能力值欄位寬度，約兩個中文字或三個數字 */
+        }
+
+        table tr th:nth-child(8), /* 值/平均值欄 */
+        table tr td:nth-child(8) {
+            width: 60px; /* 調整值/平均值欄位寬度 */
         }
     </style>
 </head>
@@ -167,7 +195,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>項目</td>
                     <td>接觸</td>
                     <td>力量</td>
@@ -186,7 +214,7 @@
                     <td id="base-average" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>基本校正</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -205,7 +233,7 @@
                     <td id="tier-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>強化量</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -215,7 +243,7 @@
                     <td id="enhance-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>教練</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -225,13 +253,13 @@
                     <td id="coach-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>特別訓練</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <select>
                             <option value="0">0</option>
@@ -248,16 +276,16 @@
                         </select>
                     </td>
                 </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
+                <tr id="coaching-player-row">
+                    <td><input type="checkbox" checked></td>
                     <td>指導球員</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
                     <td>
-                        <select>
+                        <select id="coaching-player-select">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -268,23 +296,23 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>黑鑽</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td id="black-diamond-sum" class="average-value"></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>團隊加成</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -297,31 +325,31 @@
                     <td id="roster-average" class="average-value"></td>
                 </tr>
                 <tr class="blank-row"><td colspan="8"></td></tr>
-                <tr>
-                    <td><input type="checkbox"></td>
+                <tr id="status-row">
+                    <td><input type="checkbox" checked></td>
                     <td>狀態</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
-                    <td>同上</td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
+                    <td class="same-as-dropdown"></td>
                     <td>
-                        <select>
+                        <select id="status-select">
                             <option value="-3">-3</option>
-                            <option value="0">0</option>
+                            <option value="0" selected>0</option>
                             <option value="3">3</option>
                             <option value="6">6</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>裝備</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
-                    <td>需要計算</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <select>
                             <option value="無">無</option>
@@ -333,7 +361,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" checked></td>
                     <td>技能</td>
                     <td><input type="number" value="0"></td>
                     <td><input type="number" value="0"></td>
@@ -354,5 +382,41 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const coachingPlayerSelect = document.getElementById('coaching-player-select');
+            const statusSelect = document.getElementById('status-select');
+            const coachingPlayerRow = document.getElementById('coaching-player-row');
+            const statusRow = document.getElementById('status-row');
+
+            // Function to set "同上" values
+            function setSameAsDropdownValues(row, dropdown) {
+                const dropdownValue = dropdown.value;
+                const sameAsCells = row.querySelectorAll('.same-as-dropdown');
+                sameAsCells.forEach(cell => {
+                    cell.textContent = dropdownValue;
+                });
+            }
+
+            // Set initial values for "指導球員" row
+            setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
+
+            // Set initial values for "狀態" row
+            setSameAsDropdownValues(statusRow, statusSelect);
+
+
+            // Update "指導球員" "同上" values when dropdown changes
+            coachingPlayerSelect.addEventListener('change', function() {
+                setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
+            });
+
+            // Update "狀態" "同上" values when dropdown changes
+            statusSelect.addEventListener('change', function() {
+                setSameAsDropdownValues(statusRow, statusSelect);
+            });
+        });
+    </script>
+
 </body>
 </html>
