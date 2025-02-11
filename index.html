@@ -3,7 +3,7 @@
 <head>
 <title>MLB九局職棒 球員能力值</title>
 <style>
-/* CSS 樣式 (與之前相同，這裡省略以保持重點在 HTML 結構) */
+/* CSS 樣式 */
 body {
     background-color: #121212;
     color: #ffffff;
@@ -29,6 +29,18 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* 球隊與類型選擇器樣式 */
+.selectors-row {
+    display: flex; /* 使用 Flexbox 水平排列 */
+    justify-content: center; /* 水平置中 */
+    gap: 20px; /* 間距 */
+    margin-bottom: 15px; /* 與表格間隔 */
+}
+
+.selectors-row label {
+    margin-right: 5px; /* Label 與 Select 間距 */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -46,7 +58,7 @@ th {
     font-weight: bold;
 }
 
-select, input[type="number"], input[type="text"] { /* input[type="text"] 也加入樣式 */
+select, input[type="number"], input[type="text"] {
     background-color: #333;
     color: #ffffff;
     border: 1px solid #555;
@@ -72,29 +84,33 @@ input[type="checkbox"] {
 <div class="container">
     <h1>MLB九局職棒 球員能力值</h1>
 
-    <div>
-        球隊:
-        <select id="team-select">
-            <option value="NYY">NYY</option>
-            <option value="BOS">BOS</option>
-        </select>
-        類型:
-        <select id="type-select">
-            <option value="一般">一般</option>
-            <option value="經典">經典</option>
-            <option value="全盛">全盛</option>
-            <option value="簽名">簽名</option>
-            <option value="傳說">傳說</option>
-            <option value="史詩">史詩</option>
-        </select>
+    <div class="selectors-row">
+        <div>
+            <label for="team-select">球隊:</label>
+            <select id="team-select">
+                <option value="NYY">NYY</option>
+                <option value="BOS">BOS</option>
+            </select>
+        </div>
+        <div>
+            <label for="type-select">類型:</label>
+            <select id="type-select">
+                <option value="一般">一般</option>
+                <option value="經典">經典</option>
+                <option value="全盛">全盛</option>
+                <option value="簽名">簽名</option>
+                <option value="傳說">傳說</option>
+                <option value="史詩">史詩</option>
+            </select>
+        </div>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th colspan="2">位置 (1-2)</th>
-                <th colspan="5">球員 (3-7)</th>
-                <th>階級 (8)</th>
+                <th colspan="2">位置</th>
+                <th colspan="5">球員</th>
+                <th>階級</th>
             </tr>
         </thead>
         <tbody>
