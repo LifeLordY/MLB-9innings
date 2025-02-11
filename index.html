@@ -35,9 +35,37 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="2">位置</th>
+                        <th>位置</th>
                         <th colspan="5">球員</th>
                         <th>階級</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <select>
+                                <option value="">不指定</option>
+                                <optgroup label="打者">
+                                    <option value="C">C</option>
+                                    <option value="1B">1B</option>
+                                    <option value="2B">2B</option>
+                                    <option value="3B">3B</option>
+                                    <option value="SS">SS</option>
+                                    <option value="OF">OF</option>
+                                    <option value="DH">DH</option>
+                                </optgroup>
+                                <optgroup label="投手">
+                                    <option value="SP">SP</option>
+                                    <option value="RP">RP</option>
+                                    <option value="CP">CP</option>
+                                </optgroup>
+                            </select>
+                        </th>
+                        <th colspan="5"><input type="text" placeholder="請輸入或選擇球員"></th>
+                        <th>
+                            <select>
+                                <option value="白金">白金</option>
+                                <option value="黑鑽">黑鑽</option>
+                            </select>
+                        </th>
                     </tr>
                     <tr>
                         <th></th>
@@ -221,8 +249,6 @@
                     </tr>
                     <tr>
                         <td colspan="2">上場能力值</td>
-                        <td>0</td>
-                        <td>0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
