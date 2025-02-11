@@ -4,96 +4,12 @@
   <meta charset="UTF-8">
   <title>棒球球員數據查詢</title>
   <style>
-    /* 可根據需要撰寫CSS樣式 */
     body { font-family: Arial, sans-serif; }
     label { margin-right: 10px; }
     select { margin-right: 20px; }
     table { margin-top: 20px; border-collapse: collapse; width: 50%; }
     th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
   </style>
-  <script>
-    // 當頁面載入完成時執行
-    document.addEventListener("DOMContentLoaded", function() {
-
-      // 定義一個資料結構，存放各球隊、位置及對應球員的數據
-      var data = {
-         "NYY": {
-             "C": [
-               { name: "球員A", stats: { 打擊率: 0.300, 本壘打: 20, 打點: 60 } },
-               { name: "球員B", stats: { 打擊率: 0.280, 本壘打: 18, 打點: 55 } }
-             ],
-             "1B": [
-               { name: "球員C", stats: { 打擊率: 0.320, 本壘打: 25, 打點: 70 } }
-             ]
-         },
-         "BOS": {
-             "C": [
-               { name: "球員D", stats: { 打擊率: 0.310, 本壘打: 15, 打點: 50 } }
-             ],
-             "1B": [
-               { name: "球員E", stats: { 打擊率: 0.290, 本壘打: 22, 打點: 65 } }
-             ]
-         }
-         // 可以加入更多球隊和位置的資料
-      };
-
-      // 取得 HTML 中的下拉選單與表格元素
-      var teamSelect = document.getElementById("teamSelect");
-      var positionSelect = document.getElementById("positionSelect");
-      var playerSelect = document.getElementById("playerSelect");
-      var tableBody = document.getElementById("playerData");
-
-      // 根據選定的球隊和位置更新球員下拉選單
-      function updatePlayerOptions() {
-        var team = teamSelect.value;
-        var position = positionSelect.value;
-        // 清空球員選單
-        playerSelect.innerHTML = '<option value="">請選擇球員</option>';
-        // 檢查是否有對應的資料
-        if (team && position && data[team] && data[team][position]) {
-          data[team][position].forEach(function(player, index) {
-            var option = document.createElement("option");
-            option.value = index;  // 可以用 index 作為暫時的值
-            option.textContent = player.name;
-            playerSelect.appendChild(option);
-          });
-        }
-        // 同時也清空下方表格
-        tableBody.innerHTML = "";
-      }
-
-      // 當球隊或位置改變時更新球員選單
-      teamSelect.addEventListener("change", updatePlayerOptions);
-      positionSelect.addEventListener("change", updatePlayerOptions);
-
-      // 當球員選定後，更新表格數據
-      playerSelect.addEventListener("change", function() {
-         var team = teamSelect.value;
-         var position = positionSelect.value;
-         var index = playerSelect.value;
-         // 確保選項有效
-         if (team && position && data[team] && data[team][position] && data[team][position][index]) {
-           var player = data[team][position][index];
-           // 清空現有的表格數據
-           tableBody.innerHTML = "";
-           // 將球員的每一個數據加入表格
-           for (var key in player.stats) {
-             var tr = document.createElement("tr");
-             var tdKey = document.createElement("td");
-             tdKey.textContent = key;
-             var tdValue = document.createElement("td");
-             tdValue.textContent = player.stats[key];
-             tr.appendChild(tdKey);
-             tr.appendChild(tdValue);
-             tableBody.appendChild(tr);
-           }
-         } else {
-           // 若無有效選擇，則清空表格
-           tableBody.innerHTML = "";
-         }
-      });
-    });
-  </script>
 </head>
 <body>
   <h1>棒球球員數據查詢</h1>
@@ -132,5 +48,77 @@
       <!-- 此處將動態生成數據 -->
     </tbody>
   </table>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var data = null; // 全域變數，用來儲存從 JSON 加載的資料
+
+      // 加載外部 JSON 資料
+      fetch('data.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("無法讀取資料檔案");
+          }
+          return response.json();
+        })
+        .then(jsonData => {
+          data = jsonData;
+        })
+        .catch(error => {
+          console.error("Error loading JSON data:", error);
+        });
+
+      // 取得 HTML 中的下拉選單與表格元素
+      var teamSelect = document.getElementById("teamSelect");
+      var positionSelect = document.getElementById("positionSelect");
+      var playerSelect = document.getElementById("playerSelect");
+      var tableBody = document.getElementById("playerData");
+
+      // 根據選定的球隊與位置更新球員下拉選單
+      function updatePlayerOptions() {
+        var team = teamSelect.value;
+        var position = positionSelect.value;
+        playerSelect.innerHTML = '<option value="">請選擇球員</option>';
+
+        if (data && team && position && data[team] && data[team][position]) {
+          data[team][position].forEach(function(player, index) {
+            var option = document.createElement("option");
+            option.value = index;  // index 當作暫時的值
+            option.textContent = player.name;
+            playerSelect.appendChild(option);
+          });
+        }
+        // 清空下方表格
+        tableBody.innerHTML = "";
+      }
+
+      // 當球隊或位置改變時，更新球員選單
+      teamSelect.addEventListener("change", updatePlayerOptions);
+      positionSelect.addEventListener("change", updatePlayerOptions);
+
+      // 當選擇球員後，顯示其數據到表格
+      playerSelect.addEventListener("change", function() {
+        var team = teamSelect.value;
+        var position = positionSelect.value;
+        var index = playerSelect.value;
+        if (data && team && position && data[team] && data[team][position] && data[team][position][index]) {
+          var player = data[team][position][index];
+          tableBody.innerHTML = "";
+          for (var key in player.stats) {
+            var tr = document.createElement("tr");
+            var tdKey = document.createElement("td");
+            tdKey.textContent = key;
+            var tdValue = document.createElement("td");
+            tdValue.textContent = player.stats[key];
+            tr.appendChild(tdKey);
+            tr.appendChild(tdValue);
+            tableBody.appendChild(tr);
+          }
+        } else {
+          tableBody.innerHTML = "";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
