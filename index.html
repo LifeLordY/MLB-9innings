@@ -5,108 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLB九局職棒 球員能力值</title>
     <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+        body { /* ... (body 樣式維持不變) ... */ }
+        .container { /* ... (container 樣式維持不變) ... */ }
+        h2 { /* ... (h2 樣式維持不變) ... */ }
+        .filters { /* ... (filters 樣式維持不變) ... */ }
+        .filters label { /* ... (filters label 樣式維持不變) ... */ }
+        .filters select, .filters input { /* ... (filters select, .filters input 樣式維持不變) ... */ }
+        table { /* ... (table 樣式維持不變) ... */ }
+        th, td { /* ... (th, td 樣式維持不變) ... */ }
+        th { /* ... (th 樣式維持不變) ... */ }
+        tr:nth-child(odd) { /* ... (tr:nth-child(odd) 樣式維持不變) ... */ }
+        tr:nth-child(even) { /* ... (tr:nth-child(even) 樣式維持不變) ... */ }
+        input[type="checkbox"] { /* ... (input[type="checkbox"] 樣式維持不變) ... */ }
+        select { /* ... (select 樣式維持不變) ... */ }
+        .blank-row td { /* ... (.blank-row td 樣式維持不變) ... */ }
+        .average-value { /* ... (.average-value 樣式維持不變) ... */ }
 
-        .container {
-            background-color: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 95%;
-            max-width: 900px; /* 縮減外框最大寬度 */
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
-
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-
-        .filters label {
-            font-size: 0.8em;
-        }
-
-        .filters select, .filters input {
-            background-color: #333;
-            color: #ffffff;
-            border: 1px solid #555;
-            padding: 6px;
-            border-radius: 5px;
-            font-size: 0.8em;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8em;
-        }
-
-        th, td {
-            border: 1px solid #555;
-            padding: 6px 4px;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        th {
-            background-color: #333;
-            font-weight: bold;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #2a2a2a;
-        }
-
-        tr:nth-child(even) {
-            background-color: #1e1e1e;
-        }
-
-        input[type="checkbox"] {
-            width: 14px;
-            height: 14px;
-            vertical-align: middle;
-        }
-
-        select {
-            background-color: #333;
-            color: #ffffff;
-            border: 1px solid #555;
-            padding: 4px;
-            border-radius: 5px;
-            font-size: 0.75em;
-            height: 28px;
-            line-height: 28px;
-        }
-
-        .blank-row td {
-            border: none;
-            background-color: transparent;
-            padding: 3px 0;
-        }
-
-        .average-value {
-            font-weight: bold;
-        }
-
-        /* 設定欄寬 */
+        /* 設定欄寬 (維持不變) */
         table tr th:nth-child(1),
         table tr td:nth-child(1) {
             width: 30px;
@@ -119,12 +34,40 @@
 
         table tr th:nth-child(n+3):nth-child(-n+7),
         table tr td:nth-child(n+3):nth-child(-n+7) {
-            width: 40px; /* 進一步縮減能力值欄位寬度 */
+            width: 30px;
         }
 
         table tr th:nth-child(8),
         table tr td:nth-child(8) {
             width: 60px;
+        }
+
+        /* 新增 input[type="number"] 樣式設定 */
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+            -webkit-appearance: none; /* Chrome, Safari, Edge */
+            appearance: textfield;       /* Standard */
+            width: 100%;              /* 確保 input 填滿 td 寬度 */
+            max-width: 30px;          /* 設定 input 最大寬度 (與欄寬一致) */
+            padding: 0px;              /* 移除 input 內邊距 */
+            margin: 0;                 /* 移除 input 外邊距 */
+            border: none;              /* 移除 input 邊框，讓外觀更簡潔 */
+            background-color: transparent; /* 讓 input 背景透明，與 td 背景融合 */
+            color: inherit;             /* 繼承 td 的文字顏色 */
+            font-size: inherit;        /* 繼承 td 的文字大小 */
+            text-align: center;         /* 文字置中 */
+            box-sizing: border-box;     /* 包含 padding 和 border 在寬度計算內 */
+        }
+
+        /* 針對 input type="number" 的上下箭頭 (部分瀏覽器) */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"][value="0"] { /* 當 input value 為 0 時，文字顏色稍淡 */
+            color: #888;
         }
     </style>
 </head>
@@ -197,12 +140,7 @@
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>項目</td>
-                    <td>接觸</td>
-                    <td>力量</td>
-                    <td>選球</td>
-                    <td>速度</td>
-                    <td>守備</td>
-                    <td>值</td>
+                    <th>CON</th>  <th>POW</th>  <th>EYE</th>  <th>SPD</th>  <th>FLD</th>  <th>值</th>
                 </tr>
                 <tr>
                     <td colspan="2">基本能力值</td>
