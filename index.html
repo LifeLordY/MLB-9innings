@@ -54,7 +54,7 @@
       var data = null; // 全域變數，用來儲存從 JSON 加載的資料
 
       // 加載外部 JSON 資料
-      fetch('data.json')
+      fetch('data.json?v=' + new Date().getTime())
         .then(response => {
           if (!response.ok) {
             throw new Error("無法讀取資料檔案");
