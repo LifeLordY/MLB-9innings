@@ -14,7 +14,7 @@
             align-items: center;
             /* 移除或註解掉 min-height: 100vh;  如果需要縮減整體網頁高度 */
             margin: 0;
-            font-size: 0.85em; /* **加大網頁基礎字體大小** */
+            font-size: 0.85em;
         }
 
         .container {
@@ -23,14 +23,14 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             width: fit-content;
-            max-width: 600px; /* **維持 max-width: 600px** */
+            max-width: 600px;
             margin: 20px;
         }
 
         h2 {
             text-align: center;
             margin-bottom: 15px;
-            font-size: 1.3em; /* 稍微加大標題字體 */
+            font-size: 1.3em;
         }
 
         .filters {
@@ -50,14 +50,14 @@
             border: 1px solid #555;
             padding: 6px;
             border-radius: 5px;
-            font-size: 0.85em; /* filters 區域的字體稍微加大 */
+            font-size: 0.85em;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8em; /* 表格字體稍微加大 */
-            table-layout: fixed;
+            font-size: 0.8em;
+            /* **移除 table-layout: fixed; 設定** */
         }
 
         th, td {
@@ -65,20 +65,21 @@
             padding: 6px;
             text-align: center;
             word-break: break-word;
+             /* **移除 針對特定欄寬的設定** */
+             width: auto; /* 讓欄寬自動調整 */
         }
 
-        /* **調整欄寬比例** */
-        th:nth-child(1), /* 勾選欄 */
-        td:nth-child(1) {
-            width: 30px; /* 設定勾選欄寬度為 30px */
-        }
+        /* **移除 針對特定欄位寬度的樣式規則 (nth-child)** */
+        /* th:nth-child(1), */
+        /* td:nth-child(1) { */
+        /*     width: 30px; */
+        /* } */
 
-        th:nth-child(2), /* 項目欄 */
-        td:nth-child(2) {
-            width: 120px; /* 設定項目欄寬度為 120px */
-        }
+        /* th:nth-child(2), */
+        /* td:nth-child(2) { */
+        /*     width: 120px; */
+        /* } */
 
-        /* 數值欄位可以不用特別設定寬度，會自動分配剩餘空間 */
 
         th {
             background-color: #333;
@@ -94,8 +95,8 @@
         }
 
         input[type="checkbox"] {
-            width: 16px; /* checkbox 稍微加大 */
-            height: 16px; /* checkbox 稍微加大 */
+            width: 16px;
+            height: 16px;
         }
 
         select {
@@ -104,7 +105,7 @@
             border: 1px solid #555;
             padding: 6px;
             border-radius: 5px;
-            font-size: 0.85em; /* select 字體稍微加大 */
+            font-size: 0.85em;
         }
 
         .blank-row td {
@@ -121,13 +122,13 @@
             width: 100%;
             box-sizing: border-box;
             padding: 5px;
-            font-size: 0.85em; /* input number 字體稍微加大 */
+            font-size: 0.85em;
             border: 1px solid #555;
             background-color: #333;
             color: #ffffff;
             border-radius: 5px;
             margin: 0;
-            text-align: center; /* **置中 input number 內的文字** */
+            text-align: center;
         }
 
         .filters input {
@@ -135,9 +136,8 @@
             box-sizing: border-box;
         }
 
-        /* **統一數字字體大小的 CSS 類別** */
         .number-font {
-            font-size: 0.85em; /* 設定統一的數字字體大小 */
+            font-size: 0.85em;
         }
 
     </style>
