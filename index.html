@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLB九局職棒 球員能力值</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212; /* 深色背景 */
+            background-color: #121212;
             color: #ffffff;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,10 +17,10 @@
         }
 
         .container {
-            background-color: #1e1e1e; /* 框的背景色 */
+            background-color: #1e1e1e;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             width: 95%;
             max-width: 1200px;
         }
@@ -28,38 +28,32 @@
         h2 {
             text-align: center;
             margin-bottom: 20px;
-            font-size: 1.5em; /* 標題字體稍大 */
         }
 
-        .controls {
+        .filters {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
             align-items: center;
         }
 
-        .controls label {
-            font-size: 0.9em; /* 控制項標籤字體稍小 */
+        .filters label {
+            font-size: 0.9em;
         }
 
-        .controls select {
+        .filters select, .filters input {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
             padding: 8px;
             border-radius: 5px;
-            font-size: 0.9em; /* 控制項選單字體稍小 */
-        }
-
-        .table-container {
-            overflow-x: auto; /* 表格寬度超出時可以水平捲動 */
+            font-size: 0.9em;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 0.85em; /* 表格字體更小 */
+            font-size: 0.85em;
         }
 
         th, td {
@@ -70,50 +64,39 @@
 
         th {
             background-color: #333;
-            font-weight: normal;
+            font-weight: bold;
         }
 
-        td {
-            background-color: #252525;
+        tr:nth-child(odd) {
+            background-color: #2a2a2a;
         }
 
-        td:nth-child(2), th:nth-child(2) { /* 項目名稱欄位靠左對齊 */
-            text-align: left;
-        }
-
-        input[type="number"], select {
-            width: 100%;
-            padding: 6px;
-            border-radius: 5px;
-            border: 1px solid #555;
-            background-color: #333;
-            color: #ffffff;
-            box-sizing: border-box; /* 確保 padding 不會增加元素寬度 */
-            font-size: 0.85em; /* 輸入框和選單字體更小 */
+        tr:nth-child(even) {
+            background-color: #1e1e1e;
         }
 
         input[type="checkbox"] {
-            transform: scale(0.85); /* 縮小勾選框 */
+            width: 16px;
+            height: 16px;
         }
 
-        /* 特殊樣式調整 */
+        select {
+            background-color: #333;
+            color: #ffffff;
+            border: 1px solid #555;
+            padding: 6px;
+            border-radius: 5px;
+            font-size: 0.85em;
+        }
+
         .blank-row td {
-            background-color: transparent;
             border: none;
-            padding: 5px 0; /* 調整空白列的垂直間距 */
+            background-color: transparent;
+            padding: 5px 0;
         }
 
-        .avg-value {
-            font-weight: bold; /* 平均值加粗 */
-        }
-
-        /* 動態能力值欄位樣式 */
-        .ability-header {
-            display: none; /* 初始隱藏，JavaScript 動態顯示 */
-        }
-
-        .ability-header.batter, .ability-header.pitcher {
-            display: table-cell; /* 根據位置顯示 */
+        .average-value {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -121,17 +104,17 @@
     <div class="container">
         <h2>MLB九局職棒 球員能力值</h2>
 
-        <div class="controls">
-            <label for="team-select">球隊:</label>
-            <select id="team-select">
-                <option value="">請選擇球隊</option>
+        <div class="filters">
+            <label for="team">球隊:</label>
+            <select id="team" name="team">
+                <option value="">-- 請選擇 --</option>
                 <option value="NYY">NYY</option>
                 <option value="BOS">BOS</option>
             </select>
 
-            <label for="type-select">類型:</label>
-            <select id="type-select">
-                <option value="">請選擇類型</option>
+            <label for="type">類型:</label>
+            <select id="type" name="type">
+                <option value="">-- 請選擇 --</option>
                 <option value="一般">一般</option>
                 <option value="經典">經典</option>
                 <option value="全盛">全盛</option>
@@ -141,595 +124,235 @@
             </select>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>位置</th>
-                        <th colspan="5">球員 (可輸入或選擇)</th>
-                        <th>階級</th>
-                    </tr>
-                    <tr>
-                        <th>勾選</th>
-                        <th>項目</th>
-                        <th class="ability-header batter">接觸</th>
-                        <th class="ability-header batter">力量</th>
-                        <th class="ability-header batter">選球</th>
-                        <th class="ability-header batter">速度</th>
-                        <th class="ability-header batter">守備</th>
-                        <th class="ability-header pitcher">控球</th>
-                        <th class="ability-header pitcher">球威</th>
-                        <th class="ability-header pitcher">體力</th>
-                        <th class="ability-header pitcher">直球</th>
-                        <th class="ability-header pitcher">變化</th>
-                        <th>值</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>
-                            <select class="position-select">
-                                <option value="">請選擇</option>
-                                <option value="打者">打者</option>
-                                <option value="投手">投手</option>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">位置</th>
+                    <th colspan="5">球員</th>
+                    <th>階級</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <select id="position" name="position">
+                            <option value="">-- 請選擇位置 --</option>
+                            <optgroup label="打者">
+                                <option value="C">C</option>
+                                <option value="1B">1B</option>
+                                <option value="2B">2B</option>
+                                <option value="3B">3B</option>
+                                <option value="SS">SS</option>
+                                <option value="OF">OF</option>
+                                <option value="DH">DH</option>
+                            </optgroup>
+                            <optgroup label="投手">
+                                <option value="SP">SP</option>
+                                <option value="RP">RP</option>
+                                <option value="CP">CP</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                    <td colspan="5">
+                        <input type="text" id="player-input" placeholder="自行輸入球員">
+                        <select id="player-select" name="player-select">
+                            <option value="">-- 或選擇球員 --</option>
                             </select>
-                        </td>
-                        <td colspan="5">
-                            <input type="text" class="player-input" placeholder="自行輸入球員">
-                            <select class="player-select">
-                                <option value="">或選擇球員</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="rank-select">
-                                <option value="白金">白金</option>
-                                <option value="黑鑽">黑鑽</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>項目</td>
-                        <td class="ability-header batter">接觸</td>
-                        <td class="ability-header batter">力量</td>
-                        <td class="ability-header batter">選球</td>
-                        <td class="ability-header batter">速度</td>
-                        <td class="ability-header batter">守備</td>
-                        <td class="ability-header pitcher">控球</td>
-                        <td class="ability-header pitcher">球威</td>
-                        <td class="ability-header pitcher">體力</td>
-                        <td class="ability-header pitcher">直球</td>
-                        <td class="ability-header pitcher">變化</td>
-                        <td>值</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2">基本能力值</td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="base-ability"></td>
-                        <td class="avg-value base-avg"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>基本校正</td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td><input type="number" class="correction-input"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2">階級上升量</td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="rank-bonus"></td>
-                        <td class="sum-value rank-sum"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>強化量</td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td><input type="number" class="enhance-input"></td>
-                        <td class="sum-value enhance-sum"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>教練</td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td><input type="number" class="coach-input"></td>
-                        <td class="sum-value coach-sum"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>特別訓練</td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td class="special-train"></td>
-                        <td>
-                            <select class="special-train-select">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>指導球員</td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td class="guide-player"></td>
-                        <td>
-                            <select class="guide-player-select">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>黑鑽</td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="black-diamond"></td>
-                        <td class="sum-value black-diamond-sum"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>團隊加成</td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td class="team-bonus"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2">一般陣容能力值</td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="sum-value general-ability"></td>
-                        <td class="avg-value general-avg"></td>
-                    </tr>
-                    <tr class="blank-row"><td colspan="12"></td></tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>狀態</td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td class="condition"></td>
-                        <td>
-                            <select class="condition-select">
-                                <option value="-3">-3</option>
-                                <option value="0">0</option>
-                                <option value="3">3</option>
-                                <option value="6">6</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>裝備</td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td class="equipment"></td>
-                        <td>
-                            <select class="equipment-select">
-                                <option value="無">無</option>
-                                <option value="銅">銅</option>
-                                <option value="銀">銀</option>
-                                <option value="金">金</option>
-                                <option value="白金">白金</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="calculate-checkbox"></td>
-                        <td>技能</td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td><input type="number" class="skill-input"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2">上場能力值</td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="sum-value final-ability"></td>
-                        <td class="avg-value final-avg"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    </td>
+                    <td>
+                        <select id="tier" name="tier">
+                            <option value="白金">白金</option>
+                            <option value="黑鑽">黑鑽</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>項目</td>
+                    <td>接觸</td>
+                    <td>力量</td>
+                    <td>選球</td>
+                    <td>速度</td>
+                    <td>守備</td>
+                    <td>值</td>
+                </tr>
+                <tr>
+                    <td colspan="2">基本能力值</td>
+                    <td id="base-contact"></td>
+                    <td id="base-power"></td>
+                    <td id="base-eye"></td>
+                    <td id="base-speed"></td>
+                    <td id="base-fielding"></td>
+                    <td id="base-average" class="average-value"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>基本校正</td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">階級上升量</td>
+                    <td id="tier-contact"></td>
+                    <td id="tier-power"></td>
+                    <td id="tier-eye"></td>
+                    <td id="tier-speed"></td>
+                    <td id="tier-fielding"></td>
+                    <td id="tier-sum" class="average-value"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>強化量</td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td id="enhance-sum" class="average-value"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>教練</td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td id="coach-sum" class="average-value"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>特別訓練</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>
+                        <select>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>指導球員</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>
+                        <select>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>黑鑽</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td id="black-diamond-sum" class="average-value"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>團隊加成</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">一般陣容能力值</td>
+                    <td id="roster-contact" class="average-value"></td>
+                    <td id="roster-power" class="average-value"></td>
+                    <td id="roster-eye" class="average-value"></td>
+                    <td id="roster-speed" class="average-value"></td>
+                    <td id="roster-fielding" class="average-value"></td>
+                    <td id="roster-average" class="average-value"></td>
+                </tr>
+                <tr class="blank-row"><td colspan="8"></td></tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>狀態</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>同上</td>
+                    <td>
+                        <select>
+                            <option value="-3">-3</option>
+                            <option value="0">0</option>
+                            <option value="3">3</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>裝備</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>需要計算</td>
+                    <td>
+                        <select>
+                            <option value="無">無</option>
+                            <option value="銅">銅</option>
+                            <option value="銀">銀</option>
+                            <option value="金">金</option>
+                            <option value="白">白</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>技能</td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td><input type="number" value="0"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">上場能力值</td>
+                    <td id="on-field-contact" class="average-value"></td>
+                    <td id="on-field-power" class="average-value"></td>
+                    <td id="on-field-eye" class="average-value"></td>
+                    <td id="on-field-speed" class="average-value"></td>
+                    <td id="on-field-fielding" class="average-value"></td>
+                    <td id="on-field-average" class="average-value"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-    <script>
-        const data = { // 在這裡直接嵌入 data.json 的內容
-            "NYY": {
-                "一般": {
-                    "打者": [
-                        {"name": "指定打者1", "position": "DH", "接觸": 60, "力量": 70, "選球": 55, "速度": 65, "守備": 40, "rankBonus": 5, "blackDiamondBonus": 8},
-                        {"name": "一壘手1", "position": "1B", "接觸": 75, "力量": 80, "選球": 65, "速度": 50, "守備": 60, "rankBonus": 7, "blackDiamondBonus": 10},
-                        {"name": "二壘手1", "position": "2B", "接觸": 70, "力量": 65, "選球": 70, "速度": 70, "守備": 75, "rankBonus": 6, "blackDiamondBonus": 9},
-                        {"name": "三壘手1", "position": "3B", "接觸": 65, "力量": 75, "選球": 60, "速度": 55, "守備": 65, "rankBonus": 8, "blackDiamondBonus": 11},
-                        {"name": "游擊手1", "position": "SS", "接觸": 80, "力量": 60, "選球": 75, "速度": 80, "守備": 85, "rankBonus": 9, "blackDiamondBonus": 12},
-                        {"name": "左外野手1", "position": "OF", "接觸": 70, "力量": 70, "選球": 65, "速度": 75, "守備": 70, "rankBonus": 7, "blackDiamondBonus": 10},
-                        {"name": "中外野手1", "position": "OF", "接觸": 85, "力量": 65, "選球": 80, "速度": 90, "守備": 90, "rankBonus": 10, "blackDiamondBonus": 13},
-                        {"name": "右外野手1", "position": "OF", "接觸": 75, "力量": 75, "選球": 70, "速度": 80, "守備": 75, "rankBonus": 8, "blackDiamondBonus": 11},
-                        {"name": "捕手1", "position": "C", "接觸": 65, "力量": 70, "選球": 55, "速度": 45, "守備": 80, "rankBonus": 6, "blackDiamondBonus": 9}
-                    ],
-                    "投手": [
-                        {"name": "先發投手1", "position": "SP", "控球": 85, "球威": 90, "體力": 80, "直球": 88, "變化": 85, "rankBonus": 10, "blackDiamondBonus": 14},
-                        {"name": "後援投手1", "position": "RP", "控球": 75, "球威": 85, "體力": 60, "直球": 85, "變化": 80, "rankBonus": 8, "blackDiamondBonus": 12},
-                        {"name": "終結投手1", "position": "CP", "控球": 80, "球威": 95, "體力": 65, "直球": 92, "變化": 88, "rankBonus": 9, "blackDiamondBonus": 13}
-                    ]
-                },
-                "經典": {
-                    "打者": [
-                        {"name": "經典打者1", "position": "DH", "接觸": 90, "力量": 95, "選球": 85, "速度": 75, "守備": 60, "rankBonus": 12, "blackDiamondBonus": 16},
-                        {"name": "經典一壘手1", "position": "1B", "接觸": 95, "力量": 100, "選球": 90, "速度": 65, "守備": 75, "rankBonus": 14, "blackDiamondBonus": 18}
-                    ],
-                    "投手": [
-                        {"name": "經典先發投手1", "position": "SP", "控球": 95, "球威": 100, "體力": 90, "直球": 98, "變化": 95, "rankBonus": 15, "blackDiamondBonus": 20}
-                    ]
-                }
-            },
-            "BOS": {
-                "一般": {
-                    "打者": [
-                        {"name": "指定打者2", "position": "DH", "接觸": 55, "力量": 65, "選球": 50, "速度": 60, "守備": 35, "rankBonus": 4, "blackDiamondBonus": 7},
-                        {"name": "一壘手2", "position": "1B", "接觸": 70, "力量": 75, "選球": 60, "速度": 45, "守備": 55, "rankBonus": 6, "blackDiamondBonus": 9}
-                    ],
-                    "投手": [
-                        {"name": "先發投手2", "position": "SP", "控球": 80, "球威": 85, "體力": 75, "直球": 83, "變化": 80, "rankBonus": 9, "blackDiamondBonus": 13},
-                        {"name": "後援投手2", "position": "RP", "控球": 70, "球威": 80, "體力": 55, "直球": 80, "變化": 75, "rankBonus": 7, "blackDiamondBonus": 11}
-                    ]
-                },
-                 "經典": {
-                    "打者": [
-                        {"name": "經典打者2", "position": "DH", "接觸": 85, "力量": 90, "選球": 80, "速度": 70, "守備": 55, "rankBonus": 11, "blackDiamondBonus": 15},
-                        {"name": "經典一壘手2", "position": "1B", "接觸": 90, "力量": 95, "選球": 85, "速度": 60, "守備": 70, "rankBonus": 13, "blackDiamondBonus": 17}
-                    ],
-                    "投手": [
-                        {"name": "經典先發投手2", "position": "SP", "控球": 90, "球威": 95, "體力": 85, "直球": 93, "變化": 90, "rankBonus": 14, "blackDiamondBonus": 19}
-                    ]
-                }
-            }
-        };
-
-        function updatePlayerOptions() {
-            const teamSelect = document.getElementById('team-select');
-            const typeSelect = document.getElementById('type-select');
-            const positionSelect = document.querySelector('.position-select');
-            const playerSelect = document.querySelector('.player-select');
-            const selectedTeam = teamSelect.value;
-            const selectedType = typeSelect.value;
-            const selectedPositionType = positionSelect.value;
-
-            playerSelect.innerHTML = '<option value="">或選擇球員</option>'; // 清空球員選項
-
-            if (selectedTeam && selectedType && selectedPositionType && data[selectedTeam] && data[selectedTeam][selectedType] && data[selectedTeam][selectedType][selectedPositionType.toLowerCase()]) {
-                const players = data[selectedTeam][selectedType][selectedPositionType.toLowerCase()];
-                players.forEach(player => {
-                    const option = document.createElement('option');
-                    option.value = player.name;
-                    option.textContent = player.name;
-                    playerSelect.appendChild(option);
-                });
-            }
-        }
-
-        function updateAbilityHeaders(positionType) {
-            const batterHeaders = document.querySelectorAll('.ability-header.batter');
-            const pitcherHeaders = document.querySelectorAll('.ability-header.pitcher');
-            batterHeaders.forEach(header => header.classList.toggle('batter', positionType === '打者'));
-            batterHeaders.forEach(header => header.classList.toggle('ability-header', positionType === '打者' || positionType === ''));
-            pitcherHeaders.forEach(header => header.classList.toggle('pitcher', positionType === '投手'));
-            pitcherHeaders.forEach(header => header.classList.toggle('ability-header', positionType === '投手' || positionType === ''));
-        }
-
-
-        function updateBaseAbilityValues(selectedPlayerName) {
-            const teamSelect = document.getElementById('team-select');
-            const typeSelect = document.getElementById('type-select');
-            const positionSelect = document.querySelector('.position-select');
-            const selectedTeam = teamSelect.value;
-            const selectedType = typeSelect.value;
-            const selectedPositionType = positionSelect.value;
-            const baseAbilityCells = document.querySelectorAll('.base-ability');
-            let playerStats = null;
-
-            if (selectedTeam && selectedType && selectedPositionType && selectedPlayerName && data[selectedTeam][selectedType] && data[selectedTeam][selectedType][selectedPositionType.toLowerCase()]) {
-                const players = data[selectedTeam][selectedType][selectedPositionType.toLowerCase()];
-                playerStats = players.find(player => player.name === selectedPlayerName);
-            }
-
-            if (playerStats) {
-                let abilities = [];
-                if (selectedPositionType === '打者') {
-                    abilities = ['接觸', '力量', '選球', '速度', '守備'];
-                } else if (selectedPositionType === '投手') {
-                    abilities = ['控球', '球威', '體力', '直球', '變化'];
-                }
-                abilities.forEach((ability, index) => {
-                    baseAbilityCells[index].textContent = playerStats[ability] || '';
-                });
-                // 計算並顯示平均值
-                const avg = abilities.reduce((sum, ability) => sum + (playerStats[ability] || 0), 0) / abilities.length;
-                document.querySelector('.base-avg').textContent = isNaN(avg) ? '' : avg.toFixed(1);
-
-                 // 更新階級上升量
-                const rankBonusCells = document.querySelectorAll('.rank-bonus');
-                abilities.forEach((ability, index) => {
-                    rankBonusCells[index].textContent = playerStats.rankBonus || 0; // 假設所有能力值階級上升量相同
-                });
-                document.querySelector('.rank-sum').textContent = playerStats.rankBonus * abilities.length || 0;
-
-                 // 更新黑鑽上升量
-                const blackDiamondBonusCells = document.querySelectorAll('.black-diamond');
-                abilities.forEach((ability, index) => {
-                    blackDiamondBonusCells[index].textContent = playerStats.blackDiamondBonus || 0; // 假設所有能力值黑鑽上升量相同
-                });
-                document.querySelector('.black-diamond-sum').textContent = playerStats.blackDiamondBonus * abilities.length || 0;
-
-
-            } else {
-                baseAbilityCells.forEach(cell => cell.textContent = '');
-                document.querySelector('.base-avg').textContent = '';
-                const rankBonusCells = document.querySelectorAll('.rank-bonus');
-                rankBonusCells.forEach(cell => cell.textContent = '');
-                document.querySelector('.rank-sum').textContent = '';
-                const blackDiamondBonusCells = document.querySelectorAll('.black-diamond');
-                blackDiamondBonusCells.forEach(cell => cell.textContent = '');
-                document.querySelector('.black-diamond-sum').textContent = '';
-            }
-        }
-
-        function calculateRowSums() {
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const checkbox = row.querySelector('.calculate-checkbox');
-                if (checkbox && checkbox.checked) {
-                    let sum = 0;
-                    const inputs = row.querySelectorAll('input[type="number"]');
-                    inputs.forEach(input => {
-                        sum += parseInt(input.value) || 0;
-                    });
-                    const sumCell = row.querySelector('.sum-value');
-                    if (sumCell) {
-                        sumCell.textContent = sum;
-                    }
-                }
-            });
-        }
-
-        function calculateGeneralAbility() {
-            let generalSums = Array(5).fill(0); // 假設有五項能力值
-            let checkedRowsCount = 0;
-
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const checkbox = row.querySelector('.calculate-checkbox');
-                const rowClass = row.classList;
-
-                if (checkbox && checkbox.checked && !rowClass.contains('blank-row') && !['基本能力值', '階級上升量'].includes(row.cells[1].textContent)) { // 排除 '基本能力值' 和 '階級上升量' 列
-                    checkedRowsCount++;
-                    const sumCells = Array.from(row.querySelectorAll('.sum-value')); // 將 NodeList 轉換為 Array
-                    const dataCells = Array.from(row.querySelectorAll('td')).slice(2, 7); // 取得能力值欄位
-
-                    dataCells.forEach((cell, index) => {
-                         let value = parseFloat(cell.textContent) || parseFloat(cell.querySelector('input[type="number"]')?.value) || parseFloat(cell.querySelector('select')?.value) || 0;
-                        if (!isNaN(value)) {
-                            generalSums[index] += value;
-                        }
-                    });
-                }
-            });
-
-            const generalAbilityCells = document.querySelectorAll('.general-ability');
-            const generalAvgCell = document.querySelector('.general-avg');
-
-            generalAbilityCells.forEach((cell, index) => {
-                cell.textContent = generalSums[index];
-            });
-
-            const avg = generalSums.reduce((a, b) => a + b, 0) / 5;
-            generalAvgCell.textContent = isNaN(avg) ? '' : avg.toFixed(1);
-        }
-
-        function calculateFinalAbility() {
-            let finalSums = Array(5).fill(0);
-            let checkedRowsCount = 0;
-
-             document.querySelectorAll('tbody tr').forEach(row => {
-                const checkbox = row.querySelector('.calculate-checkbox');
-                const rowLabel = row.cells[1].textContent;
-                const isIncludedRow = ['基本校正', '強化量', '教練', '特別訓練', '指導球員', '黑鑽', '團隊加成', '狀態', '裝備', '技能'].includes(rowLabel);
-
-
-                if (checkbox && checkbox.checked && isIncludedRow) {
-                    checkedRowsCount++;
-                    const sumCells = Array.from(row.querySelectorAll('.sum-value')); // 將 NodeList 轉換為 Array
-                    const dataCells = Array.from(row.querySelectorAll('td')).slice(2, 7); // 取得能力值欄位
-
-
-                    dataCells.forEach((cell, index) => {
-                         let value = parseFloat(cell.textContent) || parseFloat(cell.querySelector('input[type="number"]')?.value) || parseFloat(cell.querySelector('select')?.value) || 0;
-                        if (!isNaN(value)) {
-                            finalSums[index] += value;
-                        }
-                    });
-                }
-            });
-
-
-            const finalAbilityCells = document.querySelectorAll('.final-ability');
-            const finalAvgCell = document.querySelector('.final-avg');
-
-            finalAbilityCells.forEach((cell, index) => {
-                const baseValue = parseFloat(document.querySelectorAll('.base-ability')[index].textContent) || 0; // 取得基本能力值
-                const rankBonus = parseFloat(document.querySelectorAll('.rank-bonus')[index].textContent) || 0; // 取得階級上升量
-                cell.textContent = baseValue + rankBonus + finalSums[index];
-            });
-
-            const finalAvg = (finalSums.reduce((a, b) => a + b, 0) +
-                             Array.from(document.querySelectorAll('.base-ability')).reduce((sum, cell) => sum + (parseFloat(cell.textContent) || 0), 0) +
-                             Array.from(document.querySelectorAll('.rank-bonus')).reduce((sum, cell) => sum + (parseFloat(cell.textContent) || 0), 0) ) / 5;
-
-
-            finalAvgCell.textContent = isNaN(finalAvg) ? '' : finalAvg.toFixed(1);
-        }
-
-
-        // 事件监听
-        document.getElementById('team-select').addEventListener('change', updatePlayerOptions);
-        document.getElementById('type-select').addEventListener('change', updatePlayerOptions);
-        document.querySelector('.position-select').addEventListener('change', function() {
-            updatePlayerOptions();
-            updateAbilityHeaders(this.value);
-            updateBaseAbilityValues(''); // 清空基本能力值，因為球員選項會變
-        });
-        document.querySelector('.player-select').addEventListener('change', function() {
-            updateBaseAbilityValues(this.value);
-        });
-         document.querySelectorAll('input[type="checkbox"].calculate-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                calculateRowSums(); // 先計算各列總和
-                calculateGeneralAbility(); // 計算一般陣容能力值
-                calculateFinalAbility(); // 計算上場能力值
-            });
-        });
-        document.querySelectorAll('input[type="number"]').forEach(input => {
-            input.addEventListener('input', function() {
-                calculateRowSums();
-                calculateGeneralAbility();
-                calculateFinalAbility();
-            });
-        });
-        document.querySelectorAll('select').forEach(select => {
-            select.addEventListener('change', function() {
-                calculateRowSums();
-                calculateGeneralAbility();
-                calculateFinalAbility();
-            });
-        });
-
-
-        // 初始加载时更新能力值表头
-        updateAbilityHeaders(document.querySelector('.position-select').value);
-    </script>
 </body>
 </html>
