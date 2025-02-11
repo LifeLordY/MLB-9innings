@@ -1,162 +1,95 @@
-[
-  {
-    "name": "田中將大",
-    "team": "NYY",
-    "type": "一般",
-    "position": "SP",
-    "base_stats": {
-      "control": 75,
-      "velocity": 80,
-      "stamina": 70,
-      "fastball": 85,
-      "breaking_ball": 78
+{
+  "NYY": {
+    "一般": {
+      "打者": [
+        {
+          "name": "Judge",
+          "position": "OF",
+          "grade_increase": [10, 12, 11, 13, 9],
+          "basic_stats": [70, 95, 80, 75, 85]
+        },
+        {
+          "name": "Stanton",
+          "position": "OF",
+          "grade_increase": [9, 11, 10, 12, 8],
+          "basic_stats": [65, 90, 75, 70, 80]
+        }
+      ],
+      "投手": [
+        {
+          "name": "Cole",
+          "position": "SP",
+          "grade_increase": [12, 10, 13, 11, 9],
+          "basic_stats": [90, 85, 75, 80, 70]
+        }
+      ]
     },
-    "rank_up_stats": {
-      "control": 5,
-      "velocity": 6,
-      "stamina": 4,
-      "fastball": 7,
-      "breaking_ball": 5
+    "經典": {
+      "打者": [
+        {
+          "name": "Jeter",
+          "position": "SS",
+          "grade_increase": [11, 13, 12, 10, 9],
+          "basic_stats": [85, 75, 90, 80, 95]
+        }
+      ],
+      "投手": []
+    },
+    "全盛": {
+      "打者": [],
+      "投手": []
+    },
+    "簽名": {
+      "打者": [],
+      "投手": []
+    },
+    "傳說": {
+      "打者": [],
+      "投手": []
+    },
+    "史詩": {
+      "打者": [],
+      "投手": []
     }
   },
-  {
-    "name": "王建民",
-    "team": "NYY",
-    "type": "經典",
-    "position": "SP",
-    "base_stats": {
-      "control": 82,
-      "velocity": 88,
-      "stamina": 75,
-      "fastball": 92,
-      "breaking_ball": 80
+  "BOS": {
+    "一般": {
+      "打者": [
+        {
+          "name": "Devers",
+          "position": "3B",
+          "grade_increase": [8, 10, 9, 11, 7],
+          "basic_stats": [75, 85, 70, 65, 75]
+        }
+      ],
+      "投手": [
+        {
+          "name": "Sale",
+          "position": "SP",
+          "grade_increase": [10, 9, 11, 12, 8],
+          "basic_stats": [80, 90, 70, 75, 65]
+        }
+      ]
     },
-    "rank_up_stats": {
-      "control": 6,
-      "velocity": 7,
-      "stamina": 5,
-      "fastball": 8,
-      "breaking_ball": 6
-    }
-  },
-  {
-    "name": "Judge",
-    "team": "NYY",
-    "type": "全盛",
-    "position": "OF",
-    "base_stats": {
-      "contact": 80,
-      "power": 95,
-      "eye": 85,
-      "speed": 70,
-      "fielding": 75
+    "經典": {
+      "打者": [],
+      "投手": []
     },
-    "rank_up_stats": {
-      "contact": 6,
-      "power": 8,
-      "eye": 7,
-      "speed": 5,
-      "fielding": 6
-    }
-  },
-  {
-    "name": "基特",
-    "team": "NYY",
-    "type": "傳說",
-    "position": "SS",
-    "base_stats": {
-      "contact": 90,
-      "power": 82,
-      "eye": 92,
-      "speed": 78,
-      "fielding": 88
+    "全盛": {
+      "打者": [],
+      "投手": []
     },
-    "rank_up_stats": {
-      "contact": 7,
-      "power": 6,
-      "eye": 8,
-      "speed": 6,
-      "fielding": 7
-    }
-  },
-  {
-    "name": "Ortiz",
-    "team": "BOS",
-    "type": "一般",
-    "position": "DH",
-    "base_stats": {
-      "contact": 85,
-      "power": 90,
-      "eye": 88,
-      "speed": 65,
-      "fielding": 60
+    "簽名": {
+      "打者": [],
+      "投手": []
     },
-    "rank_up_stats": {
-      "contact": 6,
-      "power": 7,
-      "eye": 7,
-      "speed": 4,
-      "fielding": 4
-    }
-  },
-  {
-    "name": "Pedro",
-    "team": "BOS",
-    "type": "經典",
-    "position": "SP",
-    "base_stats": {
-      "control": 92,
-      "velocity": 95,
-      "stamina": 85,
-      "fastball": 98,
-      "breaking_ball": 95
+    "傳說": {
+      "打者": [],
+      "投手": []
     },
-    "rank_up_stats": {
-      "control": 7,
-      "velocity": 8,
-      "stamina": 6,
-      "fastball": 9,
-      "breaking_ball": 8
-    }
-  },
-  {
-    "name": "Manny",
-    "team": "BOS",
-    "type": "全盛",
-    "position": "OF",
-    "base_stats": {
-      "contact": 88,
-      "power": 92,
-      "eye": 90,
-      "speed": 72,
-      "fielding": 78
-    },
-    "rank_up_stats": {
-      "contact": 7,
-      "power": 7,
-      "eye": 7,
-      "speed": 5,
-      "fielding": 6
-    }
-  },
-  {
-    "name": "Rice",
-    "team": "BOS",
-    "type": "傳說",
-    "position": "OF",
-    "base_stats": {
-      "contact": 92,
-      "power": 85,
-      "eye": 95,
-      "speed": 80,
-      "fielding": 90
-    },
-    "rank_up_stats": {
-      "contact": 8,
-      "power": 6,
-      "eye": 8,
-      "speed": 6,
-      "fielding": 7
+    "史詩": {
+      "打者": [],
+      "投手": []
     }
   }
-]
+}
