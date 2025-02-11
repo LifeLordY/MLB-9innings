@@ -3,7 +3,7 @@
 <head>
 <title>MLB九局職棒 球員能力值</title>
 <style>
-/* CSS 樣式 */
+/* CSS 樣式 (與之前相同，這裡省略) */
 body {
     background-color: #121212;
     color: #ffffff;
@@ -13,7 +13,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    font-size: smaller; /* 縮小字體大小 */
+    font-size: smaller;
 }
 
 .container {
@@ -22,35 +22,34 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     width: 90%;
-    max-width: 1000px; /* 稍微縮小 container 最大寬度 */
+    max-width: 900px;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 15px; /* 稍微縮小標題下方間距 */
+    margin-bottom: 15px;
 }
 
-/* 球隊與類型選擇器樣式 */
 .selectors-row {
     display: flex;
     justify-content: center;
-    gap: 15px; /* 稍微縮小間距 */
-    margin-bottom: 10px; /* 稍微縮小下方間距 */
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
 .selectors-row label {
-    margin-right: 3px; /* 稍微縮小 Label 與 Select 間距 */
+    margin-right: 3px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px; /* 稍微縮小上方間距 */
+    margin-top: 15px;
 }
 
 th, td {
     border: 1px solid #444;
-    padding: 6px; /* 稍微縮小 padding */
+    padding: 6px;
     text-align: center;
 }
 
@@ -63,31 +62,29 @@ select, input[type="number"], input[type="text"] {
     background-color: #333;
     color: #ffffff;
     border: 1px solid #555;
-    padding: 4px; /* 稍微縮小 padding */
-    border-radius: 4px; /* 稍微縮小 border-radius */
+    padding: 4px;
+    border-radius: 4px;
     width: 100%;
     box-sizing: border-box;
-    font-size: smaller; /* 下拉選單和輸入框也縮小字體 */
+    font-size: smaller;
 }
 
 input[type="checkbox"] {
-    transform: scale(1.2); /* 稍微縮小勾選框 */
+    transform: scale(1.2);
 }
 
 .blank-row td {
     border: none;
-    padding: 3px; /* 稍微縮小 padding */
+    padding: 3px;
     background-color: transparent;
 }
 
-/* 能力值欄位寬度 */
 .ability-value-col {
-    width: 50px; /* 設定能力值欄位固定寬度 */
+    width: 50px;
 }
 
-/* 選擇器欄位寬度 (位置、階級) */
 .selector-col {
-    width: 80px; /* 設定位置和階級欄位寬度，你可以調整 */
+    width: 70px;
 }
 </style>
 </head>
@@ -167,7 +164,7 @@ input[type="checkbox"] {
                 <th class="ability-value-col">體力</th>
                 <th class="ability-value-col">直球</th>
                 <th class="ability-value-col">變化</th>
-                <th>值</th>
+                <th class="selector-col">值</th>
             </tr>
             <tr>
                 <th colspan="2">基本能力值</th>
@@ -176,7 +173,7 @@ input[type="checkbox"] {
                 <td id="basic-stat-3" class="ability-value-col"></td>
                 <td id="basic-stat-4" class="ability-value-col"></td>
                 <td id="basic-stat-5" class="ability-value-col"></td>
-                <td id="basic-stat-avg"></td>
+                <td id="basic-stat-avg" class="selector-col"></td>
             </tr>
             <tr>
                 <td><input type="checkbox" checked></td>
@@ -186,7 +183,7 @@ input[type="checkbox"] {
                 <td><input type="number" class="ability-value-col"></td>
                 <td><input type="number" class="ability-value-col"></td>
                 <td><input type="number" class="ability-value-col"></td>
-                <td></td>
+                <td class="selector-col"></td>
             </tr>
             <tr>
                 <th colspan="2">階級上升量</th>
@@ -195,7 +192,7 @@ input[type="checkbox"] {
                 <td id="grade-increase-3" class="ability-value-col"></td>
                 <td id="grade-increase-4" class="ability-value-col"></td>
                 <td id="grade-increase-5" class="ability-value-col"></td>
-                <td id="grade-increase-sum"></td>
+                <td id="grade-increase-sum" class="selector-col"></td>
             </tr>
             <tr>
                 <td><input type="checkbox" checked></td>
@@ -205,7 +202,7 @@ input[type="checkbox"] {
                 <td><input type="number" class="ability-value-col"></td>
                 <td><input type="number" class="ability-value-col"></td>
                 <td><input type="number" class="ability-value-col"></td>
-                <td id="enhancement-sum"></td>
+                <td id="enhancement-sum" class="selector-col"></td>
             </tr>
             <tr>
                 <td><input type="checkbox" checked></td>
@@ -215,7 +212,7 @@ input[type="checkbox"] {
                 <td><input type="number" class="ability-value-col"></td>
                 <td><input type="number" class="ability-value-col"></td>
                 <td><input type="number" class="ability-value-col"></td>
-                <td id="coach-sum"></td>
+                <td id="coach-sum" class="selector-col"></td>
             </tr>
             <tr>
                 <td><input type="checkbox" checked></td>
@@ -225,8 +222,8 @@ input[type="checkbox"] {
                 <td class="ability-value-col"></td>
                 <td class="ability-value-col"></td>
                 <td class="ability-value-col"></td>
-                <td>
-                    <select>
+                <td class="selector-col">
+                    <select id="special-training-value-select">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -244,117 +241,25 @@ input[type="checkbox"] {
             <tr>
                 <td><input type="checkbox" checked></td>
                 <th>指導球員</th>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td>
-                    <select>
+                <td class="ability-value-col">
+                    <input type="number" class="guided-player-ability-input ability-value-col">
+                </td>
+                <td class="ability-value-col">
+                    <input type="number" class="guided-player-ability-input ability-value-col">
+                </td>
+                <td class="ability-value-col">
+                    <input type="number" class="guided-player-ability-input ability-value-col">
+                </td>
+                <td class="ability-value-col">
+                    <input type="number" class="guided-player-ability-input ability-value-col">
+                </td>
+                <td class="ability-value-col">
+                    <input type="number" class="guided-player-ability-input ability-value-col">
+                </td>
+                <td class="selector-col">
+                    <select id="guided-player-value-select">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" checked></td>
-                <th>黑鑽</th>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td id="black-diamond-sum"></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" checked></td>
-                <th>團隊加成</th>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th colspan="2">一般陣容能力值</th>
-                <td id="general-lineup-stat-1" class="ability-value-col"></td>
-                <td id="general-lineup-stat-2" class="ability-value-col"></td>
-                <td id="general-lineup-stat-3" class="ability-value-col"></td>
-                <td id="general-lineup-stat-4" class="ability-value-col"></td>
-                <td id="general-lineup-stat-5" class="ability-value-col"></td>
-                <td id="general-lineup-stat-avg"></td>
-            </tr>
-            <tr class="blank-row"><td colspan="8"></td></tr>
-            <tr>
-                <td><input type="checkbox" checked></td>
-                <th>狀態</th>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td>
-                    <select>
-                        <option value="-3">-3</option>
-                        <option value="0">0</option>
-                        <option value="3">3</option>
-                        <option value="6">6</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" checked></td>
-                <th>裝備</th>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td>
-                    <select>
-                        <option value="無">無</option>
-                        <option value="銅">銅</option>
-                        <option value="銀">銀</option>
-                        <option value="金">金</option>
-                        <option value="白">白</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" checked></td>
-                <th>技能</th>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td class="ability-value-col"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th colspan="2">上場能力值</th>
-                <td id="on-field-stat-1" class="ability-value-col"></td>
-                <td id="on-field-stat-2" class="ability-value-col"></td>
-                <td id="on-field-stat-3" class="ability-value-col"></td>
-                <td id="on-field-stat-4" class="ability-value-col"></td>
-                <td id="on-field-stat-5" class="ability-value-col"></td>
-                <td id="on-field-stat-avg"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<script>
-    // JavaScript 功能 (需要時加入)
-    // 例如:
-    // - 從 data.json 載入球員資料
-    // - 根據選取的球隊、類型、位置更新球員選單
-    // - 計算表格中的數值
-</script>
-
-</body>
-</html>
+                        <option value
