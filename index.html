@@ -10,17 +10,12 @@
       color: #e0e0e0;
       font-family: Arial, sans-serif;
       text-align: center;
-      margin: 0;
       padding: 20px;
     }
-    h1 {
-      margin-bottom: 20px;
-    }
     select {
-      margin: 0 10px;
+      margin: 5px;
       padding: 5px;
     }
-    /* 表格置中，並設定邊框與間距 */
     table {
       margin: 20px auto;
       border-collapse: collapse;
@@ -28,16 +23,15 @@
     }
     th, td {
       border: 1px solid #555;
-      padding: 10px;
+      padding: 8px;
       text-align: center;
-      vertical-align: middle;
     }
   </style>
 </head>
 <body>
   <h1>棒球球員數據查詢</h1>
-
-  <!-- 選單區：選擇球隊、位置、年份 -->
+  
+  <!-- 上方選單區：球隊、位置、年份 -->
   <div>
     <label for="teamSelect">球隊：</label>
     <select id="teamSelect">
@@ -60,134 +54,238 @@
       <option value="24">24</option>
     </select>
   </div>
-
-  <!-- 表格將產生在此容器中 -->
+  
+  <!-- 下拉選單：球員選擇 -->
+  <div>
+    <label for="playerSelect">球員：</label>
+    <select id="playerSelect">
+      <option value="">請選擇球員</option>
+    </select>
+  </div>
+  
+  <!-- 表格容器 -->
   <div id="tableContainer"></div>
-
+  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       let data = null;
-      // 讀取外部 data.json 資料
+      // 讀取外部 JSON 資料
       fetch('data.json?v=' + new Date().getTime())
         .then(response => {
-          if (!response.ok) {
-            throw new Error("無法載入 data.json");
-          }
+          if (!response.ok) { throw new Error("無法載入 data.json"); }
           return response.json();
         })
-        .then(jsonData => {
-          data = jsonData;
-        })
-        .catch(error => {
-          console.error("讀取 JSON 資料錯誤：", error);
-        });
-
-      // 取得下拉選單元素
+        .then(jsonData => { data = jsonData; })
+        .catch(error => { console.error("讀取 JSON 資料錯誤：", error); });
+      
       const teamSelect = document.getElementById("teamSelect");
       const positionSelect = document.getElementById("positionSelect");
       const yearSelect = document.getElementById("yearSelect");
+      const playerSelect = document.getElementById("playerSelect");
       const tableContainer = document.getElementById("tableContainer");
-
-      // 當下拉選單改變時，嘗試生成表格
-      function updateTable() {
+      
+      // 當球隊/位置/年份改變時，更新球員下拉式選單
+      function updatePlayerOptions() {
         const team = teamSelect.value;
         const position = positionSelect.value;
         const year = yearSelect.value;
-        // 若資料尚未載入或選擇不完整則清空表格
-        if (!data || !team || !position || !year) {
+        playerSelect.innerHTML = '<option value="">請選擇球員</option>';
+        if (data && team && position && year &&
+            data[team] && data[team][position] && data[team][position][year]) {
+          data[team][position][year].forEach((player, index) => {
+            const option = document.createElement("option");
+            option.value = index;
+            option.textContent = player.name;
+            playerSelect.appendChild(option);
+          });
+        }
+        tableContainer.innerHTML = "";
+      }
+      teamSelect.addEventListener("change", updatePlayerOptions);
+      positionSelect.addEventListener("change", updatePlayerOptions);
+      yearSelect.addEventListener("change", updatePlayerOptions);
+      
+      // 用來儲存校正下拉選單的參照，以便稍後計算總和
+      let calibrationSelects = [];
+      // 儲存第六橫排中顯示「基礎校正與階級上升量總和」的儲存格參照
+      let summaryCalibCell = null;
+      
+      // 當校正改變時更新第六排的數值
+      function updateSummaryRow(player) {
+        let totalCalibLevel = 0;
+        const stats = ["接觸", "力量", "選球", "速度", "守備"];
+        calibrationSelects.forEach((sel, i) => {
+          const calibVal = parseInt(sel.value) || 0;
+          const levelVal = player.levelUp[stats[i]] || 0;
+          totalCalibLevel += (calibVal + levelVal);
+        });
+        if (summaryCalibCell) { summaryCalibCell.textContent = totalCalibLevel; }
+      }
+      
+      // 當球員選定後產生表格
+      function generateTable() {
+        const team = teamSelect.value;
+        const position = positionSelect.value;
+        const year = yearSelect.value;
+        const playerIndex = playerSelect.value;
+        if (!data || !team || !position || !year || playerIndex === "") {
           tableContainer.innerHTML = "";
           return;
         }
-
-        // 根據選擇取得對應球員（若多於 5 位則只取前 5 位）
-        const players = (data[team] && data[team][position] && data[team][position][year]) || [];
-        const selectedPlayers = players.slice(0, 5);
-
-        // 定義五項數據的 stat 名稱
-        const statNames = ["接觸", "力量", "選球", "速度", "守備"];
-
-        // 建立表格元素，表格共有 7 欄：
-        // 第 1 欄：項目名稱
-        // 第 2~6 欄：各球員的數據
-        // 第 7 欄：（表頭）"平均/總和"，以及各球員個別計算後的值（底部列）
+        const player = data[team][position][year][playerIndex];
+        const stats = ["接觸", "力量", "選球", "速度", "守備"];
+        
+        // 先清空校正下拉選單陣列
+        calibrationSelects = [];
+        
+        // 建立表格
         const table = document.createElement("table");
-
-        // ----- 第一列：表頭 -----
-        const headerRow = document.createElement("tr");
-        // 第一個表頭儲存格：項目
+        
+        /* --- 第一橫排 ---
+           第 1 格：項目 (rowspan=2)
+           第 2~6 格：合併儲存格顯示球員名稱 (colspan=5)
+           第 7 格：平均/總和 (rowspan=2)
+        */
+        const row1 = document.createElement("tr");
         const thItem = document.createElement("th");
         thItem.textContent = "項目";
-        headerRow.appendChild(thItem);
-
-        // 接下來依序為每位球員的名稱
-        selectedPlayers.forEach(player => {
-          const thPlayer = document.createElement("th");
-          thPlayer.textContent = player.name;
-          headerRow.appendChild(thPlayer);
+        thItem.rowSpan = 2;
+        row1.appendChild(thItem);
+        const thPlayer = document.createElement("th");
+        thPlayer.colSpan = 5;
+        thPlayer.textContent = player.name;
+        row1.appendChild(thPlayer);
+        const thAvgTotal = document.createElement("th");
+        thAvgTotal.textContent = "平均/總和";
+        thAvgTotal.rowSpan = 2;
+        row1.appendChild(thAvgTotal);
+        table.appendChild(row1);
+        
+        /* --- 第二橫排 ---
+           產生 5 格，依序標題：接觸、力量、選球、速度、守備
+        */
+        const row2 = document.createElement("tr");
+        stats.forEach(stat => {
+          const th = document.createElement("th");
+          th.textContent = stat;
+          row2.appendChild(th);
         });
-        // 最後一欄為平均/總和
-        const thSummary = document.createElement("th");
-        thSummary.textContent = "平均/總和";
-        headerRow.appendChild(thSummary);
-        table.appendChild(headerRow);
-
-        // ----- 第二列到第六列：依 stat 顯示各項數值 -----
-        // 每一列第一格為 stat 名稱，其餘格顯示數值 (以兩行呈現：上方顯示基礎值，下方顯示階級上升量)
-        statNames.forEach(stat => {
-          const row = document.createElement("tr");
-          // 第一欄：stat 名稱
-          const tdLabel = document.createElement("td");
-          tdLabel.textContent = stat;
-          row.appendChild(tdLabel);
-
-          // 為每位球員顯示其該 stat 的數值
-          selectedPlayers.forEach(player => {
-            const tdStat = document.createElement("td");
-            const basicVal = player.basic && player.basic[stat] !== undefined ? player.basic[stat] : "";
-            const levelVal = player.levelUp && player.levelUp[stat] !== undefined ? player.levelUp[stat] : "";
-            // 使用 <br> 分行顯示兩組數據
-            tdStat.innerHTML = basicVal + "<br>" + levelVal;
-            row.appendChild(tdStat);
-          });
-
-          // 第 7 欄此列空白（只在最後一列會顯示總結）
-          const tdEmpty = document.createElement("td");
-          row.appendChild(tdEmpty);
-          table.appendChild(row);
+        table.appendChild(row2);
+        
+        /* --- 第三橫排 ---
+           第 1 格：基礎值
+           第 2~6 格：顯示各項基礎值
+           第 7 格：顯示前五項平均 (基礎值平均)
+        */
+        const row3 = document.createElement("tr");
+        const tdBasicLabel = document.createElement("td");
+        tdBasicLabel.textContent = "基礎值";
+        row3.appendChild(tdBasicLabel);
+        let baseSum = 0;
+        stats.forEach(stat => {
+          const td = document.createElement("td");
+          const val = player.basic[stat] || 0;
+          baseSum += val;
+          td.textContent = val;
+          row3.appendChild(td);
         });
-
-        // ----- 第七列：顯示每位球員的基礎值平均與階級上升量總和 -----
-        const summaryRow = document.createElement("tr");
-        const tdSummaryLabel = document.createElement("td");
-        tdSummaryLabel.textContent = "平均/總和";
-        summaryRow.appendChild(tdSummaryLabel);
-
-        selectedPlayers.forEach(player => {
-          const tdSummary = document.createElement("td");
-          let basicSum = 0;
-          let levelSum = 0;
-          statNames.forEach(stat => {
-            basicSum += player.basic && player.basic[stat] ? player.basic[stat] : 0;
-            levelSum += player.levelUp && player.levelUp[stat] ? player.levelUp[stat] : 0;
-          });
-          const basicAvg = (basicSum / statNames.length).toFixed(1);
-          tdSummary.innerHTML = "平均: " + basicAvg + "<br>總和: " + levelSum;
-          summaryRow.appendChild(tdSummary);
+        const tdBaseAvg = document.createElement("td");
+        const baseAvg = (baseSum / stats.length).toFixed(1);
+        tdBaseAvg.textContent = baseAvg;
+        row3.appendChild(tdBaseAvg);
+        table.appendChild(row3);
+        
+        /* --- 第四橫排 ---
+           第 1 格：基礎校正
+           第 2~6 格：各項放下拉式選單（-5~5）
+           第 7 格：空白
+        */
+        const row4 = document.createElement("tr");
+        const tdCalibLabel = document.createElement("td");
+        tdCalibLabel.textContent = "基礎校正";
+        row4.appendChild(tdCalibLabel);
+        stats.forEach((stat, i) => {
+          const td = document.createElement("td");
+          const select = document.createElement("select");
+          for (let num = -5; num <= 5; num++) {
+            const opt = document.createElement("option");
+            opt.value = num;
+            opt.textContent = num;
+            select.appendChild(opt);
+          }
+          select.value = 0;
+          // 當校正改變時，重新計算第六橫排的數值
+          select.addEventListener("change", function() { updateSummaryRow(player); });
+          calibrationSelects.push(select);
+          td.appendChild(select);
+          row4.appendChild(td);
         });
-        // 第 7 欄最後一格可留空
-        const tdFinal = document.createElement("td");
-        summaryRow.appendChild(tdFinal);
-        table.appendChild(summaryRow);
-
-        // 將生成的表格加入頁面（先清空原有內容）
+        const tdEmpty = document.createElement("td");
+        row4.appendChild(tdEmpty);
+        table.appendChild(row4);
+        
+        /* --- 第五橫排 ---
+           第 1 格：階級上升量
+           第 2~6 格：各項顯示階級上升量
+           第 7 格：顯示前五項總和 (各項階級上升量加總)
+        */
+        const row5 = document.createElement("tr");
+        const tdLevelLabel = document.createElement("td");
+        tdLevelLabel.textContent = "階級上升量";
+        row5.appendChild(tdLevelLabel);
+        let levelSum = 0;
+        stats.forEach(stat => {
+          const td = document.createElement("td");
+          const val = player.levelUp[stat] || 0;
+          levelSum += val;
+          td.textContent = val;
+          row5.appendChild(td);
+        });
+        const tdLevelTotal = document.createElement("td");
+        tdLevelTotal.textContent = levelSum;
+        row5.appendChild(tdLevelTotal);
+        table.appendChild(row5);
+        
+        /* --- 第六橫排（總評） ---
+           第 1 格：顯示「總評」
+           第 2 格：合併 colspan=3，顯示「接觸、力量、選球、速度、守備」的基礎值（以逗號分隔）
+           第 3 格：合併 colspan=2，顯示「基礎校正與階級上升量」的總和（每項：校正值+階級上升量，再全部相加）
+           第 4 格：顯示前五項平均（與 row3 相同）
+        */
+        const row6 = document.createElement("tr");
+        const tdTotalLabel = document.createElement("td");
+        tdTotalLabel.textContent = "總評";
+        row6.appendChild(tdTotalLabel);
+        
+        const tdBaseValues = document.createElement("td");
+        tdBaseValues.colSpan = 3;
+        let baseValuesStr = stats.map(stat => stat + ": " + (player.basic[stat] || 0)).join(", ");
+        tdBaseValues.textContent = baseValuesStr;
+        row6.appendChild(tdBaseValues);
+        
+        const tdCalibLevelSum = document.createElement("td");
+        tdCalibLevelSum.colSpan = 2;
+        // 初始計算校正+階級上升量總和（各項校正預設 0）
+        let totalCalibLevel = 0;
+        stats.forEach((stat, i) => {
+          const calib = parseInt(calibrationSelects[i]?.value) || 0;
+          totalCalibLevel += (calib + (player.levelUp[stat] || 0));
+        });
+        tdCalibLevelSum.textContent = totalCalibLevel;
+        summaryCalibCell = tdCalibLevelSum;  // 儲存參照以便更新
+        row6.appendChild(tdCalibLevelSum);
+        
+        const tdFinalAvg = document.createElement("td");
+        tdFinalAvg.textContent = baseAvg;
+        row6.appendChild(tdFinalAvg);
+        table.appendChild(row6);
+        
+        // 將產生的表格放入頁面
         tableContainer.innerHTML = "";
         tableContainer.appendChild(table);
       }
-
-      // 當下拉選單改變時即更新表格
-      teamSelect.addEventListener("change", updateTable);
-      positionSelect.addEventListener("change", updateTable);
-      yearSelect.addEventListener("change", updateTable);
+      
+      playerSelect.addEventListener("change", generateTable);
     });
   </script>
 </body>
