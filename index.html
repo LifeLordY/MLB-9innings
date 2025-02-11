@@ -129,6 +129,12 @@
             font-size: 0.85em;
         }
 
+        #player-input,
+        #player-select {
+            width: 150px; /* 設定固定的寬度，您可以根據需要調整數值 */
+            box-sizing: border-box; /* 確保 padding 和 border 包含在 width 內 */
+        }
+
     </style>
 </head>
 <body>
@@ -411,17 +417,14 @@
                 const players = teamData[teamCode];
                 players.forEach(player => {
                     const playerTypes = player.types;
-                    const playerGeneralTypeExists = playerTypes && playerTypes['general']; // 檢查球員是否有 general 類型
-                    const playerEpicTypeExists = playerTypes && playerTypes['epic']; // 檢查球員是否有 epic 類型
-                    const playerPrimeTypeExists = playerTypes && playerTypes['prime']; // 檢查球員是否有 prime 類型
-
                     let playerTypeMatch = false;
+
                     if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend') {
-                        playerTypeMatch = playerGeneralTypeExists; // 一般, 經典, 簽名, 傳說 都算 general 類型
+                        playerTypeMatch = player.types.general !== undefined || player.types.classic !== undefined || player.types.signature !== undefined;
                     } else if (selectedType === 'epic') {
-                        playerTypeMatch = playerEpicTypeExists || playerPrimeTypeExists; // 史詩 算 epic 或 prime 類型 (因為史詩和全盛共用特殊數值)
+                        playerTypeMatch = player.types.epic !== undefined; // 史詩類型只需判斷是否有 epic type 定義
                     } else if (selectedType === 'prime') {
-                        playerTypeMatch = playerPrimeTypeExists; // 全盛 算 prime 類型
+                        playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
                     }
 
                     const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
@@ -472,39 +475,44 @@
             if (selectedPlayerData) {
                 const selectedType = typeSelect.value;
                 let typeData = null;
+                let playerBaseState = selectedPlayerData.base_state; // 取得球員基本能力值
+                let playerTierIncrease = selectedPlayerData.tier_increase; // 取得球員基本階級上升量
 
                 if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend') {
-                    typeData = selectedPlayerData.types['general'];
+                    typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
                 } else if (selectedType === 'epic') {
-                    typeData = selectedPlayerData.types['epic'] || selectedPlayerData.types['prime']; // 史詩優先找 epic, 沒有再找 prime
+                    typeData = selectedPlayerData.types['epic']; // 史詩類型
+                    playerBaseState = typeData.base_state;       // 覆蓋基本能力值為史詩類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;   // 覆蓋階級上升量為史詩類型自定義數值
                 } else if (selectedType === 'prime') {
-                    typeData = selectedPlayerData.types['prime'];
+                    typeData = selectedPlayerData.types['prime']; // 全盛類型
+                    playerBaseState = typeData.base_state;       // 覆蓋基本能力值為全盛類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;   // 覆蓋階級上升量為全盛類型自定義數值
                 }
 
-                if (typeData) {
-                    baseContactInput.value = typeData.base_state.接觸 || 0;
-                    basePowerInput.value = typeData.base_state.力量 || 0;
-                    baseEyeInput.value = typeData.base_state.選球 || 0;
-                    baseSpeedInput.value = typeData.base_state.速度 || 0;
-                    baseFieldingInput.value = typeData.base_state.守備 || 0;
-                    tierContactInput.value = typeData.tier_increase.接觸 || 0;
-                    tierPowerInput.value = typeData.tier_increase.力量 || 0;
-                    tierEyeInput.value = typeData.tier_increase.選球 || 0;
-                    tierSpeedInput.value = typeData.tier_increase.速度 || 0;
-                    tierFieldingInput.value = typeData.tier_increase.守備 || 0;
 
-                    updateBaseAverage(); // 更新基本能力值平均
-                    updateTierSum();     // 更新階級上升量總和
-                    updateEnhanceSum();    // 更新強化量總和
-                    updateCoachSum();      // 更新教練總和
-                    updateBlackDiamondSum();// 更新黑鑽總和
-                }
+                baseContactInput.value = playerBaseState.接觸 || 0;
+                basePowerInput.value = playerBaseState.力量 || 0;
+                baseEyeInput.value = playerBaseState.選球 || 0;
+                baseSpeedInput.value = playerBaseState.速度 || 0;
+                baseFieldingInput.value = playerBaseState.守備 || 0;
+                tierContactInput.value = playerTierIncrease.接觸 || 0;
+                tierPowerInput.value = playerTierIncrease.力量 || 0;
+                tierEyeInput.value = playerTierIncrease.選球 || 0;
+                tierSpeedInput.value = playerTierIncrease.速度 || 0;
+                tierFieldingInput.value = playerTierIncrease.守備 || 0;
+
+                updateBaseAverage(); // 更新基本能力值平均
+                updateTierSum();     // 更新階級上升量總和
+                updateEnhanceSum();    // 更新強化量總和
+                updateCoachSum();      // 更新教練總和
+                updateBlackDiamondSum();// 更新黑鑽總和
             }
         }
 
 
         // ... (setSameAsDropdownValues function - 維持不變) ...
-        function setSameAsDropdownValues(row, dropdown) {
+        function setSameAsDropdownValues(row, dropdown) { /* ... (內容與之前的程式碼相同) ... */
             const dropdownValue = dropdown.value;
             const sameAsCells = row.querySelectorAll('.same-as-dropdown');
             sameAsCells.forEach(cell => {
@@ -571,7 +579,7 @@
         }
 
 
-        // Event listeners for filters
+        // Event listeners for filters (維持不變)
         typeSelect.addEventListener('change', updatePlayerDropdown);
         teamSelect.addEventListener('change', updatePlayerDropdown);
         positionSelect.addEventListener('change', updatePlayerDropdown);
@@ -614,9 +622,9 @@
         // Set initial values for "指導球員" and "狀態" rows (維持不變)
         // ... setSameAsDropdownValues calls ...
 
-        // Load player data and initialize dropdown
+        // Load player data and initialize dropdown (維持不變)
         loadPlayerData();
-        updatePlayerDropdown(); // 網頁載入時先根據預設篩選條件更新球員選單 (目前預設篩選條件為空，選單會是空的)
+        updatePlayerDropdown();
 
 
     });
