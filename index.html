@@ -3,25 +3,25 @@
 <head>
 <title>MLB九局職棒 球員能力值</title>
 <style>
-/* CSS 樣式 */
+/* CSS 樣式 (與之前相同，這裡省略以保持重點在 HTML 結構) */
 body {
-    background-color: #121212; /* 深色背景 */
-    color: #ffffff; /* 白色文字 */
+    background-color: #121212;
+    color: #ffffff;
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center; /* 水平置中 */
-    align-items: center; /* 垂直置中 */
-    min-height: 100vh; /* 確保佔滿整個視窗高度 */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
 }
 
 .container {
-    background-color: #1e1e1e; /* 框的背景色 */
+    background-color: #1e1e1e;
     padding: 20px;
-    border-radius: 10px; /* 圓角 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 陰影 */
-    width: 90%; /* 框的寬度，你可以調整 */
-    max-width: 1200px; /* 最大寬度限制 */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 1200px;
 }
 
 h1 {
@@ -36,35 +36,34 @@ table {
 }
 
 th, td {
-    border: 1px solid #444; /* 表格邊框顏色 */
+    border: 1px solid #444;
     padding: 8px;
     text-align: center;
 }
 
 th {
-    background-color: #333; /* 表頭背景色 */
+    background-color: #333;
     font-weight: bold;
 }
 
-select, input[type="number"] {
+select, input[type="number"], input[type="text"] { /* input[type="text"] 也加入樣式 */
     background-color: #333;
     color: #ffffff;
     border: 1px solid #555;
     padding: 5px;
     border-radius: 5px;
-    width: 100%; /* 寬度佔滿格 */
-    box-sizing: border-box; /* 避免padding撐大寬度 */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 input[type="checkbox"] {
-    transform: scale(1.5); /* 放大勾選框 */
+    transform: scale(1.5);
 }
 
-/* 空白列樣式 */
 .blank-row td {
-    border: none; /* 無邊框 */
-    padding: 5px; /* 可以調整空白列的高度 */
-    background-color: transparent; /* 透明背景 */
+    border: none;
+    padding: 5px;
+    background-color: transparent;
 }
 </style>
 </head>
@@ -93,21 +92,14 @@ input[type="checkbox"] {
     <table>
         <thead>
             <tr>
-                <th></th>
-                <th></th>
-                <th>接觸</th>
-                <th>力量</th>
-                <th>選球</th>
-                <th>速度</th>
-                <th>守備</th>
-                <th></th>
+                <th colspan="2">位置 (1-2)</th>
+                <th colspan="5">球員 (3-7)</th>
+                <th>階級 (8)</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th rowspan="2">位置</th>
-                <th>位置</th>
-                <td colspan="5">
+                <td colspan="2">
                     <select id="position-select">
                         <option value="">不指定</option>
                         <optgroup label="打者">
@@ -126,15 +118,11 @@ input[type="checkbox"] {
                         </optgroup>
                     </select>
                 </td>
-                <th>階級</th>
-            </tr>
-            <tr>
-                <th>球員</th>
                 <td colspan="5">
                     <input type="text" id="player-input" placeholder="或選擇球員">
                     <select id="player-select">
                         <option value="">-- 請選擇球員 --</option>
-                        </select>
+                    </select>
                 </td>
                 <td>
                     <select id="grade-select">
@@ -273,7 +261,8 @@ input[type="checkbox"] {
                 <td id="general-lineup-stat-5"></td>
                 <td id="general-lineup-stat-avg"></td>
             </tr>
-            <tr class="blank-row"><td colspan="8"></td></tr> <tr>
+            <tr class="blank-row"><td colspan="8"></td></tr>
+            <tr>
                 <td><input type="checkbox"></td>
                 <th>狀態</th>
                 <td></td>
