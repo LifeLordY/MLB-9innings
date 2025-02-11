@@ -353,38 +353,167 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const coachingPlayerSelect = document.getElementById('coaching-player-select');
-            const statusSelect = document.getElementById('status-select');
-            const coachingPlayerRow = document.getElementById('coaching-player-row');
-            const statusRow = document.getElementById('status-row');
+    document.addEventListener('DOMContentLoaded', function() {
+        const coachingPlayerSelect = document.getElementById('coaching-player-select');
+        const statusSelect = document.getElementById('status-select');
+        const coachingPlayerRow = document.getElementById('coaching-player-row');
+        const statusRow = document.getElementById('status-row');
 
-            // Function to set "同上" values
-            function setSameAsDropdownValues(row, dropdown) {
-                const dropdownValue = dropdown.value;
-                const sameAsCells = row.querySelectorAll('.same-as-dropdown');
-                sameAsCells.forEach(cell => {
-                    cell.textContent = dropdownValue;
+        // 取得所有能力值輸入框 (接觸, 力量, 選球, 速度, 守備)
+        const baseContactInput = document.getElementById('base-contact');
+        const basePowerInput = document.getElementById('base-power');
+        const baseEyeInput = document.getElementById('base-eye');
+        const baseSpeedInput = document.getElementById('base-speed');
+        const baseFieldingInput = document.getElementById('base-fielding');
+
+        const tierContactInput = document.getElementById('tier-contact');
+        const tierPowerInput = document.getElementById('tier-power');
+        const tierEyeInput = document.getElementById('tier-eye');
+        const tierSpeedInput = document.getElementById('tier-speed');
+        const tierFieldingInput = document.getElementById('tier-fielding');
+
+        // ... 其他能力值輸入框 (強化量, 教練, 黑鑽...，如果您有對應的 ID) ...
+        // 假設強化量、教練、黑鑽的輸入框沒有 ID，我們需要用其他方式選取，例如 querySelectorAll 搭配 class 或其他選擇器
+
+        // 取得顯示計算結果的 <td> 元素
+        const baseAverageDisplay = document.getElementById('base-average');
+        const tierSumDisplay = document.getElementById('tier-sum');
+        const enhanceSumDisplay = document.getElementById('enhance-sum');
+        const coachSumDisplay = document.getElementById('coach-sum');
+        const blackDiamondSumDisplay = document.getElementById('black-diamond-sum');
+
+
+        // Function to set "同上" values (維持原本功能)
+        function setSameAsDropdownValues(row, dropdown) {
+            const dropdownValue = dropdown.value;
+            const sameAsCells = row.querySelectorAll('.same-as-dropdown');
+            sameAsCells.forEach(cell => {
+                cell.value = dropdownValue; // 修改為設定 value 而非 textContent
+            });
+        }
+
+        // 計算並更新 "基本能力值" 的平均值
+        function updateBaseAverage() {
+            const contact = parseFloat(baseContactInput.value) || 0;
+            const power = parseFloat(basePowerInput.value) || 0;
+            const eye = parseFloat(baseEyeInput.value) || 0;
+            const speed = parseFloat(baseSpeedInput.value) || 0;
+            const fielding = parseFloat(baseFieldingInput.value) || 0;
+
+            const average = (contact + power + eye + speed + fielding) / 5;
+            baseAverageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1); // 顯示一位小數，如果計算結果為 NaN 則顯示空字串
+        }
+
+        // 計算並更新 "階級上升量" 的總和
+        function updateTierSum() {
+            const contact = parseFloat(tierContactInput.value) || 0;
+            const power = parseFloat(tierPowerInput.value) || 0;
+            const eye = parseFloat(tierEyeInput.value) || 0;
+            const speed = parseFloat(tierSpeedInput.value) || 0;
+            const fielding = parseFloat(tierFieldingInput.value) || 0;
+
+            const sum = contact + power + eye + speed + fielding;
+            tierSumDisplay.textContent = sum;
+        }
+
+        // 計算並更新 "強化量" 的總和 (假設強化量 row 的 <td> id 為 enhance-sum, 輸入框沒有 id)
+        function updateEnhanceSum() {
+            const enhanceRow = document.querySelectorAll('tr')[6]; // 強化量是表格的第7行 (index 6)
+            if (enhanceRow) {
+                const inputs = enhanceRow.querySelectorAll('td input[type="number"]');
+                let sum = 0;
+                inputs.forEach(input => {
+                    sum += parseFloat(input.value) || 0;
                 });
+                enhanceSumDisplay.textContent = sum;
             }
+        }
 
-            // Set initial values for "指導球員" row
-            setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
+        // 計算並更新 "教練" 的總和 (假設教練 row 的 <td> id 為 coach-sum, 輸入框沒有 id)
+        function updateCoachSum() {
+            const coachRow = document.querySelectorAll('tr')[7]; // 教練是表格的第8行 (index 7)
+            if (coachRow) {
+                const inputs = coachRow.querySelectorAll('td input[type="number"]');
+                let sum = 0;
+                inputs.forEach(input => {
+                    sum += parseFloat(input.value) || 0;
+                });
+                coachSumDisplay.textContent = sum;
+            }
+        }
 
-            // Set initial values for "狀態" row
-            setSameAsDropdownValues(statusRow, statusSelect);
+        // 計算並更新 "黑鑽" 的總和 (假設黑鑽 row 的 <td> id 為 black-diamond-sum, 輸入框沒有 id)
+        function updateBlackDiamondSum() {
+            const blackDiamondRow = document.querySelectorAll('tr')[9]; // 黑鑽是表格的第10行 (index 9)
+            if (blackDiamondRow) {
+                const inputs = blackDiamondRow.querySelectorAll('td input[type="number"]');
+                let sum = 0;
+                inputs.forEach(input => {
+                    sum += parseFloat(input.value) || 0;
+                });
+                blackDiamondSumDisplay.textContent = sum;
+            }
+        }
 
 
-            // Update "指導球員" "同上" values when dropdown changes
-            coachingPlayerSelect.addEventListener('change', function() {
-                setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
-            });
+        // 監聽 "基本能力值" 橫排的輸入框變動事件，更新平均值
+        baseContactInput.addEventListener('change', updateBaseAverage);
+        basePowerInput.addEventListener('change', updateBaseAverage);
+        baseEyeInput.addEventListener('change', updateBaseAverage);
+        baseSpeedInput.addEventListener('change', updateBaseAverage);
+        baseFieldingInput.addEventListener('change', updateBaseAverage);
 
-            // Update "狀態" "同上" values when dropdown changes
-            statusSelect.addEventListener('change', function() {
-                setSameAsDropdownValues(statusRow, statusSelect);
-            });
+        // 監聽 "階級上升量" 橫排的輸入框變動事件，更新總和
+        tierContactInput.addEventListener('change', updateTierSum);
+        tierPowerInput.addEventListener('change', updateTierSum);
+        tierEyeInput.addEventListener('change', updateTierSum);
+        tierSpeedInput.addEventListener('change', updateTierSum);
+        tierFieldingInput.addEventListener('change', updateTierSum);
+
+        // 監聽 "強化量" 橫排的輸入框變動事件，更新總和
+        const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]'); // 強化量是表格的第7行 (index 6)
+        enhanceRowInputs.forEach(input => {
+            input.addEventListener('change', updateEnhanceSum);
         });
+
+        // 監聽 "教練" 橫排的輸入框變動事件，更新總和
+        const coachRowInputs = document.querySelectorAll('tr')[7].querySelectorAll('td input[type="number"]'); // 教練是表格的第8行 (index 7)
+        coachRowInputs.forEach(input => {
+            input.addEventListener('change', updateCoachSum);
+        });
+
+        // 監聽 "黑鑽" 橫排的輸入框變動事件，更新總和
+        const blackDiamondRowInputs = document.querySelectorAll('tr')[9].querySelectorAll('td input[type="number"]'); // 黑鑽是表格的第10行 (index 9)
+        blackDiamondRowInputs.forEach(input => {
+            input.addEventListener('change', updateBlackDiamondSum);
+        });
+
+
+        // Set initial values for "指導球員" row (維持原本功能)
+        setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
+
+        // Set initial values for "狀態" row (維持原本功能)
+        setSameAsDropdownValues(statusRow, statusSelect);
+
+        // Update "指導球員" "同上" values when dropdown changes (維持原本功能)
+        coachingPlayerSelect.addEventListener('change', function() {
+            setSameAsDropdownValues(coachingPlayerRow, coachingPlayerSelect);
+        });
+
+        // Update "狀態" "同上" values when dropdown changes (維持原本功能)
+        statusSelect.addEventListener('change', function() {
+            setSameAsDropdownValues(statusRow, statusSelect);
+        });
+
+        // 初始化計算 (網頁載入時先計算一次)
+        updateBaseAverage();
+        updateTierSum();
+        updateEnhanceSum();
+        updateCoachSum();
+        updateBlackDiamondSum();
+
+
+    });
     </script>
 
 </body>
