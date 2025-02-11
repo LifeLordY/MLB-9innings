@@ -22,48 +22,48 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             width: 95%;
-            max-width: 750px; /* 縮減外框最大寬度 */
+            max-width: 1200px;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.2em;
+            margin-bottom: 15px; /* 減少 margin-bottom */
+            font-size: 1.2em; /* 稍微縮小標題字體 */
         }
 
         .filters {
             display: flex;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 減少 margin-bottom */
             align-items: center;
         }
 
         .filters label {
-            font-size: 0.8em;
+            font-size: 0.8em; /* 縮小篩選器標籤字體 */
         }
 
         .filters select, .filters input {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 6px;
+            padding: 6px; /* 縮小篩選器內距 */
             border-radius: 5px;
-            font-size: 0.8em;
+            font-size: 0.8em; /* 縮小篩選器字體 */
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8em;
+            font-size: 0.8em; /* 縮小表格字體 */
         }
 
         th, td {
             border: 1px solid #555;
-            padding: 6px 4px;
+            padding: 6px 4px; /* 縮小垂直和水平內距 */
             text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: nowrap; /* 防止文字換行 */
+            overflow: hidden;       /* 隱藏溢出文字 */
+            text-overflow: ellipsis; /* 超過寬度以省略符號顯示 */
         }
 
         th {
@@ -80,88 +80,51 @@
         }
 
         input[type="checkbox"] {
-            width: 14px;
+            width: 14px; /* 縮小勾選框 */
             height: 14px;
-            vertical-align: middle;
+            vertical-align: middle; /* 垂直置中 */
         }
 
         select {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 4px;
+            padding: 4px; /* 縮小選單內距 */
             border-radius: 5px;
-            font-size: 0.75em;
-            height: 28px;
-            line-height: 28px;
+            font-size: 0.75em; /* 縮小選單字體 */
+            height: 28px;       /* 設定選單高度 */
+            line-height: 28px;  /* 設定行高，垂直置中 */
         }
 
         .blank-row td {
             border: none;
             background-color: transparent;
-            padding: 3px 0;
+            padding: 3px 0; /* 減少空白列垂直內距 */
         }
 
         .average-value {
             font-weight: bold;
         }
 
-        /* 設定欄寬 (維持不變) */
-        table tr th:nth-child(1),
+        /* 設定欄寬 */
+        table tr th:nth-child(1), /* 勾選欄 */
         table tr td:nth-child(1) {
-            width: 30px;
+            width: 30px; /* 調整勾選欄寬度 */
         }
 
-        table tr th:nth-child(2),
+        table tr th:nth-child(2), /* 項目/位置欄 */
         table tr td:nth-child(2) {
-            width: 80px;
+            width: 80px; /*  調整項目/位置欄寬度，約四個中文字 */
         }
 
-        table tr th:nth-child(n+3):nth-child(-n+7),
+        table tr th:nth-child(n+3):nth-child(-n+7), /* 能力值欄位 3-7 */
         table tr td:nth-child(n+3):nth-child(-n+7) {
-            width: 30px;
-            max-width: 30px; /* 新增 max-width，更強制限制最大寬度 */
-        }
-        
-        th {
-            background-color: #333;
-            font-weight: bold;
-            text-overflow: ellipsis; /* 確保 th 也有文字溢出省略效果 */
-            overflow: hidden;       /* 確保 th 內容溢出時隱藏 */
-            white-space: nowrap;    /* 確保 th 文字不換行 */
+            width: 50px; /* 調整能力值欄位寬度，約兩個中文字或三個數字 */
         }
 
-        table tr th:nth-child(8),
+        table tr th:nth-child(8), /* 值/平均值欄 */
         table tr td:nth-child(8) {
-            width: 60px;
-        }
-
-        /* 新增 input[type="number"] 樣式設定 */
-        input[type="number"] {
-            -moz-appearance: textfield; /* Firefox */
-            -webkit-appearance: none; /* Chrome, Safari, Edge */
-            appearance: textfield;       /* Standard */
-            width: 100%;              /* 確保 input 填滿 td 寬度 */
-            max-width: 30px;          /* 設定 input 最大寬度 (與欄寬一致) */
-            padding: 0px;              /* 移除 input 內邊距 */
-            margin: 0;                 /* 移除 input 外邊距 */
-            border: none;              /* 移除 input 邊框，讓外觀更簡潔 */
-            background-color: transparent; /* 讓 input 背景透明，與 td 背景融合 */
-            color: inherit;             /* 繼承 td 的文字顏色 */
-            font-size: inherit;        /* 繼承 td 的文字大小 */
-            text-align: center;         /* 文字置中 */
-            box-sizing: border-box;     /* 包含 padding 和 border 在寬度計算內 */
-        }
-
-        /* 針對 input type="number" 的上下箭頭 (部分瀏覽器) */
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type="number"][value="0"] { /* 當 input value 為 0 時，文字顏色稍淡 */
-            color: #888;
+            width: 60px; /* 調整值/平均值欄位寬度 */
         }
     </style>
 </head>
@@ -234,7 +197,12 @@
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>項目</td>
-                    <th>CON</th>  <th>POW</th>  <th>EYE</th>  <th>SPD</th>  <th>FLD</th>  <th>值</th>
+                    <td>接觸</td>
+                    <td>力量</td>
+                    <td>選球</td>
+                    <td>速度</td>
+                    <td>守備</td>
+                    <td>值</td>
                 </tr>
                 <tr>
                     <td colspan="2">基本能力值</td>
