@@ -84,6 +84,11 @@ input[type="checkbox"] {
 .ability-value-col {
     width: 50px; /* 設定能力值欄位固定寬度 */
 }
+
+/* 選擇器欄位寬度 (位置、階級) */
+.selector-col {
+    width: 80px; /* 設定位置和階級欄位寬度，你可以調整 */
+}
 </style>
 </head>
 <body>
@@ -115,14 +120,14 @@ input[type="checkbox"] {
     <table>
         <thead>
             <tr>
-                <th colspan="2">位置</th>
+                <th colspan="2" class="selector-col">位置</th>
                 <th colspan="5">球員</th>
-                <th>階級</th>
+                <th class="selector-col">階級</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td colspan="2">
+                <td colspan="2" class="selector-col">
                     <select id="position-select">
                         <option value="">不指定</option>
                         <optgroup label="打者">
@@ -147,7 +152,7 @@ input[type="checkbox"] {
                         <option value="">-- 請選擇球員 --</option>
                     </select>
                 </td>
-                <td>
+                <td class="selector-col">
                     <select id="grade-select">
                         <option value="白金">白金</option>
                         <option value="黑鑽">黑鑽</option>
@@ -323,11 +328,11 @@ input[type="checkbox"] {
             <tr>
                 <td><input type="checkbox" checked></td>
                 <th>技能</th>
-                <td><input type="number" class="ability-value-col"></td>
-                <td><input type="number" class="ability-value-col"></td>
-                <td><input type="number" class="ability-value-col"></td>
-                <td><input type="number" class="ability-value-col"></td>
-                <td><input type="number" class="ability-value-col"></td>
+                <td class="ability-value-col"></td>
+                <td class="ability-value-col"></td>
+                <td class="ability-value-col"></td>
+                <td class="ability-value-col"></td>
+                <td class="ability-value-col"></td>
                 <td></td>
             </tr>
             <tr>
