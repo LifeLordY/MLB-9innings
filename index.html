@@ -35,25 +35,44 @@
   <div>
     <label for="teamSelect">球隊：</label>
     <select id="teamSelect">
-      <option value="">請選擇球隊</option>
-      <option value="NYY">NYY</option>
-      <option value="BOS">BOS</option>
+        <option value="">請選擇球隊</option>
+        <option value="NYY">NYY</option>
+        <option value="BOS">BOS</option>
     </select>
 
     <label for="positionSelect">位置：</label>
     <select id="positionSelect">
-      <option value="">請選擇位置</option>
-      <option value="C">C</option>
-      <option value="1B">1B</option>
+        <option value="">請選擇位置</option>
+        <option value="C">C</option>
+        <option value="1B">1B</option>
     </select>
 
     <label for="yearSelect">年份：</label>
     <select id="yearSelect">
-      <option value="">請選擇年份</option>
-      <option value="23">23</option>
-      <option value="24">24</option>
+        <option value="">請選擇年份</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
     </select>
-  </div>
+
+    <label for="cardTypeSelect">卡片類型：</label>
+    <select id="cardTypeSelect">
+        <option value="">請選擇卡片類型</option>
+        <option value="一般">一般</option>
+        <option value="經典">經典</option>
+        <option value="全明星">全明星</option>
+        <option value="簽名">簽名</option>
+        <option value="傳說">傳說</option>
+        <option value="史詩">史詩</option>
+        <option value="全盛">全盛</option>
+    </select>
+
+    <label for="cardTierSelect">卡片階級：</label>
+    <select id="cardTierSelect">
+        <option value="">請選擇卡片階級</option>
+        <option value="白金">白金</option>
+        <option value="黑鑽">黑鑽</option>
+    </select>
+</div>
   
   <!-- 下拉選單：球員選擇 -->
   <div>
@@ -68,226 +87,315 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      let data = null;
-      // 全域定義五項 stat 名稱
-      const stats = ["接觸", "力量", "選球", "速度", "守備"];
-      
-      // 用來儲存每一項校正下拉選單的參照
-      let calibrationSelects = [];
-      // 用來儲存總評第六橫排中各 stat 總和的儲存格參照（第 2~6 格）
-      let totalCells = [];
-      // 用來儲存第六橫排中顯示平均值的儲存格參照（第 7 格）
-      let totalAvgCell = null;
-      
-      // 讀取外部 JSON 資料
-      fetch('data.json')
-        .then(response => {
-          if (!response.ok) { throw new Error("無法載入 data.json"); }
-          return response.json();
-        })
-        .then(jsonData => { data = jsonData; })
-        .catch(error => { console.error("讀取 JSON 資料錯誤：", error); });
-      
-      const teamSelect = document.getElementById("teamSelect");
-      const positionSelect = document.getElementById("positionSelect");
-      const yearSelect = document.getElementById("yearSelect");
-      const playerSelect = document.getElementById("playerSelect");
-      const tableContainer = document.getElementById("tableContainer");
-      
-      // 當球隊/位置/年份改變時，更新球員下拉選單
-      function updatePlayerOptions() {
-        const team = teamSelect.value;
-        const position = positionSelect.value;
-        const year = yearSelect.value;
-        playerSelect.innerHTML = '<option value="">請選擇球員</option>';
-        if (data && team && position && year &&
-            data[team] && data[team][position] && data[team][position][year]) {
-          data[team][position][year].forEach((player, index) => {
-            const option = document.createElement("option");
-            option.value = index;
-            option.textContent = player.name;
-            playerSelect.appendChild(option);
-          });
+        let data = []; //  修改：data 初始值改為空陣列，準備存放扁平化的球員資料
+        let allPlayers = []; //  新增：儲存所有球員資料的陣列，用於初始顯示和篩選
+        // 全域定義五項 stat 名稱
+        const stats = ["接觸", "力量", "選球", "速度", "守備"];
+
+        // 用來儲存每一項校正下拉選單的參照
+        let calibrationSelects = [];
+        // 用來儲存總評第六橫排中各 stat 總和的儲存格參照（第 2~6 格）
+        let totalCells = [];
+        // 用來儲存第六橫排中顯示平均值的儲存格參照（第 7 格）
+        let totalAvgCell = null;
+
+        // 讀取外部 JSON 資料
+        fetch('data.json')
+            .then(response => {
+                if (!response.ok) { throw new Error("無法載入 data.json"); }
+                return response.json();
+            })
+            .then(jsonData => {
+                //  修改：將巢狀 JSON 資料轉換為扁平化的球員陣列
+                for (const team in jsonData) {
+                    for (const position in jsonData[team]) {
+                        for (const year in jsonData[team][position]) {
+                            jsonData[team][position][year].forEach(player => {
+                                allPlayers.push({
+                                    ...player,
+                                    team: team,
+                                    position: position,
+                                    year: year,
+                                    cardType: player.cardType || "一般", //  預設卡片類型為 "一般"
+                                    cardTier: player.cardTier || "白金"  //  預設卡片階級為 "白金"
+                                });
+                            });
+                        }
+                        //  處理史詩卡片 (沒有年份)
+                        if (jsonData[team][position]["史詩"]) {
+                            jsonData[team][position]["史詩"].forEach(player => {
+                                allPlayers.push({
+                                    ...player,
+                                    team: team,
+                                    position: position,
+                                    cardType: "史詩",
+                                    cardTier: player.cardTier || "黑鑽" // 史詩預設階級為 "黑鑽"
+                                });
+                            });
+                        }
+                        // 處理全盛卡片 (可能多年份但能力值不同，且階級影響數值)
+                        if (jsonData[team][position]["全盛"]) {
+                            for (const year in jsonData[team][position]["全盛"]) {
+                                jsonData[team][position]["全盛"][year].forEach(player => {
+                                    allPlayers.push({
+                                        ...player,
+                                        team: team,
+                                        position: position,
+                                        year: year,
+                                        cardType: "全盛",
+                                        cardTier: player.cardTier || "白金" // 全盛預設階級為 "白金"
+                                    });
+                                });
+                            }
+                        }
+                    }
+                }
+                data = allPlayers; //  將扁平化後的球員資料賦值給 data 變數
+                updatePlayerOptions(); //  初始載入時顯示所有球員
+            })
+            .catch(error => { console.error("讀取 JSON 資料錯誤：", error); });
+
+        const teamSelect = document.getElementById("teamSelect");
+        const positionSelect = document.getElementById("positionSelect");
+        const yearSelect = document.getElementById("yearSelect");
+        const cardTypeSelect = document.getElementById("cardTypeSelect"); //  取得卡片類型選單參照
+        const cardTierSelect = document.getElementById("cardTierSelect"); //  取得卡片階級選單參照
+        const playerSelect = document.getElementById("playerSelect");
+        const tableContainer = document.getElementById("tableContainer");
+
+
+        // 當球隊/位置/年份/卡片類型/卡片階級改變時，更新球員下拉選單
+        function updatePlayerOptions() {
+            const team = teamSelect.value;
+            const position = positionSelect.value;
+            const year = yearSelect.value;
+            const cardType = cardTypeSelect.value; //  取得卡片類型選取值
+            const cardTier = cardTierSelect.value; //  取得卡片階級選取值
+
+            playerSelect.innerHTML = '<option value="">請選擇球員</option>';
+
+            //  使用 allPlayers 進行篩選，而不是直接使用 data
+            const filteredPlayers = allPlayers.filter(player => {
+                if (team && player.team !== team) return false;
+                if (position && player.position !== position) return false;
+                if (cardType && player.cardType !== cardType) return false; //  篩選卡片類型
+                if (cardTier && player.cardTier !== cardTier) return false; //  篩選卡片階級
+
+                //  年份篩選邏輯：
+                if (year) {
+                    if (player.cardType === "史詩") return true; // 史詩卡片沒有年份限制，始終顯示
+                    if (player.year !== year) return false;
+                }
+                return true; //  所有條件都符合，保留球員
+            });
+
+
+            filteredPlayers.forEach((player, index) => {
+                const option = document.createElement("option");
+                //  修改：value 使用球員在 allPlayers 陣列中的 index，方便後續查找
+                option.value = allPlayers.indexOf(player);
+                option.textContent = player.name + ` (${player.cardType}, ${player.cardTier}${player.year ? ', ' + player.year : ''})`; // 顯示更多球員資訊
+                playerSelect.appendChild(option);
+            });
+
+            tableContainer.innerHTML = ""; // 清空表格
         }
-        tableContainer.innerHTML = "";
-      }
-      teamSelect.addEventListener("change", updatePlayerOptions);
-      positionSelect.addEventListener("change", updatePlayerOptions);
-      yearSelect.addEventListener("change", updatePlayerOptions);
-      
-      // 當校正下拉選單改變時，重新計算並更新總評那一橫排的數值
-      function updateSummaryRow(player) {
-        let totalSum = 0;
-        stats.forEach((stat, i) => {
-          const basicVal = player.basic[stat] || 0;
-          const calibVal = parseInt(calibrationSelects[i].value) || 0;
-          const levelVal = player.levelUp[stat] || 0;
-          const total = basicVal + calibVal + levelVal;
-          totalCells[i].textContent = total;
-          totalSum += total;
-        });
-        const avg = (totalSum / stats.length).toFixed(1);
-        totalAvgCell.textContent = avg;
-      }
-      
-      // 當球員選定後產生表格
-      function generateTable() {
-        const team = teamSelect.value;
-        const position = positionSelect.value;
-        const year = yearSelect.value;
-        const playerIndex = playerSelect.value;
-        if (!data || !team || !position || !year || playerIndex === "") {
-          tableContainer.innerHTML = "";
-          return;
+
+        teamSelect.addEventListener("change", updatePlayerOptions);
+        positionSelect.addEventListener("change", updatePlayerOptions);
+        yearSelect.addEventListener("change", updatePlayerOptions);
+        cardTypeSelect.addEventListener("change", updatePlayerOptions); //  監聽卡片類型選單
+        cardTierSelect.addEventListener("change", updatePlayerOptions); //  監聽卡片階級選單
+
+
+        // 當校正下拉選單改變時，重新計算並更新總評那一橫排的數值 (維持不變)
+        function updateSummaryRow(playerData) { // 修改參數名為 playerData 以避免混淆
+            let totalSum = 0;
+            stats.forEach((stat, i) => {
+                const basicVal = playerData.basic[stat] || 0;
+                const calibVal = parseInt(calibrationSelects[i].value) || 0;
+                let levelVal = playerData.levelUp[stat] || 0;
+
+                // 全盛卡片階級影響階級上升量
+                if (playerData.cardType === "全盛" && playerData.levelUp[stat] && playerData.levelUp[stat][cardTierSelect.value]) {
+                    levelVal = playerData.levelUp[stat][cardTierSelect.value];
+                }
+
+                const total = basicVal + calibVal + levelVal;
+                totalCells[i].textContent = total;
+                totalSum += total;
+            });
+            const avg = (totalSum / stats.length).toFixed(1);
+            totalAvgCell.textContent = avg;
         }
-        const player = data[team][position][year][playerIndex];
-        
-        // 先清空校正下拉選單的參照陣列
-        calibrationSelects = [];
-        // 也重置總評儲存格陣列
-        totalCells = [];
-        totalAvgCell = null;
-        
-        const table = document.createElement("table");
-        
-        /* --- 第一橫排 ---
-           第 1 格：項目 (rowspan=2)
-           第 2~6 格：合併儲存格顯示球員名稱 (colspan=5)
-           第 7 格：平均/總和 (rowspan=2)
-        */
-        const row1 = document.createElement("tr");
-        const thItem = document.createElement("th");
-        thItem.textContent = "項目";
-        thItem.rowSpan = 2;
-        row1.appendChild(thItem);
-        const thPlayer = document.createElement("th");
-        thPlayer.colSpan = 5;
-        thPlayer.textContent = player.name;
-        row1.appendChild(thPlayer);
-        const thAvgTotal = document.createElement("th");
-        thAvgTotal.textContent = "平均/總和";
-        thAvgTotal.rowSpan = 2;
-        row1.appendChild(thAvgTotal);
-        table.appendChild(row1);
-        
-        /* --- 第二橫排 ---
-           產生 5 格，依序標題：接觸、力量、選球、速度、守備
-        */
-        const row2 = document.createElement("tr");
-        stats.forEach(stat => {
-          const th = document.createElement("th");
-          th.textContent = stat;
-          row2.appendChild(th);
-        });
-        table.appendChild(row2);
-        
-        /* --- 第三橫排 ---
-           第 1 格：基礎值
-           第 2~6 格：顯示各項基礎值
-           第 7 格：顯示前五項平均 (基礎值平均)
-        */
-        const row3 = document.createElement("tr");
-        const tdBasicLabel = document.createElement("td");
-        tdBasicLabel.textContent = "基礎值";
-        row3.appendChild(tdBasicLabel);
-        let baseSum = 0;
-        stats.forEach(stat => {
-          const td = document.createElement("td");
-          const val = player.basic[stat] || 0;
-          baseSum += val;
-          td.textContent = val;
-          row3.appendChild(td);
-        });
-        const tdBaseAvg = document.createElement("td");
-        const baseAvg = (baseSum / stats.length).toFixed(1);
-        tdBaseAvg.textContent = baseAvg;
-        row3.appendChild(tdBaseAvg);
-        table.appendChild(row3);
-        
-        /* --- 第四橫排 ---
-           第 1 格：基礎校正
-           第 2~6 格：各項放下拉式選單（選項 -5 至 5）
-           第 7 格：空白
-        */
-        const row4 = document.createElement("tr");
-        const tdCalibLabel = document.createElement("td");
-        tdCalibLabel.textContent = "基礎校正";
-        row4.appendChild(tdCalibLabel);
-        stats.forEach((stat, i) => {
-          const td = document.createElement("td");
-          const select = document.createElement("select");
-          for (let num = -5; num <= 5; num++) {
-            const opt = document.createElement("option");
-            opt.value = num;
-            opt.textContent = num;
-            select.appendChild(opt);
-          }
-          select.value = 0;
-          // 當校正值改變時，更新第六橫排（總評）
-          select.addEventListener("change", function() { updateSummaryRow(player); });
-          calibrationSelects.push(select);
-          td.appendChild(select);
-          row4.appendChild(td);
-        });
-        const tdEmpty = document.createElement("td");
-        row4.appendChild(tdEmpty);
-        table.appendChild(row4);
-        
-        /* --- 第五橫排 ---
-           第 1 格：階級上升量
-           第 2~6 格：各項顯示階級上升量
-           第 7 格：顯示前五項總和 (各項階級上升量加總)
-        */
-        const row5 = document.createElement("tr");
-        const tdLevelLabel = document.createElement("td");
-        tdLevelLabel.textContent = "階級上升量";
-        row5.appendChild(tdLevelLabel);
-        let levelSum = 0;
-        stats.forEach(stat => {
-          const td = document.createElement("td");
-          const val = player.levelUp[stat] || 0;
-          levelSum += val;
-          td.textContent = val;
-          row5.appendChild(td);
-        });
-        const tdLevelTotal = document.createElement("td");
-        tdLevelTotal.textContent = levelSum;
-        row5.appendChild(tdLevelTotal);
-        table.appendChild(row5);
-        
-        /* --- 第六橫排（總評） ---
-           第 1 格：顯示「總評」
-           第 2～6 格：分別顯示每一項 (接觸、力量、選球、速度、守備) 的總和
-                     計算公式：基礎值 + 校正值 + 階級上升量
-           第 7 格：顯示這五項總和的平均值
-        */
-        const row6 = document.createElement("tr");
-        const tdTotalLabel = document.createElement("td");
-        tdTotalLabel.textContent = "總評";
-        row6.appendChild(tdTotalLabel);
-        let statTotalSum = 0;
-        stats.forEach((stat, i) => {
-          const td = document.createElement("td");
-          const basicVal = player.basic[stat] || 0;
-          const calibVal = parseInt(calibrationSelects[i].value) || 0;
-          const levelVal = player.levelUp[stat] || 0;
-          const total = basicVal + calibVal + levelVal;
-          td.textContent = total;
-          totalCells.push(td);
-          row6.appendChild(td);
-          statTotalSum += total;
-        });
-        totalAvgCell = document.createElement("td");
-        totalAvgCell.textContent = (statTotalSum / stats.length).toFixed(1);
-        row6.appendChild(totalAvgCell);
-        table.appendChild(row6);
-        
-        tableContainer.innerHTML = "";
-        tableContainer.appendChild(table);
-      }
-      
-      playerSelect.addEventListener("change", generateTable);
+
+        // 當球員選定後產生表格
+        function generateTable() {
+            const playerIndex = playerSelect.value;
+
+            if (playerIndex === "") {
+                tableContainer.innerHTML = "";
+                return;
+            }
+
+            //  修改：從 allPlayers 陣列中根據 index 取得球員資料
+            const player = allPlayers[playerIndex];
+
+
+            // 先清空校正下拉選單的參照陣列
+            calibrationSelects = [];
+            // 也重置總評儲存格陣列
+            totalCells = [];
+            totalAvgCell = null;
+
+            const table = document.createElement("table");
+
+            /* --- 第一橫排 ---
+             第 1 格：項目 (rowspan=2)
+             第 2~6 格：合併儲存格顯示球員名稱 (colspan=5)
+             第 7 格：平均/總和 (rowspan=2)
+             */
+            const row1 = document.createElement("tr");
+            const thItem = document.createElement("th");
+            thItem.textContent = "項目";
+            thItem.rowSpan = 2;
+            row1.appendChild(thItem);
+            const thPlayer = document.createElement("th");
+            thPlayer.colSpan = 5;
+            thPlayer.textContent = player.name + ` (${player.cardType}, ${player.cardTier}${player.year ? ', ' + player.year : ''})`; // 顯示更多球員資訊於表格標題
+            row1.appendChild(thPlayer);
+            const thAvgTotal = document.createElement("th");
+            thAvgTotal.textContent = "平均/總和";
+            thAvgTotal.rowSpan = 2;
+            row1.appendChild(thAvgTotal);
+            table.appendChild(row1);
+
+            /* --- 第二橫排 ---
+             產生 5 格，依序標題：接觸、力量、選球、速度、守備
+             */
+            const row2 = document.createElement("tr");
+            stats.forEach(stat => {
+                const th = document.createElement("th");
+                th.textContent = stat;
+                row2.appendChild(th);
+            });
+            table.appendChild(row2);
+
+            /* --- 第三橫排 ---
+             第 1 格：基礎值
+             第 2~6 格：顯示各項基礎值
+             第 7 格：顯示前五項平均 (基礎值平均)
+             */
+            const row3 = document.createElement("tr");
+            const tdBasicLabel = document.createElement("td");
+            tdBasicLabel.textContent = "基礎值";
+            row3.appendChild(tdBasicLabel);
+            let baseSum = 0;
+            stats.forEach(stat => {
+                const td = document.createElement("td");
+                const val = player.basic[stat] || 0;
+                baseSum += val;
+                td.textContent = val;
+                row3.appendChild(td);
+            });
+            const tdBaseAvg = document.createElement("td");
+            const baseAvg = (baseSum / stats.length).toFixed(1);
+            tdBaseAvg.textContent = baseAvg;
+            row3.appendChild(tdBaseAvg);
+            table.appendChild(row3);
+
+            /* --- 第四橫排 ---
+             第 1 格：基礎校正
+             第 2~6 格：各項放下拉式選單（選項 -5 至 5）
+             第 7 格：空白
+             */
+            const row4 = document.createElement("tr");
+            const tdCalibLabel = document.createElement("td");
+            tdCalibLabel.textContent = "基礎校正";
+            row4.appendChild(tdCalibLabel);
+            stats.forEach((stat, i) => {
+                const td = document.createElement("td");
+                const select = document.createElement("select");
+                for (let num = -5; num <= 5; num++) {
+                    const opt = document.createElement("option");
+                    opt.value = num;
+                    opt.textContent = num;
+                    select.appendChild(opt);
+                }
+                select.value = 0;
+                // 當校正值改變時，更新第六橫排（總評）
+                select.addEventListener("change", function() { updateSummaryRow(player); });
+                calibrationSelects.push(select);
+                td.appendChild(select);
+                row4.appendChild(td);
+            });
+            const tdEmpty = document.createElement("td");
+            row4.appendChild(tdEmpty);
+            table.appendChild(row4);
+
+            /* --- 第五橫排 ---
+             第 1 格：階級上升量
+             第 2~6 格：各項顯示階級上升量
+             第 7 格：顯示前五項總和 (各項階級上升量加總)
+             */
+            const row5 = document.createElement("tr");
+            const tdLevelLabel = document.createElement("td");
+            tdLevelLabel.textContent = "階級上升量";
+            row5.appendChild(tdLevelLabel);
+            let levelSum = 0;
+            stats.forEach(stat => {
+                const td = document.createElement("td");
+                let val = player.levelUp[stat] || 0;
+                // 全盛卡片階級影響階級上升量
+                if (player.cardType === "全盛" && player.levelUp[stat] && player.levelUp[stat][cardTierSelect.value]) {
+                    val = player.levelUp[stat][cardTierSelect.value];
+                }
+                levelSum += val;
+                td.textContent = val;
+                row5.appendChild(td);
+            });
+            const tdLevelTotal = document.createElement("td");
+            tdLevelTotal.textContent = levelSum;
+            row5.appendChild(tdLevelTotal);
+            table.appendChild(row5);
+
+            /* --- 第六橫排（總評） ---
+             第 1 格：顯示「總評」
+             第 2～6 格：分別顯示每一項 (接觸、力量、選球、速度、守備) 的總和
+             計算公式：基礎值 + 校正值 + 階級上升量
+             第 7 格：顯示這五項總和的平均值
+             */
+            const row6 = document.createElement("tr");
+            const tdTotalLabel = document.createElement("td");
+            tdTotalLabel.textContent = "總評";
+            row6.appendChild(tdTotalLabel);
+            let statTotalSum = 0;
+            stats.forEach((stat, i) => {
+                const td = document.createElement("td");
+                const basicVal = player.basic[stat] || 0;
+                const calibVal = parseInt(calibrationSelects[i].value) || 0;
+                let levelVal = player.levelUp[stat] || 0;
+                // 全盛卡片階級影響階級上升量
+                if (player.cardType === "全盛" && player.levelUp[stat] && player.levelUp[stat][cardTierSelect.value]) {
+                    levelVal = player.levelUp[stat][cardTierSelect.value];
+                }
+                const total = basicVal + calibVal + levelVal;
+                td.textContent = total;
+                totalCells.push(td);
+                row6.appendChild(td);
+                statTotalSum += total;
+            });
+            totalAvgCell = document.createElement("td");
+            totalAvgCell.textContent = (statTotalSum / stats.length).toFixed(1);
+            row6.appendChild(totalAvgCell);
+            table.appendChild(row6);
+
+            tableContainer.innerHTML = "";
+            tableContainer.appendChild(table);
+        }
+
+        playerSelect.addEventListener("change", generateTable);
     });
-  </script>
+</script>
 </body>
 </html>
