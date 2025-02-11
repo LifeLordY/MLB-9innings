@@ -1,30 +1,136 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自定義可輸入選單</title>
+  <meta charset="UTF-8">
+  <title>棒球球員數據查詢</title>
+  <style>
+    /* 可根據需要撰寫CSS樣式 */
+    body { font-family: Arial, sans-serif; }
+    label { margin-right: 10px; }
+    select { margin-right: 20px; }
+    table { margin-top: 20px; border-collapse: collapse; width: 50%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+  </style>
+  <script>
+    // 當頁面載入完成時執行
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // 定義一個資料結構，存放各球隊、位置及對應球員的數據
+      var data = {
+         "NYY": {
+             "C": [
+               { name: "球員A", stats: { 打擊率: 0.300, 本壘打: 20, 打點: 60 } },
+               { name: "球員B", stats: { 打擊率: 0.280, 本壘打: 18, 打點: 55 } }
+             ],
+             "1B": [
+               { name: "球員C", stats: { 打擊率: 0.320, 本壘打: 25, 打點: 70 } }
+             ]
+         },
+         "BOS": {
+             "C": [
+               { name: "球員D", stats: { 打擊率: 0.310, 本壘打: 15, 打點: 50 } }
+             ],
+             "1B": [
+               { name: "球員E", stats: { 打擊率: 0.290, 本壘打: 22, 打點: 65 } }
+             ]
+         }
+         // 可以加入更多球隊和位置的資料
+      };
+
+      // 取得 HTML 中的下拉選單與表格元素
+      var teamSelect = document.getElementById("teamSelect");
+      var positionSelect = document.getElementById("positionSelect");
+      var playerSelect = document.getElementById("playerSelect");
+      var tableBody = document.getElementById("playerData");
+
+      // 根據選定的球隊和位置更新球員下拉選單
+      function updatePlayerOptions() {
+        var team = teamSelect.value;
+        var position = positionSelect.value;
+        // 清空球員選單
+        playerSelect.innerHTML = '<option value="">請選擇球員</option>';
+        // 檢查是否有對應的資料
+        if (team && position && data[team] && data[team][position]) {
+          data[team][position].forEach(function(player, index) {
+            var option = document.createElement("option");
+            option.value = index;  // 可以用 index 作為暫時的值
+            option.textContent = player.name;
+            playerSelect.appendChild(option);
+          });
+        }
+        // 同時也清空下方表格
+        tableBody.innerHTML = "";
+      }
+
+      // 當球隊或位置改變時更新球員選單
+      teamSelect.addEventListener("change", updatePlayerOptions);
+      positionSelect.addEventListener("change", updatePlayerOptions);
+
+      // 當球員選定後，更新表格數據
+      playerSelect.addEventListener("change", function() {
+         var team = teamSelect.value;
+         var position = positionSelect.value;
+         var index = playerSelect.value;
+         // 確保選項有效
+         if (team && position && data[team] && data[team][position] && data[team][position][index]) {
+           var player = data[team][position][index];
+           // 清空現有的表格數據
+           tableBody.innerHTML = "";
+           // 將球員的每一個數據加入表格
+           for (var key in player.stats) {
+             var tr = document.createElement("tr");
+             var tdKey = document.createElement("td");
+             tdKey.textContent = key;
+             var tdValue = document.createElement("td");
+             tdValue.textContent = player.stats[key];
+             tr.appendChild(tdKey);
+             tr.appendChild(tdValue);
+             tableBody.appendChild(tr);
+           }
+         } else {
+           // 若無有效選擇，則清空表格
+           tableBody.innerHTML = "";
+         }
+      });
+    });
+  </script>
 </head>
 <body>
-    <h2>選擇或輸入你的球隊</h2>
-    <form>
-        <label for="teamInput">球隊：</label>
-        <input type="text" id="teamInput" placeholder="請選擇或輸入">
-        <select id="teamList" onchange="selectTeam()">
-            <option value="">選擇一個球隊</option>
-            <option value="紐約洋基 (NYY)">紐約洋基 (NYY)</option>
-            <option value="波士頓紅襪 (BOS)">波士頓紅襪 (BOS)</option>
-            <option value="洛杉磯道奇 (LA)">洛杉磯道奇 (LA)</option>
-            <option value="芝加哥小熊 (CHC)">芝加哥小熊 (CHC)</option>
-            <option value="舊金山巨人 (SF)">舊金山巨人 (SF)</option>
-        </select>
-    </form>
+  <h1>棒球球員數據查詢</h1>
 
-    <script>
-        function selectTeam() {
-            var selectedTeam = document.getElementById("teamList").value;
-            document.getElementById("teamInput").value = selectedTeam;
-        }
-    </script>
+  <div>
+    <label for="teamSelect">球隊：</label>
+    <select id="teamSelect">
+      <option value="">請選擇球隊</option>
+      <option value="NYY">NYY</option>
+      <option value="BOS">BOS</option>
+      <!-- 可以加入更多球隊 -->
+    </select>
+
+    <label for="positionSelect">位置：</label>
+    <select id="positionSelect">
+      <option value="">請選擇位置</option>
+      <option value="C">C</option>
+      <option value="1B">1B</option>
+      <!-- 可以加入更多位置 -->
+    </select>
+
+    <label for="playerSelect">球員：</label>
+    <select id="playerSelect">
+      <option value="">請選擇球員</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+         <th>項目</th>
+         <th>數值</th>
+      </tr>
+    </thead>
+    <tbody id="playerData">
+      <!-- 此處將動態生成數據 -->
+    </tbody>
+  </table>
 </body>
 </html>
