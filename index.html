@@ -102,6 +102,27 @@
         .average-value {
             font-weight: bold;
         }
+
+        /*  **修改 input 樣式，使其適應表格大小**  */
+        input[type="number"] {
+            width: 100%;          /*  **設定 input 寬度為 100%**  */
+            box-sizing: border-box; /*  **設定 box-sizing 為 border-box**  */
+            padding: 5px;         /*  可以稍微調整 padding  */
+            font-size: 0.75em;    /*  可以調整字體大小，與表格字體一致  */
+            border: 1px solid #555; /* 保持邊框樣式 */
+            background-color: #333; /* 保持背景顏色 */
+            color: #ffffff;         /* 保持文字顏色 */
+            border-radius: 5px;    /* 保持圓角 */
+            margin: 0;             /*  移除 input 預設 margin，避免影響佈局  */
+        }
+
+        /*  **微調 filters 區域的 input 樣式，保持一致性 (可選)**  */
+        .filters input {
+            width: auto; /*  filters 區域的 input  寬度改為 auto，讓篩選器區域的輸入框寬度自適應 */
+            box-sizing: border-box; /*  同樣設定 box-sizing  */
+        }
+
+
     </style>
 </head>
 <body>
