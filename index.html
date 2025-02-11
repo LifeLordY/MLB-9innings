@@ -12,54 +12,55 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            /* 移除或註解掉 min-height: 100vh;  如果需要縮減整體網頁高度 */
             margin: 0;
         }
 
         .container {
             background-color: #1e1e1e;
-            padding: 15px;
+            padding: 15px; /* 稍微縮小 padding */
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 80%;
-            max-width: 800px;
+            width: fit-content; /* 容器寬度適應內容 */
+            max-width: 800px; /*  大幅縮小 max-width */
+            margin: 20px; /*  增加一些 margin，讓容器不要緊貼邊緣 */
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.2em;
+            margin-bottom: 15px; /* 稍微縮小 margin-bottom */
+            font-size: 1.2em; /*  稍微縮小標題字體 */
         }
 
         .filters {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px; /* 稍微縮小 gap */
+            margin-bottom: 10px; /* 稍微縮小 margin-bottom */
             align-items: center;
         }
 
         .filters label {
-            font-size: 0.9em;
+            font-size: 0.85em; /* 稍微縮小 label 字體 */
         }
 
         .filters select, .filters input {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 8px;
+            padding: 6px; /* 稍微縮小 padding */
             border-radius: 5px;
-            font-size: 0.9em;
+            font-size: 0.8em; /* 稍微縮小 input 和 select 字體 */
         }
 
         table {
-            width: auto;
+            width: auto; /*  表格寬度自動適應內容 */
             border-collapse: collapse;
-            font-size: 0.75em;
+            font-size: 0.75em; /*  縮小表格字體大小 */
         }
 
         th, td {
             border: 1px solid #555;
-            padding: 8px;
+            padding: 6px; /*  稍微縮小 padding */
             text-align: center;
         }
 
@@ -77,23 +78,23 @@
         }
 
         input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
+            width: 14px; /* 稍微縮小 checkbox */
+            height: 14px; /* 稍微縮小 checkbox */
         }
 
         select {
             background-color: #333;
             color: #ffffff;
             border: 1px solid #555;
-            padding: 6px;
+            padding: 5px; /* 稍微縮小 padding */
             border-radius: 5px;
-            font-size: 0.85em;
+            font-size: 0.75em; /* 稍微縮小 select 字體 */
         }
 
         .blank-row td {
             border: none;
             background-color: transparent;
-            padding: 5px 0;
+            padding: 3px 0; /* 稍微縮小 padding */
         }
 
         .average-value {
@@ -158,7 +159,7 @@
                         <input type="text" id="player-input" placeholder="自行輸入球員">
                         <select id="player-select" name="player-select">
                             <option value="">-- 或選擇球員 --</option>
-                            </select>
+                        </select>
                     </td>
                     <td>
                         <select id="tier" name="tier">
