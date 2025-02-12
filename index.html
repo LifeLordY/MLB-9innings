@@ -364,355 +364,572 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const clearAllButton = document.getElementById('clear-all-button');
-
-        const typeSelect = document.getElementById('type');
-        const teamSelect = document.getElementById('team');
-        const positionSelect = document.getElementById('position');
-        const playerSelect = document.getElementById('player-select');
-
-        const baseContactInput = document.getElementById('base-contact');
-        const basePowerInput = document.getElementById('base-power');
-        const baseEyeInput = document.getElementById('base-eye');
-        const baseSpeedInput = document.getElementById('base-speed');
-        const baseFieldingInput = document.getElementById('base-fielding');
-        const baseAverageDisplay = document.getElementById('base-average');
-
-        const tierContactInput = document.getElementById('tier-contact');
-        const tierPowerInput = document.getElementById('tier-power');
-        const tierEyeInput = document.getElementById('tier-eye');
-        const tierSpeedInput = document.getElementById('tier-speed');
-        const tierFieldingInput = document.getElementById('tier-fielding');
-        const tierSumDisplay = document.getElementById('tier-sum');
-
-        const enhanceSumDisplay = document.getElementById('enhance-sum');
-        const coachSumDisplay = document.getElementById('coach-sum');
-        const blackDiamondSumDisplay = document.getElementById('black-diamond-sum');
-
-        const rosterContactDisplay = document.getElementById('roster-contact');
-        const rosterPowerDisplay = document.getElementById('roster-power');
-        const rosterEyeDisplay = document.getElementById('roster-eye');
-        const rosterSpeedDisplay = document.getElementById('roster-speed');
-        const rosterFieldingDisplay = document.getElementById('roster-fielding');
-        const rosterAverageDisplay = document.getElementById('roster-average');
-
-        const onFieldContactDisplay = document.getElementById('on-field-contact');
-        const onFieldPowerDisplay = document.getElementById('on-field-power');
-        const onFieldEyeDisplay = document.getElementById('on-field-eye');
-        const onFieldSpeedDisplay = document.getElementById('on-field-speed');
-        const onFieldFieldingDisplay = document.getElementById('on-field-fielding');
-        const onFieldAverageDisplay = document.getElementById('on-field-average');
-
-        const coachingPlayerSelect = document.getElementById('coaching-player-select');
-        const statusSelect = document.getElementById('status-select');
-
-
-        let playerData = []; // 儲存從 data.json 載入的球員資料
-
-        // Function to fetch data from data.json
-        function loadPlayerData() {
-            fetch('data.json')
-                .then(response => response.json())
-                .then(data => {
-                    playerData = data;
-                })
-                .catch(error => console.error('Error loading data.json:', error));
-        }
-
-        // Function to update player dropdown based on filters
-        function updatePlayerDropdown() {
-            playerSelect.innerHTML = '<option value="">-- 或選擇球員 --</option>'; // 清空球員選單並保留預設選項
-
-            const selectedType = typeSelect.value;
-            const selectedTeam = teamSelect.value;
-            const selectedPosition = positionSelect.value;
-
-            if (!selectedType) { // 類型未選擇，不顯示球員
-                return;
-            }
-
-            let filteredPlayers = [];
-            playerData.forEach(teamData => {
-                const teamCode = Object.keys(teamData)[0]; // 取得球隊代碼 (NYY, OAK...)
-                const players = teamData[teamCode];
-                players.forEach(player => {
-                    const playerTypes = player.types;
-                    let playerTypeMatch = false;
-
-                    if (selectedType === 'general') {
-                        playerTypeMatch = player.types.general !== undefined; // 修正:  只檢查 general type 是否存在
-                    } else if (selectedType === 'classic') {
-                        playerTypeMatch = player.types.classic !== undefined; // 修正:  只檢查 classic type 是否存在 (如果需要)
-                    } else if (selectedType === 'signature') {
-                        playerTypeMatch = player.types.signature !== undefined; // 修正:  只檢查 signature type 是否存在 (如果需要)
-                    } else if (selectedType === 'legend') {
-                        playerTypeMatch = player.types.legend !== undefined; // 修正:  只檢查 legend type 是否存在 (如果需要)
-                    } else if (selectedType === 'epic') {
-                        playerTypeMatch = player.types.epic !== undefined; // 史詩類型只需判斷是否有 epic type 定義
-                    } else if (selectedType === 'prime') {
-                        playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
-                    }
-
-                    const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
-                    const positionFilterPass = !selectedPosition || player.position === selectedPosition; // 沒有選擇位置或位置符合
-
-                    if (playerTypeMatch && teamFilterPass && positionFilterPass) {
-                        filteredPlayers.push({ name: player.name, team: teamCode, position: player.position }); // 儲存球員名稱和所屬球隊代碼, 位置
-                    }
-                });
-            });
-
-            // 將篩選後的球員加入球員下拉選單
-            filteredPlayers.sort((a, b) => a.name.localeCompare(b.name, 'zh-TW')); // 按照球員名稱繁體中文排序
-            filteredPlayers.forEach(player => {
-                const option = document.createElement('option');
-                option.value = player.name;
-                option.textContent = `${player.name} (${player.team})`; // 顯示球員名稱和球隊代碼
-                playerSelect.appendChild(option);
-            });
-        }
-
-
-        // Function to populate table with player data
-        function populateTable(selectedPlayerName) {
-            baseContactInput.value = 0;
-            basePowerInput.value = 0;
-            baseEyeInput.value = 0;
-            baseSpeedInput.value = 0;
-            baseFieldingInput.value = 0;
-            tierContactInput.value = 0;
-            tierPowerInput.value = 0;
-            tierEyeInput.value = 0;
-            tierSpeedInput.value = 0;
-            tierFieldingInput.value = 0;
-
-            if (!selectedPlayerName) return; // 沒有選擇球員則清空表格數值
-
-            let selectedPlayerData = null;
-            playerData.forEach(teamData => {
-                const teamCode = Object.keys(teamData)[0];
-                const players = teamData[teamCode];
-                const foundPlayer = players.find(player => player.name === selectedPlayerName);
-                if (foundPlayer) {
-                    selectedPlayerData = foundPlayer;
-                }
-            });
-
-            if (selectedPlayerData) {
-                const selectedType = typeSelect.value;
-                let typeData = null;
-                let playerBaseState = selectedPlayerData.base_state; // 取得球員基本能力值
-                let playerTierIncrease = selectedPlayerData.tier_increase; // 取得球員基本階級上升量
-                // 自動選取球隊和位置下拉選單
-                teamSelect.value = Object.keys(playerData.find(teamData => teamData[Object.keys(teamData)[0]].includes(selectedPlayerData)))[0]; // 根據球員資料反查球隊代碼並設定球隊選單
-                positionSelect.value = selectedPlayerData.position;
-                updatePlayerDropdown();
-                // 自動填入球員名稱輸入框 (假設您的球員輸入框 ID 是 'player-input')
-                const playerInput = document.getElementById('player-input');
-                if (playerInput) {
-                    playerInput.value = selectedPlayerName;
-                }
-
-                if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend') {
-                    typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
-                } else if (selectedType === 'epic') {
-                    typeData = selectedPlayerData.types['epic']; // 史詩類型
-                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為史詩類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;      // 覆蓋階級上升量為史詩類型自定義數值
-                } else if (selectedType === 'prime') {
-                    typeData = selectedPlayerData.types['prime']; // 全盛類型
-                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為全盛類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;      // 覆蓋階級上升量為全盛類型自定義數值
-                }
-
-
-                baseContactInput.value = playerBaseState.接觸 || 0;
-                basePowerInput.value = playerBaseState.力量 || 0;
-                baseEyeInput.value = playerBaseState.選球 || 0;
-                baseSpeedInput.value = playerBaseState.速度 || 0;
-                baseFieldingInput.value = playerBaseState.守備 || 0;
-                tierContactInput.value = playerTierIncrease.接觸 || 0;
-                tierPowerInput.value = playerTierIncrease.力量 || 0;
-                tierEyeInput.value = playerTierIncrease.選球 || 0;
-                tierSpeedInput.value = playerTierIncrease.速度 || 0;
-                tierFieldingInput.value = playerTierIncrease.守備 || 0;
-
-                updateRosterValues();
-            }
-        }
-
-
-        const coachingPlayerSelect = document.getElementById('coaching-player-select');
-        const statusSelect = document.getElementById('status-select');
-
-        function setSameValueToRowInputs(selectElement, rowElement) {
-            const selectedValue = selectElement.value;
-            const inputs = rowElement.querySelectorAll('td input[type="number"]');
-            inputs.forEach(input => {
-                input.value = selectedValue;
-            });
-            // 觸發能力值重新計算 (功能二和功能三將會實作)
-            updateRosterValues();
-        }
-
-        coachingPlayerSelect.addEventListener('change', function() {
-            const coachingPlayerRow = document.getElementById('coaching-player-row');
-            setSameValueToRowInputs(coachingPlayerSelect, coachingPlayerRow);
-        });
-
-        statusSelect.addEventListener('change', function() {
-            const statusRow = document.getElementById('status-row');
-            setSameValueToRowInputs(statusSelect, statusRow);
-        });
-
-
-        const rosterContactDisplay = document.getElementById('roster-contact');
-        const rosterPowerDisplay = document.getElementById('roster-power');
-        const rosterEyeDisplay = document.getElementById('roster-eye');
-        const rosterSpeedDisplay = document.getElementById('roster-speed');
-        const rosterFieldingDisplay = document.getElementById('roster-fielding');
-        const rosterAverageDisplay = document.getElementById('roster-average');
-
-        const onFieldContactDisplay = document.getElementById('on-field-contact');
-        const onFieldPowerDisplay = document.getElementById('on-field-power');
-        const onFieldEyeDisplay = document.getElementById('on-field-eye');
-        const onFieldSpeedDisplay = document.getElementById('on-field-speed');
-        const onFieldFieldingDisplay = document.getElementById('on-field-fielding');
-        const onFieldAverageDisplay = document.getElementById('on-field-average');
-
-
-        function updateRosterValues() {
-            // 計算一般陣容能力值
-            let rosterContactSum = 0;
-            let rosterPowerSum = 0;
-            let rosterEyeSum = 0;
-            let rosterSpeedSum = 0;
-            let rosterFieldingSum = 0;
-
-            // 要加總的列的索引 (從 0 開始算)
-            const rosterRowsIndices = [2, 4, 5, 6, 7, 8, 9, 10, 11]; // 基本能力值, 基本校正, 階級上升量, 強化量, 教練, 特別訓練, 指導球員, 黑鑽, 團隊加成
-
-            rosterRowsIndices.forEach(rowIndex => {
-                const row = document.querySelectorAll('tr')[rowIndex];
-                const inputs = row.querySelectorAll('td input[type="number"]');
-                rosterContactSum += parseFloat(inputs[0].value) || 0;
-                rosterPowerSum += parseFloat(inputs[1].value) || 0;
-                rosterEyeSum += parseFloat(inputs[2].value) || 0;
-                rosterSpeedSum += parseFloat(inputs[3].value) || 0;
-                rosterFieldingSum += parseFloat(inputs[4].value) || 0;
-            });
-
-            rosterContactDisplay.textContent = rosterContactSum;
-            rosterPowerDisplay.textContent = rosterPowerSum;
-            rosterEyeDisplay.textContent = rosterEyeSum;
-            rosterSpeedDisplay.textContent = rosterSpeedSum;
-            rosterFieldingDisplay.textContent = rosterFieldingSum;
-
-            const rosterAverage = (rosterContactSum + rosterPowerSum + rosterEyeSum + rosterSpeedSum + rosterFieldingSum) / 5;
-            rosterAverageDisplay.textContent = isNaN(rosterAverage) ? '' : rosterAverage.toFixed(1);
-
-            // 計算上場能力值 (功能三會實作)
-            updateOnFieldValues();
-        }
-
-
-        function updateOnFieldValues() {
-            // 計算上場能力值
-            let onFieldContactSum = 0;
-            let onFieldPowerSum = 0;
-            let onFieldEyeSum = 0;
-            let onFieldSpeedSum = 0;
-            let onFieldFieldingSum = 0;
-
-            // 要加總的列的索引 (比一般陣容能力值多了 狀態, 裝備, 技能)
-            const onFieldRowsIndices = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; // 基本能力值, 基本校正, 階級上升量, 強化量, 教練, 特別訓練, 指導球員, 黑鑽, 團隊加成, 狀態, 裝備, 技能
-
-            onFieldRowsIndices.forEach(rowIndex => {
-                const row = document.querySelectorAll('tr')[rowIndex];
-                const inputs = row.querySelectorAll('td input[type="number"], td select.number-font'); // 裝備列是 select
-                onFieldContactSum += parseFloat(inputs[0].value) || 0;
-                onFieldPowerSum += parseFloat(inputs[1].value) || 0;
-                onFieldEyeSum += parseFloat(inputs[2].value) || 0;
-                onFieldSpeedSum += parseFloat(inputs[3].value) || 0;
-                onFieldFieldingSum += parseFloat(inputs[4].value) || 0;
-            });
-
-            onFieldContactDisplay.textContent = onFieldContactSum;
-            onFieldPowerDisplay.textContent = onFieldPowerSum;
-            onFieldEyeDisplay.textContent = onFieldEyeSum;
-            onFieldSpeedDisplay.textContent = onFieldSpeedSum;
-            onFieldFieldingDisplay.textContent = onFieldFieldingSum;
-
-            const onFieldAverage = (onFieldContactSum + onFieldPowerSum + onFieldEyeSum + onFieldSpeedSum + onFieldFieldingSum) / 5;
-            onFieldAverageDisplay.textContent = isNaN(onFieldAverage) ? '' : onFieldAverage.toFixed(1);
-        }
-
-
-        // 修改現有的事件監聽器，讓它們呼叫 updateRosterValues()
-        baseContactInput.addEventListener('change', updateRosterValues);
-        basePowerInput.addEventListener('change', updateRosterValues);
-        baseEyeInput.addEventListener('change', updateRosterValues);
-        baseSpeedInput.addEventListener('change', updateRosterValues);
-        baseFieldingInput.addEventListener('change', updateRosterValues);
-
-        tierContactInput.addEventListener('change', updateRosterValues);
-        tierPowerInput.addEventListener('change', updateRosterValues);
-        tierEyeInput.addEventListener('change', updateRosterValues);
-        tierSpeedInput.addEventListener('change', updateRosterValues);
-        tierFieldingInput.addEventListener('change', updateRosterValues);
-
-        const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]');
-        enhanceRowInputs.forEach(input => {
-            input.addEventListener('change', updateRosterValues);
-        });
-
-        const coachRowInputs = document.querySelectorAll('tr')[7].querySelectorAll('td input[type="number"]');
-        coachRowInputs.forEach(input => {
-            input.addEventListener('change', updateRosterValues);
-        });
-
-        const blackDiamondRowInputs = document.querySelectorAll('tr')[9].querySelectorAll('td input[type="number"]');
-        blackDiamondRowInputs.forEach(input => {
-            input.addEventListener('change', updateRosterValues);
-        });
-
-        const teamBonusRowInputs = document.querySelectorAll('tr')[11].querySelectorAll('td input[type="number"]'); // 團隊加成列
-        teamBonusRowInputs.forEach(input => {
-            input.addEventListener('change', updateRosterValues);
-        });
-
-
-        // 為 "狀態", "裝備", "技能" 列的數值輸入框 和 "狀態" 下拉選單 添加事件監聽器
-        const statusRowInputs = document.querySelectorAll('tr')[12].querySelectorAll('td input[type="number"]'); // 狀態列
-        statusRowInputs.forEach(input => {
-            input.addEventListener('change', updateRosterValues);
-        });
-
-        const equipmentRowInputs = document.querySelectorAll('tr')[13].querySelectorAll('td input[type="number"]'); // 裝備列
-        equipmentRowInputs.forEach(input => {
-            input.addEventListener('change', updateRosterValues);
-        });
-
-        const skillRowInputs = document.querySelectorAll('tr')[14].querySelectorAll('td input[type="number"]'); // 技能列
-        skillRowInputs.forEach(input => {
-            input.addEventListener('change', updateRosterValues);
-        });
-
-        // 狀態下拉選單的事件監聽器 (確保狀態變更時也更新數值)
-        statusSelect.addEventListener('change', updateRosterValues);
-
-
-        // 在網頁載入完成時，先執行一次計算，確保初始值正確
-        updateRosterValues();
-
-        // Load player data and initialize dropdown (維持不變)
-        loadPlayerData();
-        updatePlayerDropdown();
-
-
-    });
-    </script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const clearAllButton = document.getElementById('clear-all-button');
+
+        
+
+        const typeSelect = document.getElementById('type');
+
+        const teamSelect = document.getElementById('team');
+
+        const positionSelect = document.getElementById('position');
+
+        const playerSelect = document.getElementById('player-select');
+
+
+
+        const baseContactInput = document.getElementById('base-contact');
+
+        const basePowerInput = document.getElementById('base-power');
+
+        const baseEyeInput = document.getElementById('base-eye');
+
+        const baseSpeedInput = document.getElementById('base-speed');
+
+        const baseFieldingInput = document.getElementById('base-fielding');
+
+        const baseAverageDisplay = document.getElementById('base-average');
+
+
+
+        const tierContactInput = document.getElementById('tier-contact');
+
+        const tierPowerInput = document.getElementById('tier-power');
+
+        const tierEyeInput = document.getElementById('tier-eye');
+
+        const tierSpeedInput = document.getElementById('tier-speed');
+
+        const tierFieldingInput = document.getElementById('tier-fielding');
+
+        const tierSumDisplay = document.getElementById('tier-sum');
+
+
+
+        const enhanceSumDisplay = document.getElementById('enhance-sum');
+
+        const coachSumDisplay = document.getElementById('coach-sum');
+
+        const blackDiamondSumDisplay = document.getElementById('black-diamond-sum');
+
+
+
+        let playerData = []; // 儲存從 data.json 載入的球員資料
+
+
+
+        // Function to fetch data from data.json
+
+        function loadPlayerData() {
+
+            fetch('data.json')
+
+                .then(response => response.json())
+
+                .then(data => {
+
+                    playerData = data;
+
+                })
+
+                .catch(error => console.error('Error loading data.json:', error));
+
+        }
+
+
+
+        // Function to update player dropdown based on filters
+
+        function updatePlayerDropdown() {
+
+            playerSelect.innerHTML = '<option value="">-- 或選擇球員 --</option>'; // 清空球員選單並保留預設選項
+
+        
+
+            const selectedType = typeSelect.value;
+
+            const selectedTeam = teamSelect.value;
+
+            const selectedPosition = positionSelect.value;
+
+        
+
+            if (!selectedType) { // 類型未選擇，不顯示球員
+
+                return;
+
+            }
+
+        
+
+            let filteredPlayers = [];
+
+            playerData.forEach(teamData => {
+
+                const teamCode = Object.keys(teamData)[0]; // 取得球隊代碼 (NYY, OAK...)
+
+                const players = teamData[teamCode];
+
+                players.forEach(player => {
+
+                    const playerTypes = player.types;
+
+                    let playerTypeMatch = false;
+
+        
+
+                    if (selectedType === 'general') {
+
+                        playerTypeMatch = player.types.general !== undefined; // 修正:  只檢查 general type 是否存在
+
+                    } else if (selectedType === 'classic') {
+
+                        playerTypeMatch = player.types.classic !== undefined; // 修正:  只檢查 classic type 是否存在 (如果需要)
+
+                    } else if (selectedType === 'signature') {
+
+                        playerTypeMatch = player.types.signature !== undefined; // 修正:  只檢查 signature type 是否存在 (如果需要)
+
+                    } else if (selectedType === 'legend') {
+
+                        playerTypeMatch = player.types.legend !== undefined; // 修正:  只檢查 legend type 是否存在 (如果需要)
+
+                    } else if (selectedType === 'epic') {
+
+                        playerTypeMatch = player.types.epic !== undefined; // 史詩類型只需判斷是否有 epic type 定義
+
+                    } else if (selectedType === 'prime') {
+
+                        playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
+
+                    }
+
+        
+
+                    const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
+
+                    const positionFilterPass = !selectedPosition || player.position === selectedPosition; // 沒有選擇位置或位置符合
+
+        
+
+                    if (playerTypeMatch && teamFilterPass && positionFilterPass) {
+
+                        filteredPlayers.push({ name: player.name, team: teamCode, position: player.position }); // 儲存球員名稱和所屬球隊代碼, 位置
+
+                    }
+
+                });
+
+            });
+
+        
+
+            // 將篩選後的球員加入球員下拉選單
+
+            filteredPlayers.sort((a, b) => a.name.localeCompare(b.name, 'zh-TW')); // 按照球員名稱繁體中文排序
+
+            filteredPlayers.forEach(player => {
+
+                const option = document.createElement('option');
+
+                option.value = player.name;
+
+                option.textContent = `${player.name} (${player.team})`; // 顯示球員名稱和球隊代碼
+
+                playerSelect.appendChild(option);
+
+            });
+
+        }
+
+
+
+
+
+        // Function to populate table with player data
+
+        function populateTable(selectedPlayerName) {
+
+            baseContactInput.value = 0;
+
+            basePowerInput.value = 0;
+
+            baseEyeInput.value = 0;
+
+            baseSpeedInput.value = 0;
+
+            baseFieldingInput.value = 0;
+
+            tierContactInput.value = 0;
+
+            tierPowerInput.value = 0;
+
+            tierEyeInput.value = 0;
+
+            tierSpeedInput.value = 0;
+
+            tierFieldingInput.value = 0;
+
+
+
+            if (!selectedPlayerName) return; // 沒有選擇球員則清空表格數值
+
+
+
+            let selectedPlayerData = null;
+
+            playerData.forEach(teamData => {
+
+                const teamCode = Object.keys(teamData)[0];
+
+                const players = teamData[teamCode];
+
+                const foundPlayer = players.find(player => player.name === selectedPlayerName);
+
+                if (foundPlayer) {
+
+                    selectedPlayerData = foundPlayer;
+
+                }
+
+            });
+
+
+
+            if (selectedPlayerData) {
+
+                const selectedType = typeSelect.value;
+
+                let typeData = null;
+
+                let playerBaseState = selectedPlayerData.base_state; // 取得球員基本能力值
+
+                let playerTierIncrease = selectedPlayerData.tier_increase; // 取得球員基本階級上升量
+
+                // 自動選取球隊和位置下拉選單
+
+                teamSelect.value = Object.keys(playerData.find(teamData => teamData[Object.keys(teamData)[0]].includes(selectedPlayerData)))[0]; // 根據球員資料反查球隊代碼並設定球隊選單
+
+                positionSelect.value = selectedPlayerData.position;
+
+                updatePlayerDropdown();
+
+                // 自動填入球員名稱輸入框 (假設您的球員輸入框 ID 是 'player-input')
+
+                const playerInput = document.getElementById('player-input');
+
+                if (playerInput) {
+
+                    playerInput.value = selectedPlayerName;
+
+                }
+
+                
+
+                if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend') {
+
+                    typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
+
+                } else if (selectedType === 'epic') {
+
+                    typeData = selectedPlayerData.types['epic']; // 史詩類型
+
+                    playerBaseState = typeData.base_state;       // 覆蓋基本能力值為史詩類型自定義數值
+
+                    playerTierIncrease = typeData.tier_increase;   // 覆蓋階級上升量為史詩類型自定義數值
+
+                } else if (selectedType === 'prime') {
+
+                    typeData = selectedPlayerData.types['prime']; // 全盛類型
+
+                    playerBaseState = typeData.base_state;       // 覆蓋基本能力值為全盛類型自定義數值
+
+                    playerTierIncrease = typeData.tier_increase;   // 覆蓋階級上升量為全盛類型自定義數值
+
+                }
+
+
+
+
+
+                baseContactInput.value = playerBaseState.接觸 || 0;
+
+                basePowerInput.value = playerBaseState.力量 || 0;
+
+                baseEyeInput.value = playerBaseState.選球 || 0;
+
+                baseSpeedInput.value = playerBaseState.速度 || 0;
+
+                baseFieldingInput.value = playerBaseState.守備 || 0;
+
+                tierContactInput.value = playerTierIncrease.接觸 || 0;
+
+                tierPowerInput.value = playerTierIncrease.力量 || 0;
+
+                tierEyeInput.value = playerTierIncrease.選球 || 0;
+
+                tierSpeedInput.value = playerTierIncrease.速度 || 0;
+
+                tierFieldingInput.value = playerTierIncrease.守備 || 0;
+
+
+
+                updateBaseAverage(); // 更新基本能力值平均
+
+                updateTierSum();     // 更新階級上升量總和
+
+                updateEnhanceSum();    // 更新強化量總和
+
+                updateCoachSum();      // 更新教練總和
+
+                updateBlackDiamondSum();// 更新黑鑽總和
+
+            }
+
+        }
+
+
+
+
+
+        // ... (setSameAsDropdownValues function - 維持不變) ...
+
+        function setSameAsDropdownValues(row, dropdown) { /* ... (內容與之前的程式碼相同) ... */
+
+            const dropdownValue = dropdown.value;
+
+            const sameAsCells = row.querySelectorAll('.same-as-dropdown');
+
+            sameAsCells.forEach(cell => {
+
+                cell.value = dropdownValue;
+
+            });
+
+        }
+
+        // ... (updateBaseAverage, updateTierSum, updateEnhanceSum, updateCoachSum, updateBlackDiamondSum functions - 維持不變) ...
+
+        function updateBaseAverage() { /* ... (內容與之前的程式碼相同) ... */
+
+            const contact = parseFloat(baseContactInput.value) || 0;
+
+            const power = parseFloat(basePowerInput.value) || 0;
+
+            const eye = parseFloat(baseEyeInput.value) || 0;
+
+            const speed = parseFloat(baseSpeedInput.value) || 0;
+
+            const fielding = parseFloat(baseFieldingInput.value) || 0;
+
+
+
+            const average = (contact + power + eye + speed + fielding) / 5;
+
+            baseAverageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
+
+        }
+
+
+
+        function updateTierSum() { /* ... (內容與之前的程式碼相同) ... */
+
+            const contact = parseFloat(tierContactInput.value) || 0;
+
+            const power = parseFloat(tierPowerInput.value) || 0;
+
+            const eye = parseFloat(tierEyeInput.value) || 0;
+
+            const speed = parseFloat(tierSpeedInput.value) || 0;
+
+            const fielding = parseFloat(tierFieldingInput.value) || 0;
+
+
+
+            const sum = contact + power + eye + speed + fielding;
+
+            tierSumDisplay.textContent = sum;
+
+        }
+
+
+
+        function updateEnhanceSum() { /* ... (內容與之前的程式碼相同) ... */
+
+            const enhanceRow = document.querySelectorAll('tr')[6];
+
+            if (enhanceRow) {
+
+                const inputs = enhanceRow.querySelectorAll('td input[type="number"]');
+
+                let sum = 0;
+
+                inputs.forEach(input => {
+
+                    sum += parseFloat(input.value) || 0;
+
+                });
+
+                enhanceSumDisplay.textContent = sum;
+
+            }
+
+        }
+
+
+
+        function updateCoachSum() { /* ... (內容與之前的程式碼相同) ... */
+
+            const coachRow = document.querySelectorAll('tr')[7];
+
+            if (coachRow) {
+
+                const inputs = coachRow.querySelectorAll('td input[type="number"]');
+
+                let sum = 0;
+
+                inputs.forEach(input => {
+
+                    sum += parseFloat(input.value) || 0;
+
+                });
+
+                coachSumDisplay.textContent = sum;
+
+            }
+
+        }
+
+
+
+        function updateBlackDiamondSum() { /* ... (內容與之前的程式碼相同) ... */
+
+            const blackDiamondRow = document.querySelectorAll('tr')[9];
+
+            if (blackDiamondRow) {
+
+                const inputs = blackDiamondRow.querySelectorAll('td input[type="number"]');
+
+                let sum = 0;
+
+                inputs.forEach(input => {
+
+                    sum += parseFloat(input.value) || 0;
+
+                });
+
+                blackDiamondSumDisplay.textContent = sum;
+
+            }
+
+        }
+
+
+
+
+
+        // Event listeners for filters (維持不變)
+
+        typeSelect.addEventListener('change', updatePlayerDropdown);
+
+        teamSelect.addEventListener('change', updatePlayerDropdown);
+
+        positionSelect.addEventListener('change', updatePlayerDropdown);
+
+
+
+        playerSelect.addEventListener('change', function() {
+
+            const selectedPlayerName = playerSelect.value;
+
+            populateTable(selectedPlayerName);
+
+        });
+
+
+
+
+
+        // Event listeners for input changes (維持不變)
+
+        baseContactInput.addEventListener('change', updateBaseAverage);
+
+        basePowerInput.addEventListener('change', updateBaseAverage);
+
+        baseEyeInput.addEventListener('change', updateBaseAverage);
+
+        baseSpeedInput.addEventListener('change', updateBaseAverage);
+
+        baseFieldingInput.addEventListener('change', updateBaseAverage);
+
+
+
+        tierContactInput.addEventListener('change', updateTierSum);
+
+        tierPowerInput.addEventListener('change', updateTierSum);
+
+        tierEyeInput.addEventListener('change', updateTierSum);
+
+        tierSpeedInput.addEventListener('change', updateTierSum);
+
+        tierFieldingInput.addEventListener('change', updateTierSum);
+
+
+
+        const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]');
+
+        enhanceRowInputs.forEach(input => {
+
+            input.addEventListener('change', updateEnhanceSum);
+
+        });
+
+
+
+        const coachRowInputs = document.querySelectorAll('tr')[7].querySelectorAll('td input[type="number"]');
+
+        coachRowInputs.forEach(input => {
+
+            input.addEventListener('change', updateCoachSum);
+
+        });
+
+
+
+        const blackDiamondRowInputs = document.querySelectorAll('tr')[9].querySelectorAll('td input[type="number"]');
+
+        blackDiamondRowInputs.forEach(input => {
+
+            input.addEventListener('change', updateBlackDiamondSum);
+
+        });
+
+
+
+
+
+        // Set initial values for "指導球員" and "狀態" rows (維持不變)
+
+        // ... setSameAsDropdownValues calls ...
+
+
+
+        // Load player data and initialize dropdown (維持不變)
+
+        loadPlayerData();
+
+        updatePlayerDropdown();
+
+
+
+
+
+    });
+
+    </script>
 
 </body>
 </html>
