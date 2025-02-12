@@ -501,11 +501,11 @@
                 } else if (selectedType === 'epic') {
                     typeData = selectedPlayerData.types['epic']; // 史詩類型
                     playerBaseState = typeData.base_state;       // 覆蓋基本能力值為史詩類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;   // 覆蓋階級上升量為史詩類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;    // 覆蓋階級上升量為史詩類型自定義數值
                 } else if (selectedType === 'prime') {
                     typeData = selectedPlayerData.types['prime']; // 全盛類型
                     playerBaseState = typeData.base_state;       // 覆蓋基本能力值為全盛類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;   // 覆蓋階級上升量為全盛類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;    // 覆蓋階級上升量為全盛類型自定義數值
                 }
 
 
@@ -522,7 +522,7 @@
 
                 updateBaseAverage(); // 更新基本能力值平均
                 updateTierSum();     // 更新階級上升量總和
-                updateEnhanceSum();    // 更新強化量總和
+                updateEnhanceSum();     // 更新強化量總和
                 updateCoachSum();      // 更新教練總和
                 updateBlackDiamondSum();// 更新黑鑽總和
             }
@@ -596,6 +596,30 @@
             }
         }
 
+        // 新增函數：自動設定 "指導球員" 行的能力值
+        function updateCoachingPlayerValues() {
+            const coachingPlayerDropdown = document.getElementById('coaching-player-select');
+            const selectedValue = coachingPlayerDropdown.value;
+            const inputs = document.querySelectorAll('#coaching-player-row .same-as-dropdown'); // 使用 .same-as-dropdown class
+
+            inputs.forEach(input => {
+                input.value = selectedValue;
+            });
+        }
+
+        // 新增函數：自動設定 "狀態" 行的能力值
+        function updateStatusValues() {
+            const statusDropdown = document.getElementById('status-select');
+            const selectedValue = statusDropdown.value;
+            const statusRow = document.getElementById('status-row');
+            // 使用 CSS 選擇器選取 "狀態" 行的 3-7 個 td 內的 input[type="number"]
+            const inputs = statusRow.querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]');
+
+            inputs.forEach(input => {
+                input.value = selectedValue;
+            });
+        }
+
 
         // Event listeners for filters (維持不變)
         typeSelect.addEventListener('change', updatePlayerDropdown);
@@ -636,9 +660,16 @@
             input.addEventListener('change', updateBlackDiamondSum);
         });
 
+        // **新增事件監聽器：監聽 "指導球員" 和 "狀態" 下拉選單的 change 事件**
+        const coachingPlayerSelect = document.getElementById('coaching-player-select');
+        coachingPlayerSelect.addEventListener('change', updateCoachingPlayerValues);
+
+        const statusSelect = document.getElementById('status-select');
+        statusSelect.addEventListener('change', updateStatusValues);
+
 
         // Set initial values for "指導球員" and "狀態" rows (維持不變)
-        // ... setSameAsDropdownValues calls ...
+        // ... setSameAsDropdownValues calls ... (如果你的 `setSameAsDropdownValues` 函數有實際功能，請保留)
 
         // Load player data and initialize dropdown (維持不變)
         loadPlayerData();
