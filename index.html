@@ -609,32 +609,63 @@
         // **新增函數：更新 "一般陣容能力值" 橫排的數值**
         function updateGeneralLineupAbilityValue() {
             const generalLineupStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
-            // 直接選取每一列的 input 元素 (根據您的 HTML 結構)
-            const baseStatValues = baseStatInputs.map(input => parseFloat(input.value) || 0);
-            const tierStatValues = tierStatInputs.map(input => parseFloat(input.value) || 0);
-            const enhanceStatValues = Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-            const coachStatValues = Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-            const specialTrainingValue = parseFloat(document.querySelector('tr:nth-child(8) td:nth-child(8) select').value) || 0; // 特別訓練的 select
-            const coachingPlayerValue = parseFloat(document.getElementById('coaching-player-select').value) || 0; // 指導球員的 select
-            const blackDiamondStatValues = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-            const teamBonusValue = parseFloat(document.querySelector('tr:nth-child(10) td:nth-child(3) input[type="number"]').value) || 0; // 團隊加成
-
+        
+            // 取得各個能力值項目的勾選狀態和數值 (根據您的 HTML 結構)
+        
+            // 基本能力值
+            const baseAbilityCheckbox = document.querySelector('tr:nth-child(3) td:nth-child(1) input[type="checkbox"]');
+            const baseStatValues = baseAbilityCheckbox.checked ? baseStatInputs.map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
+        
+            // 基本校正 (新增)
+            const baseCorrectionCheckbox = document.querySelector('tr:nth-child(4) td:nth-child(1) input[type="checkbox"]');
+            const baseCorrectionStatValues = baseCorrectionCheckbox.checked ? Array.from(document.querySelectorAll('tr')[3].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[3] 是基本校正列 (第四列)
+        
+            // 階級上升量
+            const tierIncreaseCheckbox = document.querySelector('tr:nth-child(5) td:nth-child(1) input[type="checkbox"]');
+            const tierStatValues = tierIncreaseCheckbox.checked ? tierStatInputs.map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
+        
+            // 強化量
+            const enhanceCheckbox = document.querySelector('tr:nth-child(6) td:nth-child(1) input[type="checkbox"]');
+            const enhanceStatValues = enhanceCheckbox.checked ? Array.from(document.querySelectorAll('tr')[5].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[5] 是強化量列 (第六列)
+        
+            // 教練
+            const coachCheckbox = document.querySelector('tr:nth-child(7) td:nth-child(1) input[type="checkbox"]');
+            const coachStatValues = coachCheckbox.checked ? Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[6] 是教練列 (第七列)
+        
+            // 特別訓練
+            const specialTrainingCheckbox = document.querySelector('tr:nth-child(8) td:nth-child(1) input[type="checkbox"]');
+            const specialTrainingValue = specialTrainingCheckbox.checked ? parseFloat(document.querySelector('tr:nth-child(8) td:nth-child(8) select').value) || 0 : 0;
+        
+            // 指導球員
+            const coachingPlayerCheckbox = document.querySelector('tr:nth-child(9) td:nth-child(1) input[type="checkbox"]');
+            const coachingPlayerValue = coachingPlayerCheckbox.checked ? parseFloat(document.getElementById('coaching-player-select').value) || 0 : 0;
+        
+            // 黑鑽
+            const blackDiamondCheckbox = document.querySelector('tr:nth-child(10) td:nth-child(1) input[type="checkbox"]');
+            const blackDiamondStatValues = blackDiamondCheckbox.checked ? Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[9] 是黑鑽列 (第十列)
+        
+            // 團隊加成
+            const teamBonusCheckbox = document.querySelector('tr:nth-child(11) td:nth-child(1) input[type="checkbox"]');
+            const teamBonusValue = teamBonusCheckbox.checked ? parseFloat(document.querySelector('tr:nth-child(11) td:nth-child(3) input[type="number"]').value) || 0 : 0;
+        
+        
             for (let i = 0; i < 5; i++) {
                 generalLineupStatSums[i] += baseStatValues[i];
+                generalLineupStatSums[i] += baseCorrectionStatValues[i]; // 加入基本校正
                 generalLineupStatSums[i] += tierStatValues[i];
                 generalLineupStatSums[i] += enhanceStatValues[i];
                 generalLineupStatSums[i] += coachStatValues[i];
-                generalLineupStatSums[i] += specialTrainingValue; // 特別訓練加到每個 Stat
-                generalLineupStatSums[i] += coachingPlayerValue; // 指導球員加到每個 Stat
+                generalLineupStatSums[i] += specialTrainingValue;
+                generalLineupStatSums[i] += coachingPlayerValue;
                 generalLineupStatSums[i] += blackDiamondStatValues[i];
-                generalLineupStatSums[i] += teamBonusValue; // 團隊加成加到每個 Stat
-
+                generalLineupStatSums[i] += teamBonusValue;
+        
                 const statSumDisplay = document.getElementById(`roster-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
                 if (statSumDisplay) {
                     statSumDisplay.textContent = generalLineupStatSums[i].toFixed(0); // 顯示整數
                 }
             }
-
+        
             const average = generalLineupStatSums.reduce((a, b) => a + b, 0) / 5; // 計算平均值
             const averageDisplay = document.getElementById('roster-average'); // 更新為 roster-average
             if (averageDisplay) {
