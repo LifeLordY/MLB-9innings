@@ -611,6 +611,7 @@
             const generalLineupStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
             // 直接選取每一列的 input 元素 (根據您的 HTML 結構)
             const baseStatValues = baseStatInputs.map(input => parseFloat(input.value) || 0);
+            const baseCorrectionStatValues = Array.from(document.querySelectorAll('tr')[4].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
             const tierStatValues = tierStatInputs.map(input => parseFloat(input.value) || 0);
             const enhanceStatValues = Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
             const coachStatValues = Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
@@ -621,6 +622,7 @@
 
             for (let i = 0; i < 5; i++) {
                 generalLineupStatSums[i] += baseStatValues[i];
+                generalLineupStatSums[i] += baseCorrectionStatValues[i];
                 generalLineupStatSums[i] += tierStatValues[i];
                 generalLineupStatSums[i] += enhanceStatValues[i];
                 generalLineupStatSums[i] += coachStatValues[i];
