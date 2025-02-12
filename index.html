@@ -536,7 +536,7 @@
             baseAverageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
         }
 
-        // 使用陣列和迴圈改寫 updateTierSum 函數
+        // 使用陣列和迴圈改寫 updateTierSum 函數 
         function updateTierSum() {
             let sum = 0;
             tierStatInputs.forEach(input => {
@@ -606,68 +606,37 @@
             });
         }
 
-        // **修改函數：更新 "一般陣容能力值" 橫排的數值，並加入勾選判斷與基本校正**
+        // **新增函數：更新 "一般陣容能力值" 橫排的數值**
         function updateGeneralLineupAbilityValue() {
             const generalLineupStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
-
-            // 取得每一列是否勾選的狀態
-            const isBaseStatChecked = document.querySelector('tr:nth-child(3) td:nth-child(1) input[type="checkbox"]').checked;
-            const isBaseCorrectionChecked = document.querySelector('tr:nth-child(4) td:nth-child(1) input[type="checkbox"]').checked;
-            const isTierIncreaseChecked = document.querySelector('tr:nth-child(5) td:nth-child(1) input[type="checkbox"]').checked;
-            const isEnhanceChecked = document.querySelector('tr:nth-child(6) td:nth-child(1) input[type="checkbox"]').checked;
-            const isCoachChecked = document.querySelector('tr:nth-child(7) td:nth-child(1) input[type="checkbox"]').checked;
-            const isSpecialTrainingChecked = document.querySelector('tr:nth-child(8) td:nth-child(1) input[type="checkbox"]').checked;
-            const isCoachingPlayerChecked = document.querySelector('tr:nth-child(9) td:nth-child(1) input[type="checkbox"]').checked;
-            const isBlackDiamondChecked = document.querySelector('tr:nth-child(10) td:nth-child(1) input[type="checkbox"]').checked;
-            const isTeamBonusChecked = document.querySelector('tr:nth-child(11) td:nth-child(1) input[type="checkbox"]').checked;
-
-
-            // 根據勾選狀態，決定是否加入計算
-            if (isBaseStatChecked) {
-                baseStatInputs.forEach((input, index) => generalLineupStatSums[index] += parseFloat(input.value) || 0);
-            }
-            if (isBaseCorrectionChecked) {
-                const baseCorrectionStatValues = Array.from(document.querySelectorAll('tr')[4].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-                baseCorrectionStatValues.forEach((value, index) => generalLineupStatSums[index] += value);
-            }
-            if (isTierIncreaseChecked) {
-                tierStatInputs.forEach((input, index) => generalLineupStatSums[index] += parseFloat(input.value) || 0);
-            }
-            if (isEnhanceChecked) {
-                const enhanceStatValues = Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-                enhanceStatValues.forEach((value, index) => generalLineupStatSums[index] += value);
-            }
-            if (isCoachChecked) {
-                const coachStatValues = Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-                coachStatValues.forEach((value, index) => generalLineupStatSums[index] += value);
-            }
-            if (isSpecialTrainingChecked) {
-                const specialTrainingValue = parseFloat(document.querySelector('tr:nth-child(8) td:nth-child(8) select').value) || 0;
-                generalLineupStatSums.forEach( (sum, index) => generalLineupStatSums[index] += specialTrainingValue); // 特別訓練加到每個 Stat
-            }
-            if (isCoachingPlayerChecked) {
-                const coachingPlayerValue = parseFloat(document.getElementById('coaching-player-select').value) || 0;
-                generalLineupStatSums.forEach( (sum, index) => generalLineupStatSums[index] += coachingPlayerValue); // 指導球員加到每個 Stat
-            }
-            if (isBlackDiamondChecked) {
-                const blackDiamondStatValues = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-                blackDiamondStatValues.forEach((value, index) => generalLineupStatSums[index] += value);
-            }
-            if (isTeamBonusChecked) {
-                const teamBonusValue = parseFloat(document.querySelector('tr:nth-child(11) td:nth-child(3) input[type="number"]').value) || 0;
-                generalLineupStatSums.forEach( (sum, index) => generalLineupStatSums[index] += teamBonusValue); // 團隊加成加到每個 Stat
-            }
-
+            // 直接選取每一列的 input 元素 (根據您的 HTML 結構)
+            const baseStatValues = baseStatInputs.map(input => parseFloat(input.value) || 0);
+            const tierStatValues = tierStatInputs.map(input => parseFloat(input.value) || 0);
+            const enhanceStatValues = Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const coachStatValues = Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const specialTrainingValue = parseFloat(document.querySelector('tr:nth-child(8) td:nth-child(8) select').value) || 0; // 特別訓練的 select
+            const coachingPlayerValue = parseFloat(document.getElementById('coaching-player-select').value) || 0; // 指導球員的 select
+            const blackDiamondStatValues = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const teamBonusValue = parseFloat(document.querySelector('tr:nth-child(10) td:nth-child(3) input[type="number"]').value) || 0; // 團隊加成
 
             for (let i = 0; i < 5; i++) {
-                const statSumDisplay = document.getElementById(`roster-stat${i + 1}`);
+                generalLineupStatSums[i] += baseStatValues[i];
+                generalLineupStatSums[i] += tierStatValues[i];
+                generalLineupStatSums[i] += enhanceStatValues[i];
+                generalLineupStatSums[i] += coachStatValues[i];
+                generalLineupStatSums[i] += specialTrainingValue; // 特別訓練加到每個 Stat
+                generalLineupStatSums[i] += coachingPlayerValue; // 指導球員加到每個 Stat
+                generalLineupStatSums[i] += blackDiamondStatValues[i];
+                generalLineupStatSums[i] += teamBonusValue; // 團隊加成加到每個 Stat
+
+                const statSumDisplay = document.getElementById(`roster-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
                 if (statSumDisplay) {
                     statSumDisplay.textContent = generalLineupStatSums[i].toFixed(0); // 顯示整數
                 }
             }
 
             const average = generalLineupStatSums.reduce((a, b) => a + b, 0) / 5; // 計算平均值
-            const averageDisplay = document.getElementById('roster-average');
+            const averageDisplay = document.getElementById('roster-average'); // 更新為 roster-average
             if (averageDisplay) {
                 averageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
             }
@@ -682,74 +651,47 @@
         playerSelect.addEventListener('change', function() {
             const selectedPlayerName = playerSelect.value;
             populateTable(selectedPlayerName);
-            updateGeneralLineupAbilityValue(); // **選擇球員後更新一般陣容能力值**
         });
 
 
-        // Event listeners for input changes - 使用陣列和迴圈簡化
+        // Event listeners for input changes - 使用陣列和迴圈簡化 (維持不變)
         baseStatInputs.forEach(input => {
             input.addEventListener('change', updateBaseAverage);
-            input.addEventListener('change', updateGeneralLineupAbilityValue); // **基本能力值變動時更新一般陣容能力值**
         });
         tierStatInputs.forEach(input => {
             input.addEventListener('change', updateTierSum);
-            input.addEventListener('change', updateGeneralLineupAbilityValue); // **階級上升量變動時更新一般陣容能力值**
         });
-
 
         const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]');
         enhanceRowInputs.forEach(input => {
             input.addEventListener('change', updateEnhanceSum);
-            input.addEventListener('change', updateGeneralLineupAbilityValue); // **強化量變動時更新一般陣容能力值**
         });
 
         const coachRowInputs = document.querySelectorAll('tr')[7].querySelectorAll('td input[type="number"]');
         coachRowInputs.forEach(input => {
             input.addEventListener('change', updateCoachSum);
-            input.addEventListener('change', updateGeneralLineupAbilityValue); // **教練變動時更新一般陣容能力值**
         });
 
         const blackDiamondRowInputs = document.querySelectorAll('tr')[9].querySelectorAll('td input[type="number"]');
         blackDiamondRowInputs.forEach(input => {
             input.addEventListener('change', updateBlackDiamondSum);
-            input.addEventListener('change', updateGeneralLineupAbilityValue); // **黑鑽變動時更新一般陣容能力值**
         });
 
-        // **新增事件監聽器：監聽 "基本校正" 橫排的 input change 事件**
-        const baseCorrectionRowInputs = document.querySelectorAll('tr')[4].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]');
-        baseCorrectionRowInputs.forEach(input => {
-            input.addEventListener('change', updateGeneralLineupAbilityValue); // **基本校正變動時更新一般陣容能力值**
-        });
-
-
-        // **修改事件監聽器：監聽 "指導球員" 下拉選單的 change 事件**
+        // **新增事件監聽器：監聽 "指導球員" 和 "狀態" 下拉選單的 change 事件 (維持不變)**
         const coachingPlayerSelect = document.getElementById('coaching-player-select');
         coachingPlayerSelect.addEventListener('change', updateCoachingPlayerValues);
-        coachingPlayerSelect.addEventListener('change', updateGeneralLineupAbilityValue); // **指導球員下拉選單變動時更新一般陣容能力值**
-
 
         const statusSelect = document.getElementById('status-select');
         statusSelect.addEventListener('change', updateStatusValues);
 
-
-        // **新增事件監聽器：監聽 "團隊加成" 和 "特別訓練" input change 事件**
-        const teamBonusInput = document.querySelector('tr:nth-child(11) td:nth-child(3) input[type="number"]'); // 團隊加成 input
-        if (teamBonusInput) {
-            teamBonusInput.addEventListener('change', updateGeneralLineupAbilityValue); // **團隊加成變動時更新一般陣容能力值**
-        }
-         const specialTrainingDropdown = document.querySelector('tr:nth-child(8) td:nth-child(8) select'); // 特別訓練 select
-        if (specialTrainingDropdown) {
-            specialTrainingDropdown.addEventListener('change', updateGeneralLineupAbilityValue); // **特別訓練變動時更新一般陣容能力值**
-        }
-
-        // **新增事件監聽器：監聽 每列的 checkbox change 事件**
-        const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateGeneralLineupAbilityValue); // **任一checkbox變動時更新一般陣容能力值**
+        // **新增事件監聽器：監聽 "一般陣容能力值" 相關的 input change 事件**
+        const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(5) input[type="number"], tr:nth-child(6) input[type="number"], tr:nth-child(7) input[type="number"], tr:nth-child(8) select, tr:nth-child(9) select, tr:nth-child(10) input[type="number"], tr:nth-child(11) input[type="number"]');
+        generalLineupInputs.forEach(input => {
+            input.addEventListener('change', updateGeneralLineupAbilityValue);
         });
 
 
-        // Set initial values for "指導球員" and "狀態" rows (維持不變)
+        // Set initial values for "指導球員" 和 "狀態" rows (維持不變)
         // ... setSameAsDropdownValues calls ... (如果你的 `setSameAsDropdownValues` 函數有實際功能，請保留)
 
         // Load player data and initialize dropdown (維持不變)
