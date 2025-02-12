@@ -366,29 +366,27 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const clearAllButton = document.getElementById('clear-all-button');
-
         const typeSelect = document.getElementById('type');
         const teamSelect = document.getElementById('team');
         const positionSelect = document.getElementById('position');
         const playerSelect = document.getElementById('player-select');
-
-        const baseStat1Input = document.getElementById('base-stat1');
-        const baseStat2Input = document.getElementById('base-stat2');
-        const baseStat3Input = document.getElementById('base-stat3');
-        const baseStat4Input = document.getElementById('base-stat4');
-        const baseStat5Input = document.getElementById('base-stat5');
         const baseAverageDisplay = document.getElementById('base-average');
-
-        const tierStat1Input = document.getElementById('tier-stat1');
-        const tierStat2Input = document.getElementById('tier-stat2');
-        const tierStat3Input = document.getElementById('tier-stat3');
-        const tierStat4Input = document.getElementById('tier-stat4');
-        const tierStat5Input = document.getElementById('tier-stat5');
         const tierSumDisplay = document.getElementById('tier-sum');
-
         const enhanceSumDisplay = document.getElementById('enhance-sum');
         const coachSumDisplay = document.getElementById('coach-sum');
         const blackDiamondSumDisplay = document.getElementById('black-diamond-sum');
+
+        // 使用陣列儲存 baseStat 輸入框元素
+        const baseStatInputs = [];
+        for (let i = 1; i <= 5; i++) {
+            baseStatInputs.push(document.getElementById(`base-stat${i}`));
+        }
+
+        // 使用陣列儲存 tierStat 輸入框元素
+        const tierStatInputs = [];
+        for (let i = 1; i <= 5; i++) {
+            tierStatInputs.push(document.getElementById(`tier-stat${i}`));
+        }
 
         let playerData = []; // 儲存從 data.json 載入的球員資料
 
@@ -458,16 +456,11 @@
 
         // Function to populate table with player data
         function populateTable(selectedPlayerName) {
-            baseStat1Input.value = 0;
-            baseStat2Input.value = 0;
-            baseStat3Input.value = 0;
-            baseStat4Input.value = 0;
-            baseStat5Input.value = 0;
-            tierStat1Input.value = 0;
-            tierStat2Input.value = 0;
-            tierStat3Input.value = 0;
-            tierStat4Input.value = 0;
-            tierStat5Input.value = 0;
+            // 清空 baseStat 輸入框的值
+            baseStatInputs.forEach(input => input.value = 0);
+            // 清空 tierStat 輸入框的值
+            tierStatInputs.forEach(input => input.value = 0);
+
 
             if (!selectedPlayerName) return; // 沒有選擇球員則清空表格數值
 
@@ -500,30 +493,25 @@
                     typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
                 } else if (selectedType === 'epic') {
                     typeData = selectedPlayerData.types['epic']; // 史詩類型
-                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為史詩類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為史詩類型自定義數值
+                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為史詩類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為史詩類型自定義數值
                 } else if (selectedType === 'prime') {
                     typeData = selectedPlayerData.types['prime']; // 全盛類型
-                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為全盛類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為全盛類型自定義數值
+                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為全盛類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為全盛類型自定義數值
                 }
 
-
-                baseStat1Input.value = playerBaseState.Stat1 || 0;
-                baseStat2Input.value = playerBaseState.Stat2 || 0;
-                baseStat3Input.value = playerBaseState.Stat3 || 0;
-                baseStat4Input.value = playerBaseState.Stat4 || 0;
-                baseStat5Input.value = playerBaseState.Stat5 || 0;
-                tierStat1Input.value = playerTierIncrease.Stat1 || 0;
-                tierStat2Input.value = playerTierIncrease.Stat2 || 0;
-                tierStat3Input.value = playerTierIncrease.Stat3 || 0;
-                tierStat4Input.value = playerTierIncrease.Stat4 || 0;
-                tierStat5Input.value = playerTierIncrease.Stat5 || 0;
+                baseStatInputs.forEach((input, index) => {
+                    input.value = playerBaseState[`Stat${index + 1}`] || 0;
+                });
+                tierStatInputs.forEach((input, index) => {
+                    input.value = playerTierIncrease[`Stat${index + 1}`] || 0;
+                });
 
                 updateBaseAverage(); // 更新基本能力值平均
-                updateTierSum();     // 更新階級上升量總和
-                updateEnhanceSum();     // 更新強化量總和
-                updateCoachSum();      // 更新教練總和
+                updateTierSum();     // 更新階級上升量總和
+                updateEnhanceSum();     // 更新強化量總和
+                updateCoachSum();      // 更新教練總和
                 updateBlackDiamondSum();// 更新黑鑽總和
             }
         }
@@ -537,28 +525,26 @@
                 cell.value = dropdownValue;
             });
         }
-        // ... (updateBaseAverage, updateTierSum, updateEnhanceSum, updateCoachSum, updateBlackDiamondSum functions - 維持不變，但需修改內部變數名稱) ...
-        function updateBaseAverage() {
-            const stat1 = parseFloat(baseStat1Input.value) || 0;
-            const stat2 = parseFloat(baseStat2Input.value) || 0;
-            const stat3 = parseFloat(baseStat3Input.value) || 0;
-            const stat4 = parseFloat(baseStat4Input.value) || 0;
-            const stat5 = parseFloat(baseStat5Input.value) || 0;
 
-            const average = (stat1 + stat2 + stat3 + stat4 + stat5) / 5;
+        // 使用陣列和迴圈改寫 updateBaseAverage 函數
+        function updateBaseAverage() {
+            let sum = 0;
+            baseStatInputs.forEach(input => {
+                sum += parseFloat(input.value) || 0;
+            });
+            const average = sum / baseStatInputs.length;
             baseAverageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
         }
 
+        // 使用陣列和迴圈改寫 updateTierSum 函數
         function updateTierSum() {
-            const stat1 = parseFloat(tierStat1Input.value) || 0;
-            const stat2 = parseFloat(tierStat2Input.value) || 0;
-            const stat3 = parseFloat(tierStat3Input.value) || 0;
-            const stat4 = parseFloat(tierStat4Input.value) || 0;
-            const stat5 = parseFloat(tierStat5Input.value) || 0;
-
-            const sum = stat1 + stat2 + stat3 + stat4 + stat5;
+            let sum = 0;
+            tierStatInputs.forEach(input => {
+                sum += parseFloat(input.value) || 0;
+            });
             tierSumDisplay.textContent = sum;
         }
+
 
         function updateEnhanceSum() {
             const enhanceRow = document.querySelectorAll('tr')[6];
@@ -632,18 +618,14 @@
         });
 
 
-        // Event listeners for input changes (需要修改變數名稱)
-        baseStat1Input.addEventListener('change', updateBaseAverage);
-        baseStat2Input.addEventListener('change', updateBaseAverage);
-        baseStat3Input.addEventListener('change', updateBaseAverage);
-        baseStat4Input.addEventListener('change', updateBaseAverage);
-        baseStat5Input.addEventListener('change', updateBaseAverage);
+        // Event listeners for input changes - 使用陣列和迴圈簡化
+        baseStatInputs.forEach(input => {
+            input.addEventListener('change', updateBaseAverage);
+        });
+        tierStatInputs.forEach(input => {
+            input.addEventListener('change', updateTierSum);
+        });
 
-        tierStat1Input.addEventListener('change', updateTierSum);
-        tierStat2Input.addEventListener('change', updateTierSum);
-        tierStat3Input.addEventListener('change', updateTierSum);
-        tierStat4Input.addEventListener('change', updateTierSum);
-        tierStat5Input.addEventListener('change', updateTierSum);
 
         const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]');
         enhanceRowInputs.forEach(input => {
@@ -674,7 +656,6 @@
         // Load player data and initialize dropdown (維持不變)
         loadPlayerData();
         updatePlayerDropdown();
-
 
     });
     </script>
