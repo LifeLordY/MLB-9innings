@@ -614,20 +614,20 @@
             const tierStatValues = tierStatInputs.map(input => parseFloat(input.value) || 0);
             const enhanceStatValues = Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
             const coachStatValues = Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-            const specialTrainingValue = parseFloat(document.querySelector('tr:nth-child(8) td:nth-child(8) select').value) || 0; // 特別訓練的 select
-            const coachingPlayerValue = parseFloat(document.getElementById('coaching-player-select').value) || 0; // 指導球員的 select
-            const blackDiamondStatValues = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
-            const teamBonusValue = parseFloat(document.querySelector('tr:nth-child(10) td:nth-child(3) input[type="number"]').value) || 0; // 團隊加成
+            const specialTrainingValue = Array.from(document.querySelectorAll('tr')[8].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const coachingPlayerValue = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const blackDiamondStatValues = Array.from(document.querySelectorAll('tr')[10].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const teamBonusValue = Array.from(document.querySelectorAll('tr')[11].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
 
             for (let i = 0; i < 5; i++) {
                 generalLineupStatSums[i] += baseStatValues[i];
                 generalLineupStatSums[i] += tierStatValues[i];
                 generalLineupStatSums[i] += enhanceStatValues[i];
                 generalLineupStatSums[i] += coachStatValues[i];
-                generalLineupStatSums[i] += specialTrainingValue; // 特別訓練加到每個 Stat
-                generalLineupStatSums[i] += coachingPlayerValue; // 指導球員加到每個 Stat
+                generalLineupStatSums[i] += specialTrainingValue[i]; // 特別訓練加到每個 Stat
+                generalLineupStatSums[i] += coachingPlayerValue[i]; // 指導球員加到每個 Stat
                 generalLineupStatSums[i] += blackDiamondStatValues[i];
-                generalLineupStatSums[i] += teamBonusValue; // 團隊加成加到每個 Stat
+                generalLineupStatSums[i] += teamBonusValue[i]; // 團隊加成加到每個 Stat
 
                 const statSumDisplay = document.getElementById(`roster-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
                 if (statSumDisplay) {
