@@ -4,20 +4,56 @@
       {
         "name": "A. Judge '24",
         "position": "OF",
-        "base_state": { "接觸": 80, "力量": 90, "選球": 75, "速度": 60, "守備": 60 },
-        "tier_increase": { "接觸": 17, "力量": 19, "選球": 15, "速度": 12, "守備": 12 },
+        "base_state": {
+          "Stat1": 80,
+          "Stat2": 90,
+          "Stat3": 75,
+          "Stat4": 60,
+          "Stat5": 60
+        },
+        "tier_increase": {
+          "Stat1": 17,
+          "Stat2": 19,
+          "Stat3": 15,
+          "Stat4": 12,
+          "Stat5": 12
+        },
         "types": {
           "epic": {
-            "base_state": { "接觸": 85, "力量": 90, "選球": 75, "速度": 55, "守備": 60 },
-            "tier_increase": { "接觸": 18, "力量": 19, "選球": 15, "速度": 11, "守備": 12 }
+            "base_state": {
+              "Stat1": 85,
+              "Stat2": 90,
+              "Stat3": 75,
+              "Stat4": 55,
+              "Stat5": 60
+            },
+            "tier_increase": {
+              "Stat1": 18,
+              "Stat2": 19,
+              "Stat3": 15,
+              "Stat4": 11,
+              "Stat5": 12
+            }
           }
         }
       },
       {
         "name": "D.J. LeMahieu '24",
         "position": "2B",
-        "base_state": { "接觸": 78, "力量": 65, "選球": 82, "速度": 70, "守備": 75 },
-        "tier_increase": { "接觸": 16, "力量": 13, "選球": 17, "速度": 14, "守備": 15 },
+        "base_state": {
+          "Stat1": 78,
+          "Stat2": 65,
+          "Stat3": 82,
+          "Stat4": 70,
+          "Stat5": 75
+        },
+        "tier_increase": {
+          "Stat1": 16,
+          "Stat2": 13,
+          "Stat3": 17,
+          "Stat4": 14,
+          "Stat5": 15
+        },
         "types": {
           "classic": {},
           "signature": {}
@@ -26,8 +62,20 @@
       {
         "name": "G. Cole '24",
         "position": "SP",
-        "base_state": { "接觸": 60, "力量": 70, "選球": 65, "速度": 50, "守備": 70 },
-        "tier_increase": { "接觸": 12, "力量": 14, "選球": 13, "速度": 10, "守備": 14 },
+        "base_state": {
+          "Stat1": 60,
+          "Stat2": 70,
+          "Stat3": 65,
+          "Stat4": 50,
+          "Stat5": 70
+        },
+        "tier_increase": {
+          "Stat1": 12,
+          "Stat2": 14,
+          "Stat3": 13,
+          "Stat4": 10,
+          "Stat5": 14
+        },
         "types": {
           "general": {}
         }
@@ -39,8 +87,20 @@
       {
         "name": "S. Langeliers '24",
         "position": "C",
-        "base_state": { "接觸": 70, "力量": 75, "選球": 68, "速度": 65, "守備": 72 },
-        "tier_increase": { "接觸": 14, "力量": 15, "選球": 13, "速度": 13, "守備": 14 },
+        "base_state": {
+          "Stat1": 70,
+          "Stat2": 75,
+          "Stat3": 68,
+          "Stat4": 65,
+          "Stat5": 72
+        },
+        "tier_increase": {
+          "Stat1": 14,
+          "Stat2": 15,
+          "Stat3": 13,
+          "Stat4": 13,
+          "Stat5": 14
+        },
         "types": {
           "general": {}
         }
@@ -52,14 +112,44 @@
       {
         "name": "J. Altuve '24",
         "position": "2B",
-        "base_state": { "接觸": 82, "力量": 70, "選球": 80, "速度": 75, "守備": 78 },
-        "tier_increase": { "接觸": 17, "力量": 14, "選球": 16, "速度": 15, "守備": 16 },
+        "base_state": {
+          "Stat1": 82,
+          "Stat2": 70,
+          "Stat3": 80,
+          "Stat4": 75,
+          "Stat5": 78
+        },
+        "tier_increase": {
+          "Stat1": 17,
+          "Stat2": 14,
+          "Stat3": 16,
+          "Stat4": 15,
+          "Stat5": 16
+        },
         "types": {
           "general": {},
           "prime": {
-            "base_state": { "接觸": 88, "力量": 76, "選球": 86, "速度": 81, "守備": 84 },
-            "tier_increase": { "接觸": 19, "力量": 15, "選球": 18, "速度": 17, "守備": 18 },
-            "tier_increase_b": { "接觸": 21, "力量": 17, "選球": 20, "速度": 19, "守備": 20 }
+            "base_state": {
+              "Stat1": 88,
+              "Stat2": 76,
+              "Stat3": 86,
+              "Stat4": 81,
+              "Stat5": 84
+            },
+            "tier_increase": {
+              "Stat1": 19,
+              "Stat2": 15,
+              "Stat3": 18,
+              "Stat4": 17,
+              "Stat5": 18
+            },
+            "tier_increase_b": {
+              "Stat1": 21,
+              "Stat2": 17,
+              "Stat3": 20,
+              "Stat4": 19,
+              "Stat5": 20
+            }
           },
           "signature": {}
         }
@@ -71,8 +161,20 @@
       {
         "name": "C. Abrams '24",
         "position": "SS",
-        "base_state": { "接觸": 75, "力量": 72, "選球": 70, "速度": 85, "守備": 73 },
-        "tier_increase": { "接觸": 15, "力量": 14, "選球": 14, "速度": 17, "守備": 14 },
+        "base_state": {
+          "Stat1": 75,
+          "Stat2": 72,
+          "Stat3": 70,
+          "Stat4": 85,
+          "Stat5": 73
+        },
+        "tier_increase": {
+          "Stat1": 15,
+          "Stat2": 14,
+          "Stat3": 14,
+          "Stat4": 17,
+          "Stat5": 14
+        },
         "types": {
           "general": {}
         }
@@ -84,8 +186,20 @@
       {
         "name": "P. Goldschmidt '24",
         "position": "1B",
-        "base_state": { "接觸": 79, "力量": 80, "選球": 85, "速度": 62, "守備": 76 },
-        "tier_increase": { "接觸": 16, "力量": 16, "選球": 17, "速度": 12, "守備": 15 },
+        "base_state": {
+          "Stat1": 79,
+          "Stat2": 80,
+          "Stat3": 85,
+          "Stat4": 62,
+          "Stat5": 76
+        },
+        "tier_increase": {
+          "Stat1": 16,
+          "Stat2": 16,
+          "Stat3": 17,
+          "Stat4": 12,
+          "Stat5": 15
+        },
         "types": {
           "classic": {},
           "general": {}
@@ -98,26 +212,80 @@
       {
         "name": "M. Betts '24 (Epic)",
         "position": "OF",
-        "base_state": { "接觸": 85, "力量": 82, "選球": 90, "速度": 80, "守備": 88 },
-        "tier_increase": { "接觸": 18, "力量": 17, "選球": 19, "速度": 16, "守備": 18 },
+        "base_state": {
+          "Stat1": 85,
+          "Stat2": 82,
+          "Stat3": 90,
+          "Stat4": 80,
+          "Stat5": 88
+        },
+        "tier_increase": {
+          "Stat1": 18,
+          "Stat2": 17,
+          "Stat3": 19,
+          "Stat4": 16,
+          "Stat5": 18
+        },
         "types": {
           "epic": {
-            "base_state": { "接觸": 92, "力量": 90, "選球": 97, "速度": 83, "守備": 90 },
-            "tier_increase": { "接觸": 21, "力量": 20, "選球": 22, "速度": 17, "守備": 19 }
+            "base_state": {
+              "Stat1": 92,
+              "Stat2": 90,
+              "Stat3": 97,
+              "Stat4": 83,
+              "Stat5": 90
+            },
+            "tier_increase": {
+              "Stat1": 21,
+              "Stat2": 20,
+              "Stat3": 22,
+              "Stat4": 17,
+              "Stat5": 19
+            }
           }
         }
       },
       {
         "name": "M. Betts '24",
         "position": "OF",
-        "base_state": { "接觸": 85, "力量": 82, "選球": 90, "速度": 80, "守備": 88 },
-        "tier_increase": { "接觸": 18, "力量": 17, "選球": 19, "速度": 16, "守備": 18 },
+        "base_state": {
+          "Stat1": 85,
+          "Stat2": 82,
+          "Stat3": 90,
+          "Stat4": 80,
+          "Stat5": 88
+        },
+        "tier_increase": {
+          "Stat1": 18,
+          "Stat2": 17,
+          "Stat3": 19,
+          "Stat4": 16,
+          "Stat5": 18
+        },
         "types": {
           "general": {},
           "prime": {
-            "base_state": { "接觸": 90, "力量": 88, "選球": 95, "速度": 85, "守備": 92 },
-            "tier_increase": { "接觸": 20, "力量": 19, "選球": 21, "速度": 18, "守備": 20 },
-            "tier_increase_b": { "接觸": 22, "力量": 21, "選球": 23, "速度": 20, "守備": 22 }
+            "base_state": {
+              "Stat1": 90,
+              "Stat2": 88,
+              "Stat3": 95,
+              "Stat4": 85,
+              "Stat5": 92
+            },
+            "tier_increase": {
+              "Stat1": 20,
+              "Stat2": 19,
+              "Stat3": 21,
+              "Stat4": 18,
+              "Stat5": 20
+            },
+            "tier_increase_b": {
+              "Stat1": 22,
+              "Stat2": 21,
+              "Stat3": 23,
+              "Stat4": 20,
+              "Stat5": 22
+            }
           },
           "classic": {},
           "signature": {}
