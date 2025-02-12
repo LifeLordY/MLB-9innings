@@ -153,7 +153,7 @@
                 <option value="epic">史詩</option>
                 <option value="prime">全盛</option>
             </select>
-        
+
             <label for="team">球隊:</label>
             <select id="team" name="team">
                 <option value="">-- 請選擇 --</option>
@@ -211,20 +211,20 @@
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>項目</td>
-                    <td class="number-font">接觸</td>
-                    <td class="number-font">力量</td>
-                    <td class="number-font">選球</td>
-                    <td class="number-font">速度</td>
-                    <td class="number-font">守備</td>
+                    <td class="number-font">Stat1</td>
+                    <td class="number-font">Stat2</td>
+                    <td class="number-font">Stat3</td>
+                    <td class="number-font">Stat4</td>
+                    <td class="number-font">Stat5</td>
                     <td class="number-font">值</td>
                 </tr>
                 <tr>
                     <td colspan="2">基本能力值</td>
-                    <td><input type="number" value="0" id="base-contact" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="base-power" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="base-eye" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="base-speed" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="base-fielding" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="base-stat1" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="base-stat2" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="base-stat3" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="base-stat4" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="base-stat5" class="average-value number-font"></td>
                     <td id="base-average" class="average-value number-font"></td>
                 </tr>
                 <tr>
@@ -239,11 +239,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">階級上升量</td>
-                    <td><input type="number" value="0" id="tier-contact" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="tier-power" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="tier-eye" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="tier-speed" class="average-value number-font"></td>
-                    <td><input type="number" value="0" id="tier-fielding" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="tier-stat1" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="tier-stat2" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="tier-stat3" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="tier-stat4" class="average-value number-font"></td>
+                    <td><input type="number" value="0" id="tier-stat5" class="average-value number-font"></td>
                     <td id="tier-sum" class="average-value number-font"></td>
                 </tr>
                 <tr>
@@ -309,11 +309,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">一般陣容能力值</td>
-                    <td id="roster-contact" class="average-value number-font"></td>
-                    <td id="roster-power" class="average-value number-font"></td>
-                    <td id="roster-eye" class="average-value number-font"></td>
-                    <td id="roster-speed" class="average-value number-font"></td>
-                    <td id="roster-fielding" class="average-value number-font"></td>
+                    <td id="roster-stat1" class="average-value number-font"></td>
+                    <td id="roster-stat2" class="average-value number-font"></td>
+                    <td id="roster-stat3" class="average-value number-font"></td>
+                    <td id="roster-stat4" class="average-value number-font"></td>
+                    <td id="roster-stat5" class="average-value number-font"></td>
                     <td id="roster-average" class="average-value number-font"></td>
                 </tr>
                 <tr class="blank-row"><td colspan="8"></td></tr>
@@ -331,7 +331,7 @@
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td>裝備</td>
-                     <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td>
+                    <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td><input type="number" class="number-font" value="0"></td> <td>
                         <select class="number-font">
                             <option value="無">無</option>
                             <option value="銅">銅</option>
@@ -352,11 +352,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">上場能力值</td>
-                    <td id="on-field-contact" class="average-value number-font"></td>
-                    <td id="on-field-power" class="average-value number-font"></td>
-                    <td id="on-field-eye" class="average-value number-font"></td>
-                    <td id="on-field-speed" class="average-value number-font"></td>
-                    <td id="on-field-fielding" class="average-value number-font"></td>
+                    <td id="on-field-stat1" class="average-value number-font"></td>
+                    <td id="on-field-stat2" class="average-value number-font"></td>
+                    <td id="on-field-stat3" class="average-value number-font"></td>
+                    <td id="on-field-stat4" class="average-value number-font"></td>
+                    <td id="on-field-stat5" class="average-value number-font"></td>
                     <td id="on-field-average" class="average-value number-font"></td>
                 </tr>
             </tbody>
@@ -372,18 +372,18 @@
         const positionSelect = document.getElementById('position');
         const playerSelect = document.getElementById('player-select');
 
-        const baseContactInput = document.getElementById('base-contact');
-        const basePowerInput = document.getElementById('base-power');
-        const baseEyeInput = document.getElementById('base-eye');
-        const baseSpeedInput = document.getElementById('base-speed');
-        const baseFieldingInput = document.getElementById('base-fielding');
+        const baseStat1Input = document.getElementById('base-stat1');
+        const baseStat2Input = document.getElementById('base-stat2');
+        const baseStat3Input = document.getElementById('base-stat3');
+        const baseStat4Input = document.getElementById('base-stat4');
+        const baseStat5Input = document.getElementById('base-stat5');
         const baseAverageDisplay = document.getElementById('base-average');
 
-        const tierContactInput = document.getElementById('tier-contact');
-        const tierPowerInput = document.getElementById('tier-power');
-        const tierEyeInput = document.getElementById('tier-eye');
-        const tierSpeedInput = document.getElementById('tier-speed');
-        const tierFieldingInput = document.getElementById('tier-fielding');
+        const tierStat1Input = document.getElementById('tier-stat1');
+        const tierStat2Input = document.getElementById('tier-stat2');
+        const tierStat3Input = document.getElementById('tier-stat3');
+        const tierStat4Input = document.getElementById('tier-stat4');
+        const tierStat5Input = document.getElementById('tier-stat5');
         const tierSumDisplay = document.getElementById('tier-sum');
 
         const enhanceSumDisplay = document.getElementById('enhance-sum');
@@ -458,16 +458,16 @@
 
         // Function to populate table with player data
         function populateTable(selectedPlayerName) {
-            baseContactInput.value = 0;
-            basePowerInput.value = 0;
-            baseEyeInput.value = 0;
-            baseSpeedInput.value = 0;
-            baseFieldingInput.value = 0;
-            tierContactInput.value = 0;
-            tierPowerInput.value = 0;
-            tierEyeInput.value = 0;
-            tierSpeedInput.value = 0;
-            tierFieldingInput.value = 0;
+            baseStat1Input.value = 0;
+            baseStat2Input.value = 0;
+            baseStat3Input.value = 0;
+            baseStat4Input.value = 0;
+            baseStat5Input.value = 0;
+            tierStat1Input.value = 0;
+            tierStat2Input.value = 0;
+            tierStat3Input.value = 0;
+            tierStat4Input.value = 0;
+            tierStat5Input.value = 0;
 
             if (!selectedPlayerName) return; // 沒有選擇球員則清空表格數值
 
@@ -500,25 +500,25 @@
                     typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
                 } else if (selectedType === 'epic') {
                     typeData = selectedPlayerData.types['epic']; // 史詩類型
-                    playerBaseState = typeData.base_state;       // 覆蓋基本能力值為史詩類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;    // 覆蓋階級上升量為史詩類型自定義數值
+                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為史詩類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為史詩類型自定義數值
                 } else if (selectedType === 'prime') {
                     typeData = selectedPlayerData.types['prime']; // 全盛類型
-                    playerBaseState = typeData.base_state;       // 覆蓋基本能力值為全盛類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;    // 覆蓋階級上升量為全盛類型自定義數值
+                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為全盛類型自定義數值
+                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為全盛類型自定義數值
                 }
 
 
-                baseContactInput.value = playerBaseState.接觸 || 0;
-                basePowerInput.value = playerBaseState.力量 || 0;
-                baseEyeInput.value = playerBaseState.選球 || 0;
-                baseSpeedInput.value = playerBaseState.速度 || 0;
-                baseFieldingInput.value = playerBaseState.守備 || 0;
-                tierContactInput.value = playerTierIncrease.接觸 || 0;
-                tierPowerInput.value = playerTierIncrease.力量 || 0;
-                tierEyeInput.value = playerTierIncrease.選球 || 0;
-                tierSpeedInput.value = playerTierIncrease.速度 || 0;
-                tierFieldingInput.value = playerTierIncrease.守備 || 0;
+                baseStat1Input.value = playerBaseState.Stat1 || 0;
+                baseStat2Input.value = playerBaseState.Stat2 || 0;
+                baseStat3Input.value = playerBaseState.Stat3 || 0;
+                baseStat4Input.value = playerBaseState.Stat4 || 0;
+                baseStat5Input.value = playerBaseState.Stat5 || 0;
+                tierStat1Input.value = playerTierIncrease.Stat1 || 0;
+                tierStat2Input.value = playerTierIncrease.Stat2 || 0;
+                tierStat3Input.value = playerTierIncrease.Stat3 || 0;
+                tierStat4Input.value = playerTierIncrease.Stat4 || 0;
+                tierStat5Input.value = playerTierIncrease.Stat5 || 0;
 
                 updateBaseAverage(); // 更新基本能力值平均
                 updateTierSum();     // 更新階級上升量總和
@@ -537,30 +537,30 @@
                 cell.value = dropdownValue;
             });
         }
-        // ... (updateBaseAverage, updateTierSum, updateEnhanceSum, updateCoachSum, updateBlackDiamondSum functions - 維持不變) ...
-        function updateBaseAverage() { /* ... (內容與之前的程式碼相同) ... */
-            const contact = parseFloat(baseContactInput.value) || 0;
-            const power = parseFloat(basePowerInput.value) || 0;
-            const eye = parseFloat(baseEyeInput.value) || 0;
-            const speed = parseFloat(baseSpeedInput.value) || 0;
-            const fielding = parseFloat(baseFieldingInput.value) || 0;
+        // ... (updateBaseAverage, updateTierSum, updateEnhanceSum, updateCoachSum, updateBlackDiamondSum functions - 維持不變，但需修改內部變數名稱) ...
+        function updateBaseAverage() {
+            const stat1 = parseFloat(baseStat1Input.value) || 0;
+            const stat2 = parseFloat(baseStat2Input.value) || 0;
+            const stat3 = parseFloat(baseStat3Input.value) || 0;
+            const stat4 = parseFloat(baseStat4Input.value) || 0;
+            const stat5 = parseFloat(baseStat5Input.value) || 0;
 
-            const average = (contact + power + eye + speed + fielding) / 5;
+            const average = (stat1 + stat2 + stat3 + stat4 + stat5) / 5;
             baseAverageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
         }
 
-        function updateTierSum() { /* ... (內容與之前的程式碼相同) ... */
-            const contact = parseFloat(tierContactInput.value) || 0;
-            const power = parseFloat(tierPowerInput.value) || 0;
-            const eye = parseFloat(tierEyeInput.value) || 0;
-            const speed = parseFloat(tierSpeedInput.value) || 0;
-            const fielding = parseFloat(tierFieldingInput.value) || 0;
+        function updateTierSum() {
+            const stat1 = parseFloat(tierStat1Input.value) || 0;
+            const stat2 = parseFloat(tierStat2Input.value) || 0;
+            const stat3 = parseFloat(tierStat3Input.value) || 0;
+            const stat4 = parseFloat(tierStat4Input.value) || 0;
+            const stat5 = parseFloat(tierStat5Input.value) || 0;
 
-            const sum = contact + power + eye + speed + fielding;
+            const sum = stat1 + stat2 + stat3 + stat4 + stat5;
             tierSumDisplay.textContent = sum;
         }
 
-        function updateEnhanceSum() { /* ... (內容與之前的程式碼相同) ... */
+        function updateEnhanceSum() {
             const enhanceRow = document.querySelectorAll('tr')[6];
             if (enhanceRow) {
                 const inputs = enhanceRow.querySelectorAll('td input[type="number"]');
@@ -572,7 +572,7 @@
             }
         }
 
-        function updateCoachSum() { /* ... (內容與之前的程式碼相同) ... */
+        function updateCoachSum() {
             const coachRow = document.querySelectorAll('tr')[7];
             if (coachRow) {
                 const inputs = coachRow.querySelectorAll('td input[type="number"]');
@@ -584,7 +584,7 @@
             }
         }
 
-        function updateBlackDiamondSum() { /* ... (內容與之前的程式碼相同) ... */
+        function updateBlackDiamondSum() {
             const blackDiamondRow = document.querySelectorAll('tr')[9];
             if (blackDiamondRow) {
                 const inputs = blackDiamondRow.querySelectorAll('td input[type="number"]');
@@ -632,18 +632,18 @@
         });
 
 
-        // Event listeners for input changes (維持不變)
-        baseContactInput.addEventListener('change', updateBaseAverage);
-        basePowerInput.addEventListener('change', updateBaseAverage);
-        baseEyeInput.addEventListener('change', updateBaseAverage);
-        baseSpeedInput.addEventListener('change', updateBaseAverage);
-        baseFieldingInput.addEventListener('change', updateBaseAverage);
+        // Event listeners for input changes (需要修改變數名稱)
+        baseStat1Input.addEventListener('change', updateBaseAverage);
+        baseStat2Input.addEventListener('change', updateBaseAverage);
+        baseStat3Input.addEventListener('change', updateBaseAverage);
+        baseStat4Input.addEventListener('change', updateBaseAverage);
+        baseStat5Input.addEventListener('change', updateBaseAverage);
 
-        tierContactInput.addEventListener('change', updateTierSum);
-        tierPowerInput.addEventListener('change', updateTierSum);
-        tierEyeInput.addEventListener('change', updateTierSum);
-        tierSpeedInput.addEventListener('change', updateTierSum);
-        tierFieldingInput.addEventListener('change', updateTierSum);
+        tierStat1Input.addEventListener('change', updateTierSum);
+        tierStat2Input.addEventListener('change', updateTierSum);
+        tierStat3Input.addEventListener('change', updateTierSum);
+        tierStat4Input.addEventListener('change', updateTierSum);
+        tierStat5Input.addEventListener('change', updateTierSum);
 
         const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]');
         enhanceRowInputs.forEach(input => {
