@@ -513,6 +513,7 @@
                 updateEnhanceSum();     // 更新強化量總和
                 updateCoachSum();      // 更新教練總和
                 updateBlackDiamondSum();// 更新黑鑽總和
+                updateGeneralLineupAbilityValue();
             }
         }
 
@@ -687,7 +688,7 @@
         statusSelect.addEventListener('change', updateStatusValues);
 
         // **新增事件監聽器：監聽 "一般陣容能力值" 相關的 input change 事件**
-        const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(5) input[type="number"], tr:nth-child(6) input[type="number"], tr:nth-child(7) input[type="number"], tr:nth-child(8) select, tr:nth-child(9) select, tr:nth-child(10) input[type="number"], tr:nth-child(11) input[type="number"]');
+        const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(4) input[type="number"], tr:nth-child(5) input[type="number"], tr:nth-child(6) input[type="number"], tr:nth-child(7) input[type="number"], tr:nth-child(8) input[type="number"], tr:nth-child(9) input[type="number"], tr:nth-child(10) input[type="number"], tr:nth-child(11) input[type="number"]');
         generalLineupInputs.forEach(input => {
             input.addEventListener('change', updateGeneralLineupAbilityValue);
         });
