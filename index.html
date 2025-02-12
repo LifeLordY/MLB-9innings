@@ -376,6 +376,16 @@
         const coachSumDisplay = document.getElementById('coach-sum');
         const blackDiamondSumDisplay = document.getElementById('black-diamond-sum');
 
+        // **球隊顏色對應表**
+        const teamColors = {
+            "NYY": "#0C2340",
+            "OAK": "#003831",
+            "HOU": "#EB6E1F",
+            "WSH": "#AB0003",
+            "STL": "#C41E3A",
+            "LAD": "#005A9C"
+        };
+
         // 使用陣列儲存 baseStat 輸入框元素
         const baseStatInputs = [];
         for (let i = 1; i <= 5; i++) {
@@ -399,6 +409,18 @@
                 })
                 .catch(error => console.error('Error loading data.json:', error));
         }
+
+        // **新增函數：更新 container 背景顏色**
+        function updateContainerColor() {
+            const selectedTeamCode = teamSelect.value; // 取得選取的球隊代碼
+            const containerElement = document.querySelector('.container'); // 取得 container 元素
+
+            if (teamColors[selectedTeamCode]) { // 檢查選取的球隊代碼是否存在於顏色對應表中
+                containerElement.style.backgroundColor = teamColors[selectedTeamCode]; // 設定 container 背景顏色
+            } else {
+                containerElement.style.backgroundColor = '#1e1e1e'; // 如果沒有對應顏色，設定回預設顏色 (或你希望的預設顏色)
+            }
+        }
 
         // Function to update player dropdown based on filters
         function updatePlayerDropdown() {
@@ -651,6 +673,9 @@
         teamSelect.addEventListener('change', updatePlayerDropdown);
         positionSelect.addEventListener('change', updatePlayerDropdown);
 
+        // **新增球隊下拉選單的 change 事件監聽器，呼叫 updateContainerColor 函數**
+        teamSelect.addEventListener('change', updateContainerColor);
+
         playerSelect.addEventListener('change', function() {
             const selectedPlayerName = playerSelect.value;
             populateTable(selectedPlayerName);
@@ -703,6 +728,9 @@
 
         // **初始執行一次 "一般陣容能力值" 計算，確保網頁載入時顯示正確數值**
         updateGeneralLineupAbilityValue();
+
+        // **網頁初始化時，也呼叫一次 updateContainerColor，設定初始顏色**
+        updateContainerColor();
 
     });
     </script>
