@@ -616,7 +616,7 @@
         
             // 基本校正
             const baseCorrectionCheckbox = document.querySelector('tr:nth-child(4) td:nth-child(1) input[type="checkbox"]');
-            const baseCorrectionStatValues = baseCorrectionCheckbox.checked ? Array.from(document.querySelectorAll('tr')[3].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[3] 是基本校正列 (第四列)
+            const baseCorrectionStatValues = baseCorrectionCheckbox.checked ? Array.from(document.querySelectorAll('tr')[4].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[3] 是基本校正列 (第四列)
         
             // 階級上升量
             const tierIncreaseCheckbox = document.querySelector('tr:nth-child(5) td:nth-child(1) input[type="checkbox"]');
@@ -624,27 +624,27 @@
         
             // 強化量
             const enhanceCheckbox = document.querySelector('tr:nth-child(6) td:nth-child(1) input[type="checkbox"]');
-            const enhanceStatValues = enhanceCheckbox.checked ? Array.from(document.querySelectorAll('tr')[5].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[5] 是強化量列 (第六列)
+            const enhanceStatValues = enhanceCheckbox.checked ? Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[5] 是強化量列 (第六列)
         
             // 教練
             const coachCheckbox = document.querySelector('tr:nth-child(7) td:nth-child(1) input[type="checkbox"]');
-            const coachStatValues = coachCheckbox.checked ? Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[6] 是教練列 (第七列)
+            const coachStatValues = coachCheckbox.checked ? Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[6] 是教練列 (第七列)
         
             // 特別訓練
             const specialTrainingCheckbox = document.querySelector('tr:nth-child(8) td:nth-child(1) input[type="checkbox"]');
-            const specialTrainingValue = specialTrainingCheckbox.checked ? Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
+            const specialTrainingValue = specialTrainingCheckbox.checked ? Array.from(document.querySelectorAll('tr')[8].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
         
             // 指導球員
             const coachingPlayerCheckbox = document.querySelector('tr:nth-child(9) td:nth-child(1) input[type="checkbox"]');
-            const coachingPlayerValue = coachingPlayerCheckbox.checked ? Array.from(document.querySelectorAll('tr')[8].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
+            const coachingPlayerValue = coachingPlayerCheckbox.checked ? Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
         
             // 黑鑽
             const blackDiamondCheckbox = document.querySelector('tr:nth-child(10) td:nth-child(1) input[type="checkbox"]');
-            const blackDiamondStatValues = blackDiamondCheckbox.checked ? Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[9] 是黑鑽列 (第十列)
+            const blackDiamondStatValues = blackDiamondCheckbox.checked ? Array.from(document.querySelectorAll('tr')[10].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0]; // 注意: tr[9] 是黑鑽列 (第十列)
         
             // 團隊加成
             const teamBonusCheckbox = document.querySelector('tr:nth-child(11) td:nth-child(1) input[type="checkbox"]');
-            const teamBonusValue = teamBonusCheckbox.checked ? Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
+            const teamBonusValue = teamBonusCheckbox.checked ? Array.from(document.querySelectorAll('tr')[11].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0) : [0, 0, 0, 0, 0];
 
             
             for (let i = 0; i < 5; i++) {
