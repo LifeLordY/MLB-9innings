@@ -402,15 +402,15 @@
         // Function to update player dropdown based on filters
         function updatePlayerDropdown() {
             playerSelect.innerHTML = '<option value="">-- 或選擇球員 --</option>'; // 清空球員選單並保留預設選項
-
+        
             const selectedType = typeSelect.value;
             const selectedTeam = teamSelect.value;
             const selectedPosition = positionSelect.value;
-
+        
             if (!selectedType) { // 類型未選擇，不顯示球員
                 return;
             }
-
+        
             let filteredPlayers = [];
             playerData.forEach(teamData => {
                 const teamCode = Object.keys(teamData)[0]; // 取得球隊代碼 (NYY, OAK...)
@@ -418,24 +418,30 @@
                 players.forEach(player => {
                     const playerTypes = player.types;
                     let playerTypeMatch = false;
-
-                    if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend') {
-                        playerTypeMatch = player.types.general !== undefined || player.types.classic !== undefined || player.types.signature !== undefined;
+        
+                    if (selectedType === 'general') {
+                        playerTypeMatch = player.types.general !== undefined; // 修正:  只檢查 general type 是否存在
+                    } else if (selectedType === 'classic') {
+                        playerTypeMatch = player.types.classic !== undefined; // 修正:  只檢查 classic type 是否存在 (如果需要)
+                    } else if (selectedType === 'signature') {
+                        playerTypeMatch = player.types.signature !== undefined; // 修正:  只檢查 signature type 是否存在 (如果需要)
+                    } else if (selectedType === 'legend') {
+                        playerTypeMatch = player.types.legend !== undefined; // 修正:  只檢查 legend type 是否存在 (如果需要)
                     } else if (selectedType === 'epic') {
                         playerTypeMatch = player.types.epic !== undefined; // 史詩類型只需判斷是否有 epic type 定義
                     } else if (selectedType === 'prime') {
                         playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
                     }
-
+        
                     const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
                     const positionFilterPass = !selectedPosition || player.position === selectedPosition; // 沒有選擇位置或位置符合
-
+        
                     if (playerTypeMatch && teamFilterPass && positionFilterPass) {
                         filteredPlayers.push({ name: player.name, team: teamCode, position: player.position }); // 儲存球員名稱和所屬球隊代碼, 位置
                     }
                 });
             });
-
+        
             // 將篩選後的球員加入球員下拉選單
             filteredPlayers.sort((a, b) => a.name.localeCompare(b.name, 'zh-TW')); // 按照球員名稱繁體中文排序
             filteredPlayers.forEach(player => {
