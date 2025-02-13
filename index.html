@@ -903,11 +903,13 @@
             
             for (let i = 0; i < 5; i++) {
                 generalLineupStatSums[i] += baseStatValues[i];
+                highestBoardingStatSums[i] += baseStatValues[i];
                 if(baseCorrectionCheckbox.checked) {
                     generalLineupStatSums[i] += baseCorrectionStatValues[i];
                     highestBoardingStatSums[i] += baseCorrectionStatValues[i];
                 }
                 generalLineupStatSums[i] += tierStatValues[i];
+                highestBoardingStatSums[i] += tierStatValues[i];
                 if(enhanceStatCheckbox.checked) {
                     generalLineupStatSums[i] += enhanceStatValues[i];
                     highestBoardingStatSums[i] += enhanceStatValues[i];
