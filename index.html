@@ -572,6 +572,7 @@
                 updateEnhanceSum();     // 更新強化量總和
                 updateCoachSum();      // 更新教練總和
                 updateBlackDiamondSum();// 更新黑鑽總和
+                updateSpecialTrainingValues(); //更新特別訓練值
                 updateGeneralLineupAbilityValue();
             }
         }
@@ -769,6 +770,8 @@
                 input.value = num;
                 updateNumberColor2(input, num);
             }
+
+            updateGeneralLineupAbilityValue();
         }
 
         // 新增函數：自動設定＂黑鑽＂行的能力值
@@ -944,6 +947,7 @@
             input.addEventListener('change', () => {
                 updateBaseAverage();
                 updateNumberColor(input, input.value);
+                updateSpecialTrainingValues();
             });
         });
         
@@ -966,6 +970,7 @@
             input.addEventListener('change', () => {
                 updateEnhanceSum();
                 updateNumberColor2(input, input.value);
+                updateSpecialTrainingValues();
             });
         });
 
