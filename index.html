@@ -758,8 +758,11 @@
                 .slice(0, 3)                              // 取前三個
                 .map(item => item.index);                 // 取出索引
 
-            const inputs = document.querySelectorAll('tr')[11].querySelectorAll('td input[type="number"]');
-
+            const inputs = document.querySelectorAll('tr')[8].querySelectorAll('td input[type="number"]');
+            inputs.forEach(input => {
+                input.value = 0;
+            });
+            
             for (let i = 0; i < 3; i++) {
                 const input = inputs[topThreeIndexes[i]];
                 const num = values[i];
