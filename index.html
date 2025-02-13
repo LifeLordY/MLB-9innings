@@ -405,15 +405,15 @@
         let playerData = []; // 儲存從 data.json 載入的球員資料
 
         // Function to fetch data from data.json
-        function loadPlayerData() {
+        function loadPlayerData(callback) {
             fetch('data.json')
                 .then(response => response.json())
                 .then(data => {
                     playerData = data;
+                    // 資料載入後呼叫 updatePlayerDropdown 函式
+                    callback();
                 })
                 .catch(error => console.error('Error loading data.json:', error));
-
-            updatePlayerDropdown();
         }
 
         // **新增函數：更新 container 背景顏色**
@@ -840,7 +840,7 @@
 
         
         // Load player data and initialize dropdown (維持不變)
-        loadPlayerData();
+        loadPlayerData(updatePlayerDropdown);
         // updatePlayerDropdown();
         // **網頁初始化時，也呼叫一次 updateContainerColor，設定初始顏色**
         updateContainerColor();
