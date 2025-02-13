@@ -75,12 +75,11 @@
             font-weight: bold;
         }
 
-        tr:nth-child(-n+2) {
-            background-color: #022;
+        tr:nth-child(0), tr:nth-child(-n+2), tr:nth-child(12), tr:nth-child(17) {
+            background-color: #112;
         }
-
-        tr:nth-child(n+3) {
-            background-color: #1e1e1e;
+        tr:nth-child(n+3):nth-child(-n+11), tr:nth-child(n+13):nth-child(-n+16) {
+            background-color: #222;
         }
 
         input[type="checkbox"] {
