@@ -548,21 +548,21 @@
                     playerInput.value = selectedPlayerName;
                 }
 
-                if (selectedType === 'regular' || selectedType === 'vintage' || selectedType === 'signature' || selectedType === 'legend' || selectedType === 'supreme') {
-                    typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
-                } else if (selectedType === 'prime') {
-                    typeData = selectedPlayerData.types['prime']; // 全盛類型
-                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為全盛類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為全盛類型自定義數值
-                }
-                // // 嘗試取得該類型的資料（不管 type 名稱是什麼）
-                // let typeData = selectedPlayerData.types[selectedType];
-                
-                // // 若該類型有定義自己的 base_state 與 tier_increase，就覆蓋預設值
-                // if (typeData && typeData.base_state && typeData.tier_increase) {
-                //     playerBaseState = typeData.base_state;
-                //     playerTierIncrease = typeData.tier_increase;
+                // if (selectedType === 'regular' || selectedType === 'vintage' || selectedType === 'signature' || selectedType === 'legend' || selectedType === 'supreme') {
+                //     typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
+                // } else if (selectedType === 'prime') {
+                //     typeData = selectedPlayerData.types['prime']; // 全盛類型
+                //     playerBaseState = typeData.base_state;      // 覆蓋基本能力值為全盛類型自定義數值
+                //     playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為全盛類型自定義數值
                 // }
+                // 嘗試取得該類型的資料（不管 type 名稱是什麼）
+                typeData = selectedPlayerData.types[selectedType];
+                
+                // 若該類型有定義自己的 base_state 與 tier_increase，就覆蓋預設值
+                if (typeData && typeData.base_state && typeData.tier_increase) {
+                    playerBaseState = typeData.base_state;
+                    playerTierIncrease = typeData.tier_increase;
+                }
 
                 baseStatInputs.forEach((input, index) => {
                     const num = playerBaseState[`Stat${index + 1}`] || 0;
