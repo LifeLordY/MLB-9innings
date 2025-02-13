@@ -545,14 +545,63 @@
             }
         }
 
+        // 大數字顏色更新函數
+        function updateNumberColor(element, value) {
+            if (isNaN(value)) {
+                element.style.color = '';  // 如果是 NaN，不改變顏色
+                return;
+            }
+        
+            // 根據數值大小設置顏色
+            if (value >= 140) {
+                element.style.color = '#ff0000';
+            } else if (value >= 130) {
+                element.style.color = '#ff6600';
+            } else if (value >= 120) {
+                element.style.color = '#ff9933';
+            } else if (value >= 100) {
+                element.style.color = '#ffcc00';
+            } else if (value >= 80) {
+                element.style.color = '#e2b700';
+            } else if (value >= 65) {
+                element.style.color = '#908070';
+            } else {
+                element.style.color = '#808080';
+            }
+        }
 
-        // ... (setSameAsDropdownValues function - 維持不變) ...
-        function setSameAsDropdownValues(row, dropdown) { /* ... (內容與之前的程式碼相同) ... */
-            const dropdownValue = dropdown.value;
-            const sameAsCells = row.querySelectorAll('.same-as-dropdown');
-            sameAsCells.forEach(cell => {
-                cell.value = dropdownValue;
-            });
+        // 小數字顏色更新函數
+        function updateNumberColor2(element, value) {
+            if (isNaN(value)) {
+                element.style.color = '';  // 如果是 NaN，不改變顏色
+                return;
+            }
+        
+            // 根據數值大小設置顏色
+            if (value >= 21) {
+                element.style.color = '#ff0000';
+            } else if (value >= 11) {
+                element.style.color = '#ff9933';
+            } else {
+                element.style.color = '#ffffff';
+            }
+        }
+
+        // 正負數字顏色更新函數
+        function updateNumberColor3(element, value) {
+            if (isNaN(value)) {
+                element.style.color = '';  // 如果是 NaN，不改變顏色
+                return;
+            }
+        
+            // 根據數值大小設置顏色
+            if (value > 0) {
+                element.style.color = '#00ff00';
+            } else if (value < 0) {
+                element.style.color = '#ff0000';
+            } else {
+                element.style.color = '#ffffff';
+            }
         }
 
         // 使用陣列和迴圈改寫 updateBaseAverage 函數
@@ -563,6 +612,7 @@
             });
             const average = sum / baseStatInputs.length;
             baseAverageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
+            updateNumberColor(baseAverageDisplay, average);
         }
 
         // 使用陣列和迴圈改寫 updateTierSum 函數 
@@ -572,6 +622,7 @@
                 sum += parseFloat(input.value) || 0;
             });
             tierSumDisplay.textContent = sum;
+            updateNumberColor(tierSumDisplay, sum);
         }
 
 
@@ -584,6 +635,7 @@
                     sum += parseFloat(input.value) || 0;
                 });
                 enhanceSumDisplay.textContent = sum;
+                updateNumberColor(enhanceSumDisplay, sum);
             }
         }
 
@@ -596,6 +648,7 @@
                     sum += parseFloat(input.value) || 0;
                 });
                 coachSumDisplay.textContent = sum;
+                updateNumberColor(coachSumDisplay, sum);
             }
         }
 
@@ -608,6 +661,7 @@
                     sum += parseFloat(input.value) || 0;
                 });
                 blackDiamondSumDisplay.textContent = sum;
+                updateNumberColor(blackDiamondSumDisplay, sum);
             }
         }
 
@@ -632,6 +686,7 @@
 
             inputs.forEach(input => {
                 input.value = selectedValue;
+                updateNumberColor3(input, selectedValue);
             });
         }
 
@@ -655,14 +710,16 @@
                 generalLineupStatSums[i] += tierStatValues[i];
                 generalLineupStatSums[i] += enhanceStatValues[i];
                 generalLineupStatSums[i] += coachStatValues[i];
-                generalLineupStatSums[i] += specialTrainingValue[i]; // 特別訓練加到每個 Stat
-                generalLineupStatSums[i] += coachingPlayerValue[i]; // 指導球員加到每個 Stat
+                generalLineupStatSums[i] += specialTrainingValue[i];
+                generalLineupStatSums[i] += coachingPlayerValue[i];
                 generalLineupStatSums[i] += blackDiamondStatValues[i];
-                generalLineupStatSums[i] += teamBonusValue[i]; // 團隊加成加到每個 Stat
+                generalLineupStatSums[i] += teamBonusValue[i];
 
+                const sum = generalLineupStatSums[i].toFixed(0); // 顯示整數
                 const statSumDisplay = document.getElementById(`roster-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
                 if (statSumDisplay) {
-                    statSumDisplay.textContent = generalLineupStatSums[i].toFixed(0); // 顯示整數
+                    statSumDisplay.textContent = sum;
+                    updateNumberColor(statSumDisplay, sum);
                 }
             }
 
@@ -670,6 +727,7 @@
             const averageDisplay = document.getElementById('roster-average'); // 更新為 roster-average
             if (averageDisplay) {
                 averageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
+                updateNumberColor(averageDisplay, average);
             }
         }
 
@@ -724,10 +782,7 @@
             input.addEventListener('change', updateGeneralLineupAbilityValue);
         });
 
-
-        // Set initial values for "指導球員" 和 "狀態" rows (維持不變)
-        // ... setSameAsDropdownValues calls ... (如果你的 `setSameAsDropdownValues` 函數有實際功能，請保留)
-
+        
         // Load player data and initialize dropdown (維持不變)
         loadPlayerData();
         updatePlayerDropdown();
