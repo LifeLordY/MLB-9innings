@@ -878,7 +878,7 @@
         statusSelect.addEventListener('change', updateStatusValues);
 
         // **新增事件監聽器：監聽 "一般陣容能力值" 相關的 input change 事件**
-        const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(4) input[type="number"], tr:nth-child(5) input[type="number"], tr:nth-child(6) input[type="number"], tr:nth-child(7) input[type="number"], tr:nth-child(8) input[type="number"], tr:nth-child(9) input[type="number"], tr:nth-child(10) input[type="number"], tr:nth-child(11) input[type="number"]');
+        const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(4) input:is([type="number"], [type="checkbox"]), tr:nth-child(5) input[type="number"], tr:nth-child(6) input:is([type="number"], [type="checkbox"]), tr:nth-child(7) input:is([type="number"], [type="checkbox"]), tr:nth-child(8) input:is([type="number"], [type="checkbox"]), tr:nth-child(9) input:is([type="number"], [type="checkbox"]), tr:nth-child(10) input:is([type="number"], [type="checkbox"]), tr:nth-child(11) input:is([type="number"], [type="checkbox"])');
         generalLineupInputs.forEach(input => {
             input.addEventListener('change', updateGeneralLineupAbilityValue);
         });
