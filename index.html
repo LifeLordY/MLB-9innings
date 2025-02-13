@@ -572,7 +572,7 @@
                 updateCoachSum();      // 更新教練總和
                 updateBlackDiamondSum();// 更新黑鑽總和
                 updateSpecialTrainingValues(); //更新特別訓練值
-                updateGeneralLineupAbilityValue();
+                updateAllAbilityValue();
             }
         }
 
@@ -703,7 +703,7 @@
                 input.value = selectedValue;
             });
 
-            updateGeneralLineupAbilityValue();
+            updateAllAbilityValue();
         }
 
         // 新增函數：自動設定 "狀態" 行的能力值
@@ -719,7 +719,7 @@
                 updateNumberColor3(input, selectedValue);
             });
 
-            updateGeneralLineupAbilityValue();
+            updateAllAbilityValue();
         }
 
         // 新增函數：自動設定 "裝備" 行的能力值
@@ -747,7 +747,7 @@
                 }
             }
 
-            updateGeneralLineupAbilityValue();
+            updateAllAbilityValue();
         }
 
         // 新增函數：自動設定＂特別訓練＂行的能力值
@@ -801,7 +801,7 @@
                 updateNumberColor2(input, num);
             }
 
-            updateGeneralLineupAbilityValue();
+            updateAllAbilityValue();
         }
 
         // 新增函數：自動設定＂黑鑽＂行的能力值
@@ -863,7 +863,7 @@
         }
 
         // **新增函數：更新 "一般陣容能力值" 橫排的數值**
-        function updateGeneralLineupAbilityValue() {
+        function updateAllAbilityValue() {
             const generalLineupStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
             const highestBoardingStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
             // 直接選取每一列的 input 元素 (根據您的 HTML 結構)
@@ -950,7 +950,7 @@
                     updateNumberColor(statSumDisplay1, sum1);
                 }
                 // 最高登板能力值
-                const sum2 = generalLineupStatSums[i].toFixed(0); // 顯示整數
+                const sum2 = highestBoardingStatSums[i].toFixed(0); // 顯示整數
                 const statSumDisplay2 = document.getElementById(`highest-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
                 if (statSumDisplay2) {
                     statSumDisplay2.textContent = sum2;
@@ -966,7 +966,7 @@
                 updateNumberColor(averageDisplay1, average1);
             }
             // 最高登板能力值
-            const average2 = generalLineupStatSums.reduce((a, b) => a + b, 0) / 5; // 計算平均值
+            const average2 = highestBoardingStatSums.reduce((a, b) => a + b, 0) / 5; // 計算平均值
             const averageDisplay2 = document.getElementById('highest-average'); // 更新為 roster-average
             if (averageDisplay2) {
                 averageDisplay2.textContent = isNaN(average2) ? '' : average2.toFixed(1);
@@ -980,7 +980,7 @@
             updatePlayerDropdown();
             updateBlackDiamondValues();
             updateTeamBonusValues();
-            updateGeneralLineupAbilityValue();
+            updateAllAbilityValue();
         });
         teamSelect.addEventListener('change', updatePlayerDropdown);
         positionSelect.addEventListener('change', updatePlayerDropdown);
@@ -996,7 +996,7 @@
         tierSelect.addEventListener('change', () => {
             updateBlackDiamondValues();
             updateTeamBonusValues();
-            updateGeneralLineupAbilityValue();
+            updateAllAbilityValue();
             updateTableColor();
         });
 
@@ -1011,7 +1011,7 @@
                 }
             });
 
-            updateGeneralLineupAbilityValue();
+            updateAllAbilityValue();
         });
 
         // Event listeners for input changes - 使用陣列和迴圈簡化 (維持不變)
@@ -1147,7 +1147,7 @@
         // **新增事件監聽器：監聽 "一般陣容能力值" 相關的 input change 事件**
         const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(4) input:is([type="number"], [type="checkbox"]), tr:nth-child(5) input[type="number"], tr:nth-child(6) input:is([type="number"], [type="checkbox"]), tr:nth-child(7) input:is([type="number"], [type="checkbox"]), tr:nth-child(8) input:is([type="number"], [type="checkbox"]), tr:nth-child(9) input:is([type="number"], [type="checkbox"]), tr:nth-child(10) input:is([type="number"], [type="checkbox"]), tr:nth-child(11) input:is([type="number"], [type="checkbox"]), tr:nth-child(14) input:is([type="number"], [type="checkbox"]), tr:nth-child(15) input:is([type="number"], [type="checkbox"]), tr:nth-child(16) input:is([type="number"], [type="checkbox"])');
         generalLineupInputs.forEach(input => {
-            input.addEventListener('change', updateGeneralLineupAbilityValue);
+            input.addEventListener('change', updateAllAbilityValue);
         });
 
         
@@ -1168,7 +1168,7 @@
         updateTeamBonusValues();
 
         // **初始執行一次 "一般陣容能力值" 計算，確保網頁載入時顯示正確數值**
-        updateGeneralLineupAbilityValue();
+        updateAllAbilityValue();
 
     });
     </script>
