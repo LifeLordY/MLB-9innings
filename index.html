@@ -379,6 +379,8 @@
         const enhanceSumDisplay = document.getElementById('enhance-sum');
         const coachSumDisplay = document.getElementById('coach-sum');
         const blackDiamondSumDisplay = document.getElementById('black-diamond-sum');
+        // 取得 tbody 裡的所有勾選器
+        const allCheckboxes = document.querySelectorAll("table tbody input[type='checkbox']");
 
         // **球隊顏色對應表**
         const teamColors = {
@@ -773,6 +775,18 @@
 
         tierSelect.addEventListener('change', () => {
             updateTableColor();
+        });
+
+        allCheckboxes[0].addEventListener("change", function () {
+            // 用 this 指向目前觸發事件的勾選器 (也就是 allCheckboxes[0])
+            const isChecked = this.checked;
+        
+            allCheckboxes.forEach((checkbox, index) => {
+                // 略過第一個勾選器，僅改變其他勾選器的狀態
+                if (index !== 0) {
+                    checkbox.checked = isChecked;
+                }
+            });
         });
 
         // Event listeners for input changes - 使用陣列和迴圈簡化 (維持不變)
