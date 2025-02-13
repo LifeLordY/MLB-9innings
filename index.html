@@ -560,9 +560,9 @@
             } else if (value >= 120) {
                 element.style.color = '#ff9933';
             } else if (value >= 100) {
-                element.style.color = '#ffcc00';
+                element.style.color = '#dda300';
             } else if (value >= 80) {
-                element.style.color = '#e2b700';
+                element.style.color = '#c09300';
             } else if (value >= 65) {
                 element.style.color = '#908070';
             } else {
@@ -635,7 +635,6 @@
                     sum += parseFloat(input.value) || 0;
                 });
                 enhanceSumDisplay.textContent = sum;
-                updateNumberColor(enhanceSumDisplay, sum);
             }
         }
 
@@ -648,7 +647,6 @@
                     sum += parseFloat(input.value) || 0;
                 });
                 coachSumDisplay.textContent = sum;
-                updateNumberColor(coachSumDisplay, sum);
             }
         }
 
@@ -661,7 +659,6 @@
                     sum += parseFloat(input.value) || 0;
                 });
                 blackDiamondSumDisplay.textContent = sum;
-                updateNumberColor(blackDiamondSumDisplay, sum);
             }
         }
 
@@ -749,19 +746,29 @@
         // Event listeners for input changes - 使用陣列和迴圈簡化 (維持不變)
         baseStatInputs.forEach(input => {
             input.addEventListener('change', updateBaseAverage);
+            updateNumberColor(input, input.value);
         });
+        
+        const baseCorrectionInputs = document.querySelectorAll('tr')[4].querySelectorAll('td input[type="number"]');
+        baseCorrectionInputs.forEach(input => {
+            updateNumberColor3(baseCorrectionInputs, baseCorrectionInputs.value);
+        });
+        
         tierStatInputs.forEach(input => {
             input.addEventListener('change', updateTierSum);
+            updateNumberColor2(input, input.value);
         });
 
         const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]');
         enhanceRowInputs.forEach(input => {
             input.addEventListener('change', updateEnhanceSum);
+            updateNumberColor2(input, input.value);
         });
 
         const coachRowInputs = document.querySelectorAll('tr')[7].querySelectorAll('td input[type="number"]');
         coachRowInputs.forEach(input => {
             input.addEventListener('change', updateCoachSum);
+            updateNumberColor2(input, input.value);
         });
 
         const blackDiamondRowInputs = document.querySelectorAll('tr')[10].querySelectorAll('td input[type="number"]');
