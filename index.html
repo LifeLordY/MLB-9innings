@@ -745,35 +745,52 @@
 
         // Event listeners for input changes - 使用陣列和迴圈簡化 (維持不變)
         baseStatInputs.forEach(input => {
-            input.addEventListener('change', updateBaseAverage);
-            updateNumberColor(input, input.value);
+            input.addEventListener('change', () => {
+                updateBaseAverage();
+                updateNumberColor(input, input.value);
+            });
         });
         
         const baseCorrectionInputs = document.querySelectorAll('tr')[4].querySelectorAll('td input[type="number"]');
         baseCorrectionInputs.forEach(input => {
-            updateNumberColor3(baseCorrectionInputs, baseCorrectionInputs.value);
+            input.addEventListener('change', () => {
+                updateNumberColor3(input, input.value);
+            });
         });
         
         tierStatInputs.forEach(input => {
-            input.addEventListener('change', updateTierSum);
-            updateNumberColor2(input, input.value);
+            input.addEventListener('change', () => {
+                updateTierSum();
+                updateNumberColor2(input, input.value);
+            });
         });
 
         const enhanceRowInputs = document.querySelectorAll('tr')[6].querySelectorAll('td input[type="number"]');
         enhanceRowInputs.forEach(input => {
-            input.addEventListener('change', updateEnhanceSum);
-            updateNumberColor2(input, input.value);
+            input.addEventListener('change', () => {
+                updateEnhanceSum();
+                updateNumberColor2(input, input.value);
+            });
         });
 
         const coachRowInputs = document.querySelectorAll('tr')[7].querySelectorAll('td input[type="number"]');
         coachRowInputs.forEach(input => {
-            input.addEventListener('change', updateCoachSum);
-            updateNumberColor2(input, input.value);
+            input.addEventListener('change', () => {
+                updateCoachSum();
+                updateNumberColor2(input, input.value);
+            });
         });
 
         const blackDiamondRowInputs = document.querySelectorAll('tr')[10].querySelectorAll('td input[type="number"]');
         blackDiamondRowInputs.forEach(input => {
             input.addEventListener('change', updateBlackDiamondSum);
+        });
+
+        const teamBonusInputs = document.querySelectorAll('tr')[11].querySelectorAll('td input[type="number"]');
+        teamBonusInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                updateNumberColor2(input, input.value);
+            });
         });
 
         // **新增事件監聽器：監聽 "指導球員" 和 "狀態" 下拉選單的 change 事件 (維持不變)**
