@@ -129,6 +129,11 @@
             font-size: 0.85em;
         }
 
+        .highlight-font {
+            font-size: 1em;
+            font-weight: bold;
+        }
+
         #player-input,
         #player-select {
             width: 150px; /* 設定固定的寬度，您可以根據需要調整數值 */
@@ -169,9 +174,9 @@
         <table>
             <thead>
                 <tr>
-                    <th colspan="2">位置</th>
-                    <th colspan="5">球員</th>
-                    <th>階級</th>
+                    <th colspan="2" class="highlight-font">位置</th>
+                    <th colspan="5" class="highlight-font">球員</th>
+                    <th class="highlight-font">階級</th>
                 </tr>
             </thead>
             <tbody>
@@ -210,13 +215,13 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" checked></td>
-                    <td>項目</td>
-                    <td class="number-font">Stat1</td>
-                    <td class="number-font">Stat2</td>
-                    <td class="number-font">Stat3</td>
-                    <td class="number-font">Stat4</td>
-                    <td class="number-font">Stat5</td>
-                    <td class="number-font">值</td>
+                    <td class="highlight-font">項目</td>
+                    <td class="highlight-font">Stat1</td>
+                    <td class="highlight-font">Stat2</td>
+                    <td class="highlight-font">Stat3</td>
+                    <td class="highlight-font">Stat4</td>
+                    <td class="highlight-font">Stat5</td>
+                    <td class="highlight-font">值</td>
                 </tr>
                 <tr>
                     <td colspan="2">基本能力值</td>
@@ -308,7 +313,7 @@
                     <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td></td>
                 </tr>
                 <tr>
-                    <td colspan="2">一般陣容能力值</td>
+                    <td colspan="2" class="highlight-font">一般陣容能力值</td>
                     <td id="roster-stat1" class="average-value number-font"></td>
                     <td id="roster-stat2" class="average-value number-font"></td>
                     <td id="roster-stat3" class="average-value number-font"></td>
@@ -351,7 +356,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="2">上場能力值</td>
+                    <td colspan="2" class="highlight-font">上場能力值</td>
                     <td id="on-field-stat1" class="average-value number-font"></td>
                     <td id="on-field-stat2" class="average-value number-font"></td>
                     <td id="on-field-stat3" class="average-value number-font"></td>
