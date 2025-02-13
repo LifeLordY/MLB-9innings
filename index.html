@@ -207,8 +207,8 @@
                     </td>
                     <td>
                         <select id="tier" name="tier">
-                            <option value="白金">白金</option>
-                            <option value="黑鑽" selected>黑鑽</option>
+                            <option value="diamond">白金</option>
+                            <option value="blackDiamond" selected>黑鑽</option>
                         </select>
                     </td>
                 </tr>
@@ -478,14 +478,14 @@
                         playerTypeMatch = player.types.general !== undefined; // 修正:  只檢查 general type 是否存在
                     } else if (selectedType === 'classic') {
                         playerTypeMatch = player.types.classic !== undefined; // 修正:  只檢查 classic type 是否存在 (如果需要)
+                    } else if (selectedType === 'prime') {
+                        playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
                     } else if (selectedType === 'signature') {
                         playerTypeMatch = player.types.signature !== undefined; // 修正:  只檢查 signature type 是否存在 (如果需要)
                     } else if (selectedType === 'legend') {
                         playerTypeMatch = player.types.legend !== undefined; // 修正:  只檢查 legend type 是否存在 (如果需要)
                     } else if (selectedType === 'epic') {
                         playerTypeMatch = player.types.epic !== undefined; // 史詩類型只需判斷是否有 epic type 定義
-                    } else if (selectedType === 'prime') {
-                        playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
                     }
 
                     const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
@@ -720,6 +720,41 @@
             });
         }
 
+        // 新增函數：自動設定＂特別訓練＂行的能力值
+        function updateSpecialTrainingValues() {
+            
+        }
+
+        // 新增函數：自動設定＂黑鑽＂行的能力值
+        function updateBlackDiamondValues() {
+            const blackDiamondValue = 0;
+            if(tierSelect === 'blackDiamond') {
+                if (selectedType === 'general') {
+                    blackDiamondValue = 0;
+                } else if (selectedType === 'classic') {
+                    blackDiamondValue = 1;
+                } else if (selectedType === 'prime') {
+                    blackDiamondValue = 0;
+                } else if (selectedType === 'signature') {
+                    blackDiamondValue = 1;
+                } else if (selectedType === 'legend') {
+                    blackDiamondValue = 3;
+                } else if (selectedType === 'epic') {
+                    blackDiamondValue = 2;
+                }
+            }
+            const inputs = document.querySelectorAll('tr')[10].querySelectorAll('td input[type="number"]');
+
+            inputs.forEach(input => {
+                input.value = blackDiamondValue;
+            });
+        }
+
+        // 新增函數：自動設定＂團隊加成＂行的能力值
+        function updateTeamBonusValues() {
+            
+        }
+
         // **新增函數：更新 "一般陣容能力值" 橫排的數值**
         function updateGeneralLineupAbilityValue() {
             const generalLineupStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
@@ -738,16 +773,16 @@
             const coachStatValues = Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
             
             const specialTrainingCheckbox = document.querySelectorAll('tr')[8].querySelector('input[type="checkbox"]');
-            const specialTrainingValue = Array.from(document.querySelectorAll('tr')[8].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const specialTrainingValues = Array.from(document.querySelectorAll('tr')[8].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
 
             const coachingPlayerCheckbox = document.querySelectorAll('tr')[9].querySelector('input[type="checkbox"]');
-            const coachingPlayerValue = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const coachingPlayerValues = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
 
             const blackDiamondStatCheckbox = document.querySelectorAll('tr')[10].querySelector('input[type="checkbox"]');
             const blackDiamondStatValues = Array.from(document.querySelectorAll('tr')[10].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
 
             const teamBonusCheckbox = document.querySelectorAll('tr')[11].querySelector('input[type="checkbox"]');
-            const teamBonusValue = Array.from(document.querySelectorAll('tr')[11].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            const teamBonusValues = Array.from(document.querySelectorAll('tr')[11].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
 
             for (let i = 0; i < 5; i++) {
                 generalLineupStatSums[i] += baseStatValues[i];
@@ -762,16 +797,16 @@
                     generalLineupStatSums[i] += coachStatValues[i];
                 }
                 if(specialTrainingCheckbox.checked) {
-                    generalLineupStatSums[i] += specialTrainingValue[i];
+                    generalLineupStatSums[i] += specialTrainingValues[i];
                 }
                 if(coachingPlayerCheckbox.checked) {
-                    generalLineupStatSums[i] += coachingPlayerValue[i];
+                    generalLineupStatSums[i] += coachingPlayerValues[i];
                 }
                 if(blackDiamondStatCheckbox.checked) {
                     generalLineupStatSums[i] += blackDiamondStatValues[i];
                 }
                 if(teamBonusCheckbox.checked) {
-                    generalLineupStatSums[i] += teamBonusValue[i];
+                    generalLineupStatSums[i] += teamBonusValues[i];
                 }
 
                 const sum = generalLineupStatSums[i].toFixed(0); // 顯示整數
@@ -858,9 +893,26 @@
             });
         });
 
+        const specialTrainingRowInputs = document.querySelectorAll('tr')[8].querySelectorAll('td input[type="number"]');
+        specialTrainingRowInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                updateNumberColor2(input, input.value);
+            });
+        });
+
+        const coachingPlayerRowInputs = document.querySelectorAll('tr')[9].querySelectorAll('td input[type="number"]');
+        coachingPlayerRowInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                updateNumberColor2(input, input.value);
+            });
+        });
+
         const blackDiamondRowInputs = document.querySelectorAll('tr')[10].querySelectorAll('td input[type="number"]');
         blackDiamondRowInputs.forEach(input => {
-            input.addEventListener('change', updateBlackDiamondSum);
+            input.addEventListener('change', () => {
+                updateBlackDiamondSum();
+                updateNumberColor2(input, input.value);
+            });
         });
 
         const teamBonusInputs = document.querySelectorAll('tr')[11].querySelectorAll('td input[type="number"]');
