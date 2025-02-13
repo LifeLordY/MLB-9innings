@@ -149,12 +149,12 @@
             <button id="clear-all-button" type="button">清除所有</button>
             <label for="type">類型:</label>
             <select id="type" name="type">
-                <option value="general" selected>一般</option>
-                <option value="classic">經典</option>
+                <option value="regular" selected>一般</option>
+                <option value="vintage">經典</option>
                 <option value="prime">全盛</option>
                 <option value="signature">簽名</option>
                 <option value="legend">傳說</option>
-                <option value="epic">史詩</option>
+                <option value="supreme">史詩</option>
             </select>
 
             <label for="team">球隊:</label>
@@ -473,18 +473,18 @@
                     const playerTypes = player.types;
                     let playerTypeMatch = false;
 
-                    if (selectedType === 'general') {
-                        playerTypeMatch = player.types.general !== undefined; // 修正:  只檢查 general type 是否存在
-                    } else if (selectedType === 'classic') {
-                        playerTypeMatch = player.types.classic !== undefined; // 修正:  只檢查 classic type 是否存在 (如果需要)
+                    if (selectedType === 'regular') {
+                        playerTypeMatch = player.types.regular !== undefined; // 修正:  只檢查 regular type 是否存在
+                    } else if (selectedType === 'vintage') {
+                        playerTypeMatch = player.types.vintage !== undefined; // 修正:  只檢查 vintage type 是否存在 (如果需要)
                     } else if (selectedType === 'prime') {
                         playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
                     } else if (selectedType === 'signature') {
                         playerTypeMatch = player.types.signature !== undefined; // 修正:  只檢查 signature type 是否存在 (如果需要)
                     } else if (selectedType === 'legend') {
                         playerTypeMatch = player.types.legend !== undefined; // 修正:  只檢查 legend type 是否存在 (如果需要)
-                    } else if (selectedType === 'epic') {
-                        playerTypeMatch = player.types.epic !== undefined; // 史詩類型只需判斷是否有 epic type 定義
+                    } else if (selectedType === 'supreme') {
+                        playerTypeMatch = player.types.supreme !== undefined; // 史詩類型只需判斷是否有 supreme type 定義
                     }
 
                     const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
@@ -548,7 +548,7 @@
                     playerInput.value = selectedPlayerName;
                 }
 
-                if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend' || selectedType === 'epic') {
+                if (selectedType === 'regular' || selectedType === 'vintage' || selectedType === 'signature' || selectedType === 'legend' || selectedType === 'supreme') {
                     typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
                 } else if (selectedType === 'prime') {
                     typeData = selectedPlayerData.types['prime']; // 全盛類型
@@ -826,9 +826,9 @@
             let blackDiamondValue = 0;
             const selectedType = typeSelect.value;
             if(tierSelect.value === 'blackDiamond') {
-                if (selectedType === 'general') {
+                if (selectedType === 'regular') {
                     blackDiamondValue = 0;
-                } else if (selectedType === 'classic') {
+                } else if (selectedType === 'vintage') {
                     blackDiamondValue = 1;
                 } else if (selectedType === 'prime') {
                     blackDiamondValue = 0;
@@ -836,7 +836,7 @@
                     blackDiamondValue = 1;
                 } else if (selectedType === 'legend') {
                     blackDiamondValue = 3;
-                } else if (selectedType === 'epic') {
+                } else if (selectedType === 'supreme') {
                     blackDiamondValue = 2;
                 }
             }
@@ -854,9 +854,9 @@
             let teamBonusValue = 10;
             const selectedType = typeSelect.value;
             if(tierSelect.value === 'blackDiamond') {
-                if (selectedType === 'general') {
+                if (selectedType === 'regular') {
                     teamBonusValue += 1;
-                } else if (selectedType === 'classic') {
+                } else if (selectedType === 'vintage') {
                     teamBonusValue += 1;
                 } else if (selectedType === 'prime') {
                     teamBonusValue += 2;
@@ -864,7 +864,7 @@
                     teamBonusValue += 2;
                 } else if (selectedType === 'legend') {
                     teamBonusValue += 1;
-                } else if (selectedType === 'epic') {
+                } else if (selectedType === 'supreme') {
                     teamBonusValue += 0;
                 }
             }
