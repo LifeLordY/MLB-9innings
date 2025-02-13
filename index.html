@@ -718,6 +718,8 @@
                 input.value = selectedValue;
                 updateNumberColor3(input, selectedValue);
             });
+
+            updateGeneralLineupAbilityValue();
         }
 
         // 新增函數：自動設定 "裝備" 行的能力值
@@ -744,6 +746,8 @@
                     inputs[i].value = 0;
                 }
             }
+
+            updateGeneralLineupAbilityValue();
         }
 
         // 新增函數：自動設定＂特別訓練＂行的能力值
@@ -861,6 +865,7 @@
         // **新增函數：更新 "一般陣容能力值" 橫排的數值**
         function updateGeneralLineupAbilityValue() {
             const generalLineupStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
+            const highestBoardingStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
             // 直接選取每一列的 input 元素 (根據您的 HTML 結構)
             const baseStatValues = baseStatInputs.map(input => parseFloat(input.value) || 0);
             
@@ -887,47 +892,88 @@
             const teamBonusCheckbox = document.querySelectorAll('tr')[11].querySelector('input[type="checkbox"]');
             const teamBonusValues = Array.from(document.querySelectorAll('tr')[11].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
 
+            const statusCheckbox = document.querySelectorAll('tr')[14].querySelector('input[type="checkbox"]');
+            const statusValues = Array.from(document.querySelectorAll('tr')[14].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+
+            const equipmentCheckbox = document.querySelectorAll('tr')[15].querySelector('input[type="checkbox"]');
+            const equipmentValues = Array.from(document.querySelectorAll('tr')[15].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+
+            const skillsCheckbox = document.querySelectorAll('tr')[16].querySelector('input[type="checkbox"]');
+            const skillsValues = Array.from(document.querySelectorAll('tr')[16].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            
             for (let i = 0; i < 5; i++) {
                 generalLineupStatSums[i] += baseStatValues[i];
                 if(baseCorrectionCheckbox.checked) {
                     generalLineupStatSums[i] += baseCorrectionStatValues[i];
+                    highestBoardingStatSums[i] += baseCorrectionStatValues[i];
                 }
                 generalLineupStatSums[i] += tierStatValues[i];
                 if(enhanceStatCheckbox.checked) {
                     generalLineupStatSums[i] += enhanceStatValues[i];
+                    highestBoardingStatSums[i] += enhanceStatValues[i];
                 }
                 if(coachStatCheckbox.checked) {
                     generalLineupStatSums[i] += coachStatValues[i];
+                    highestBoardingStatSums[i] += coachStatValues[i];
                 }
                 if(specialTrainingCheckbox.checked) {
                     generalLineupStatSums[i] += specialTrainingValues[i];
+                    highestBoardingStatSums[i] += specialTrainingValues[i];
                 }
                 if(coachingPlayerCheckbox.checked) {
                     generalLineupStatSums[i] += coachingPlayerValues[i];
+                    highestBoardingStatSums[i] += coachingPlayerValues[i];
                 }
                 if(blackDiamondStatCheckbox.checked) {
                     generalLineupStatSums[i] += blackDiamondStatValues[i];
+                    highestBoardingStatSums[i] += blackDiamondStatValues[i];
                 }
                 if(teamBonusCheckbox.checked) {
                     generalLineupStatSums[i] += teamBonusValues[i];
+                    highestBoardingStatSums[i] += teamBonusValues[i];
+                }
+                if(statusCheckbox.checked) {
+                    highestBoardingStatSums[i] += statusValues[i];
+                }
+                if(equipmentCheckbox.checked) {
+                    highestBoardingStatSums[i] += equipmentValues[i];
+                }
+                if(skillsCheckbox.checked) {
+                    highestBoardingStatSums[i] += skillsValues[i];
                 }
 
-                const sum = generalLineupStatSums[i].toFixed(0); // 顯示整數
-                const statSumDisplay = document.getElementById(`roster-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
-                if (statSumDisplay) {
-                    statSumDisplay.textContent = sum;
-                    updateNumberColor(statSumDisplay, sum);
+                // 一般陣容能力值
+                const sum1 = generalLineupStatSums[i].toFixed(0); // 顯示整數
+                const statSumDisplay1 = document.getElementById(`roster-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
+                if (statSumDisplay1) {
+                    statSumDisplay1.textContent = sum1;
+                    updateNumberColor(statSumDisplay1, sum1);
+                }
+                // 最高登板能力值
+                const sum2 = generalLineupStatSums[i].toFixed(0); // 顯示整數
+                const statSumDisplay2 = document.getElementById(`highest-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
+                if (statSumDisplay2) {
+                    statSumDisplay2.textContent = sum2;
+                    updateNumberColor(statSumDisplay2, sum2);
                 }
             }
 
-            const average = generalLineupStatSums.reduce((a, b) => a + b, 0) / 5; // 計算平均值
-            const averageDisplay = document.getElementById('roster-average'); // 更新為 roster-average
-            if (averageDisplay) {
-                averageDisplay.textContent = isNaN(average) ? '' : average.toFixed(1);
-                updateNumberColor(averageDisplay, average);
+            // 一般陣容能力值
+            const average1 = generalLineupStatSums.reduce((a, b) => a + b, 0) / 5; // 計算平均值
+            const averageDisplay1 = document.getElementById('roster-average'); // 更新為 roster-average
+            if (averageDisplay1) {
+                averageDisplay1.textContent = isNaN(average1) ? '' : average1.toFixed(1);
+                updateNumberColor(averageDisplay1, average1);
+            }
+            // 最高登板能力值
+            const average2 = generalLineupStatSums.reduce((a, b) => a + b, 0) / 5; // 計算平均值
+            const averageDisplay2 = document.getElementById('highest-average'); // 更新為 roster-average
+            if (averageDisplay2) {
+                averageDisplay2.textContent = isNaN(average2) ? '' : average2.toFixed(1);
+                updateNumberColor(averageDisplay2, average2);
             }
         }
-
+        
 
         // Event listeners for filters (維持不變)
         typeSelect.addEventListener('change', () => {
@@ -1061,6 +1107,30 @@
             });
         });
 
+        const statusInputs = document.querySelectorAll('tr')[14].querySelectorAll('td input[type="number"]');
+        statusInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                updateNumberColor3(input, input.value);
+            });
+        });
+
+        const equipmentInputs = document.querySelectorAll('tr')[15].querySelectorAll('td input[type="number"]');
+        equipmentInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                if(input.value < 0) {
+                    input.value = 0;
+                }
+                updateNumberColor2(input, input.value);
+            });
+        });
+
+        const skillsInputs = document.querySelectorAll('tr')[16].querySelectorAll('td input[type="number"]');
+        skillsInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                updateNumberColor2(input, input.value);
+            });
+        });
+
         const specialTrainingSelect = document.getElementById('special-training-select');
         specialTrainingSelect.addEventListener('change', updateSpecialTrainingValues);
         
@@ -1075,7 +1145,7 @@
         equipmentSelect.addEventListener('change', updateEquipmentValues);
 
         // **新增事件監聽器：監聽 "一般陣容能力值" 相關的 input change 事件**
-        const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(4) input:is([type="number"], [type="checkbox"]), tr:nth-child(5) input[type="number"], tr:nth-child(6) input:is([type="number"], [type="checkbox"]), tr:nth-child(7) input:is([type="number"], [type="checkbox"]), tr:nth-child(8) input:is([type="number"], [type="checkbox"]), tr:nth-child(9) input:is([type="number"], [type="checkbox"]), tr:nth-child(10) input:is([type="number"], [type="checkbox"]), tr:nth-child(11) input:is([type="number"], [type="checkbox"])');
+        const generalLineupInputs = document.querySelectorAll('tr:nth-child(3) input[type="number"], tr:nth-child(4) input:is([type="number"], [type="checkbox"]), tr:nth-child(5) input[type="number"], tr:nth-child(6) input:is([type="number"], [type="checkbox"]), tr:nth-child(7) input:is([type="number"], [type="checkbox"]), tr:nth-child(8) input:is([type="number"], [type="checkbox"]), tr:nth-child(9) input:is([type="number"], [type="checkbox"]), tr:nth-child(10) input:is([type="number"], [type="checkbox"]), tr:nth-child(11) input:is([type="number"], [type="checkbox"]), tr:nth-child(14) input:is([type="number"], [type="checkbox"]), tr:nth-child(15) input:is([type="number"], [type="checkbox"]), tr:nth-child(16) input:is([type="number"], [type="checkbox"])');
         generalLineupInputs.forEach(input => {
             input.addEventListener('change', updateGeneralLineupAbilityValue);
         });
