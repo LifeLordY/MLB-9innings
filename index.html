@@ -753,14 +753,26 @@
                 generalLineupStatSums[i] += baseStatValues[i];
                 if(baseCorrectionCheckbox.checked) {
                     generalLineupStatSums[i] += baseCorrectionStatValues[i];
-                };
+                }
                 generalLineupStatSums[i] += tierStatValues[i];
+                if(baseCorrectionCheckbox.checked) {
                 generalLineupStatSums[i] += enhanceStatValues[i];
+                }
+                if(baseCorrectionCheckbox.checked) {
                 generalLineupStatSums[i] += coachStatValues[i];
+                    }
+                if(baseCorrectionCheckbox.checked) {
                 generalLineupStatSums[i] += specialTrainingValue[i];
+                    }
+                if(baseCorrectionCheckbox.checked) {
                 generalLineupStatSums[i] += coachingPlayerValue[i];
+                    }
+                if(baseCorrectionCheckbox.checked) {
                 generalLineupStatSums[i] += blackDiamondStatValues[i];
+                }
+                if(baseCorrectionCheckbox.checked) {
                 generalLineupStatSums[i] += teamBonusValue[i];
+                }
 
                 const sum = generalLineupStatSums[i].toFixed(0); // 顯示整數
                 const statSumDisplay = document.getElementById(`roster-stat${i + 1}`); // 更新為 roster-stat1, roster-stat2,...
