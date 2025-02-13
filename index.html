@@ -552,8 +552,10 @@
                 typeData = selectedPlayerData.types[selectedType];
                 
                 // 若該類型有定義自己的 base_state 與 tier_increase，就覆蓋預設值
-                if (typeData && typeData.base_state && typeData.tier_increase) {
+                if (typeData && typeData.base_state) {
                     playerBaseState = typeData.base_state;
+                }
+                if (typeData && typeData.tier_increase) {
                     playerTierIncrease = typeData.tier_increase;
                 }
 
