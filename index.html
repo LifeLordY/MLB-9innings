@@ -827,7 +827,10 @@
 
 
         // Event listeners for filters (維持不變)
-        typeSelect.addEventListener('change', updatePlayerDropdown);
+        typeSelect.addEventListener('change', () => {
+            updatePlayerDropdown();
+            updateBlackDiamondValues();
+        });
         teamSelect.addEventListener('change', updatePlayerDropdown);
         positionSelect.addEventListener('change', updatePlayerDropdown);
 
@@ -840,6 +843,7 @@
         });
 
         tierSelect.addEventListener('change', () => {
+            updateBlackDiamondValues();
             updateTableColor();
         });
 
