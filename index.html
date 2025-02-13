@@ -779,6 +779,7 @@
 
             inputs.forEach(input => {
                 input.value = teamBonusValue;
+                updateNumberColor2(input, teamBonusValue);
             });
         }
 
@@ -980,6 +981,7 @@
         updateEnhanceSum();
         updateCoachSum();
         updateBlackDiamondSum();
+        updateTeamBonusValues();
 
         // **初始執行一次 "一般陣容能力值" 計算，確保網頁載入時顯示正確數值**
         updateGeneralLineupAbilityValue();
