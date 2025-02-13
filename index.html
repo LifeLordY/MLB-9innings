@@ -481,7 +481,11 @@
                         legend: 'legend',
                         epic: 'epic'
                     };
-                    let playerTypeMatch = player.types[typeKeyMap[selectedType]] !== undefined;
+                    const typeKey = typeKeyMap[selectedType]; // 取得對應的 key
+                    let playerTypeMatch = false;
+                    if (typeKey && player.types) {
+                        playerTypeMatch = player.types[typeKey] !== undefined;
+                    }
 
                     const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
                     const positionFilterPass = !selectedPosition || 
