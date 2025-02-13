@@ -543,12 +543,8 @@
                     playerInput.value = selectedPlayerName;
                 }
 
-                if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend') {
+                if (selectedType === 'general' || selectedType === 'classic' || selectedType === 'signature' || selectedType === 'legend' || selectedType === 'epic') {
                     typeData = selectedPlayerData.types[selectedType]; // 嘗試取得特定類型的數值 (但實際上 classic, signature 等類型在 data.json 中可能為空)
-                } else if (selectedType === 'epic') {
-                    typeData = selectedPlayerData.types['epic']; // 史詩類型
-                    playerBaseState = typeData.base_state;      // 覆蓋基本能力值為史詩類型自定義數值
-                    playerTierIncrease = typeData.tier_increase;     // 覆蓋階級上升量為史詩類型自定義數值
                 } else if (selectedType === 'prime') {
                     typeData = selectedPlayerData.types['prime']; // 全盛類型
                     playerBaseState = typeData.base_state;      // 覆蓋基本能力值為全盛類型自定義數值
