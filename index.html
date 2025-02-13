@@ -149,7 +149,8 @@
             <button id="clear-all-button" type="button">清除所有</button>
             <label for="type">類型:</label>
             <select id="type" name="type">
-                <option value="general" selected>一般</option>
+                <option value="">-- 請選擇 --</option>
+                <option value="general">一般</option>
                 <option value="classic">經典</option>
                 <option value="prime">全盛</option>
                 <option value="signature">簽名</option>
@@ -839,7 +840,7 @@
         
         // Load player data and initialize dropdown (維持不變)
         loadPlayerData();
-        setTimeout(updatePlayerDropdown, 0.1);
+        updatePlayerDropdown();
         // **網頁初始化時，也呼叫一次 updateContainerColor，設定初始顏色**
         updateContainerColor();
 
