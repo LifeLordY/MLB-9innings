@@ -755,7 +755,31 @@
 
         // 新增函數：自動設定＂團隊加成＂行的能力值
         function updateTeamBonusValues() {
-            
+            let teamBonusValue = 10;
+            const selectedType = typeSelect.value;
+            if(tierSelect.value === 'blackDiamond') {
+                if (selectedType === 'general') {
+                    teamBonusValue += 1;
+                } else if (selectedType === 'classic') {
+                    teamBonusValue += 1;
+                } else if (selectedType === 'prime') {
+                    teamBonusValue += 2;
+                } else if (selectedType === 'signature') {
+                    teamBonusValue += 2;
+                } else if (selectedType === 'legend') {
+                    teamBonusValue += 1;
+                } else if (selectedType === 'epic') {
+                    teamBonusValue += 0;
+                }
+            }
+            if (selectedType === 'signature') {
+                teamBonusValue *= 2;
+            }
+            const inputs = document.querySelectorAll('tr')[11].querySelectorAll('td input[type="number"]');
+
+            inputs.forEach(input => {
+                input.value = teamBonusValue;
+            });
         }
 
         // **新增函數：更新 "一般陣容能力值" 橫排的數值**
@@ -833,6 +857,7 @@
         typeSelect.addEventListener('change', () => {
             updatePlayerDropdown();
             updateBlackDiamondValues();
+            updateTeamBonusValues();
         });
         teamSelect.addEventListener('change', updatePlayerDropdown);
         positionSelect.addEventListener('change', updatePlayerDropdown);
@@ -847,6 +872,7 @@
 
         tierSelect.addEventListener('change', () => {
             updateBlackDiamondValues();
+            updateTeamBonusValues();
             updateTableColor();
         });
 
