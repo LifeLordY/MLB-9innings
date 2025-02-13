@@ -727,7 +727,7 @@
 
         // 新增函數：自動設定＂黑鑽＂行的能力值
         function updateBlackDiamondValues() {
-            const blackDiamondValue = 0;
+            let blackDiamondValue = 0;
             const selectedType = typeSelect.value;
             if(tierSelect.value === 'blackDiamond') {
                 if (selectedType === 'general') {
