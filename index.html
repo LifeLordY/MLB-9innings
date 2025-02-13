@@ -427,9 +427,9 @@
             const containerElement = document.querySelector('.h2');
 
             if (teamColors[selectedTeamCode]) { // 檢查選取的球隊代碼是否存在於顏色對應表中
-                containerElement.style.backgroundColor = teamColors[selectedTeamCode]; // 設定 container 背景顏色
+                containerElement.style.color = teamColors[selectedTeamCode]; // 設定 container 背景顏色
             } else {
-                containerElement.style.backgroundColor = '#1e1e1e'; // 如果沒有對應顏色，設定回預設顏色 (或你希望的預設顏色)
+                containerElement.style.color = '#1e1e1e'; // 如果沒有對應顏色，設定回預設顏色 (或你希望的預設顏色)
             }
         }
 
