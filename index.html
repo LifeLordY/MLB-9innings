@@ -725,18 +725,35 @@
             const generalLineupStatSums = [0, 0, 0, 0, 0]; // 初始化 Stat 總和陣列
             // 直接選取每一列的 input 元素 (根據您的 HTML 結構)
             const baseStatValues = baseStatInputs.map(input => parseFloat(input.value) || 0);
+            
+            const baseCorrectionCheckbox = document.querySelectorAll('tr')[4].querySelector('input[type="checkbox"]');
             const baseCorrectionStatValues = Array.from(document.querySelectorAll('tr')[4].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            
             const tierStatValues = tierStatInputs.map(input => parseFloat(input.value) || 0);
+            
+            const enhanceStatCheckbox = document.querySelectorAll('tr')[6].querySelector('input[type="checkbox"]');
             const enhanceStatValues = Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            
+            const coachStatCheckbox = document.querySelectorAll('tr')[7].querySelector('input[type="checkbox"]');
             const coachStatValues = Array.from(document.querySelectorAll('tr')[7].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            
+            const specialTrainingCheckbox = document.querySelectorAll('tr')[8].querySelector('input[type="checkbox"]');
             const specialTrainingValue = Array.from(document.querySelectorAll('tr')[8].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+
+            const coachingPlayerCheckbox = document.querySelectorAll('tr')[9].querySelector('input[type="checkbox"]');
             const coachingPlayerValue = Array.from(document.querySelectorAll('tr')[9].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+
+            const blackDiamondStatCheckbox = document.querySelectorAll('tr')[10].querySelector('input[type="checkbox"]');
             const blackDiamondStatValues = Array.from(document.querySelectorAll('tr')[10].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+
+            const teamBonusCheckbox = document.querySelectorAll('tr')[11].querySelector('input[type="checkbox"]');
             const teamBonusValue = Array.from(document.querySelectorAll('tr')[11].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
 
             for (let i = 0; i < 5; i++) {
                 generalLineupStatSums[i] += baseStatValues[i];
-                generalLineupStatSums[i] += baseCorrectionStatValues[i];
+                if(baseCorrectionCheckbox.checked) {
+                    generalLineupStatSums[i] += baseCorrectionStatValues[i];
+                };
                 generalLineupStatSums[i] += tierStatValues[i];
                 generalLineupStatSums[i] += enhanceStatValues[i];
                 generalLineupStatSums[i] += coachStatValues[i];
