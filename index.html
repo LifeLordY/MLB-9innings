@@ -728,7 +728,8 @@
         // 新增函數：自動設定＂黑鑽＂行的能力值
         function updateBlackDiamondValues() {
             const blackDiamondValue = 0;
-            if(tierSelect === 'blackDiamond') {
+            const selectedType = typeSelect.value;
+            if(tierSelect.value === 'blackDiamond') {
                 if (selectedType === 'general') {
                     blackDiamondValue = 0;
                 } else if (selectedType === 'classic') {
@@ -748,6 +749,8 @@
             inputs.forEach(input => {
                 input.value = blackDiamondValue;
             });
+            
+            updateBlackDiamondSum();
         }
 
         // 新增函數：自動設定＂團隊加成＂行的能力值
