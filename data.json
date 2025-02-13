@@ -17,7 +17,7 @@
         "tier_increase": { "Stat1": 18, "Stat2": 14, "Stat3": 17, "Stat4": 15, "Stat5": 11},
         "types": {
           "signature": {},
-          "classic": {}
+          "vintage": {}
         }
       },
       {
@@ -27,7 +27,7 @@
         "tier_increase": { "Stat1": 19, "Stat2": 22, "Stat3": 17, "Stat4": 8, "Stat5": 9},
         "types": {
           "signature": {},
-          "general": {}
+          "regular": {}
         }
       }
     ]
@@ -40,7 +40,7 @@
         "base_state": {"Stat1": 81, "Stat2": 77, "Stat3": 81, "Stat4": 87, "Stat5": 73},
         "tier_increase": { "Stat1": 16, "Stat2": 13, "Stat3": 16, "Stat4": 18, "Stat5": 12},
         "types": {
-          "epic": {}
+          "supreme": {}
         }
       },
       {
@@ -50,7 +50,7 @@
         "tier_increase": { "Stat1": 17, "Stat2": 15, "Stat3": 17, "Stat4": 14, "Stat5": 12},
         "types": {
           "signature": {},
-          "classic": {}
+          "vintage": {}
         }
       },
       {
@@ -60,7 +60,11 @@
         "tier_increase": { "Stat1": 16, "Stat2": 15, "Stat3": 15, "Stat4": 11, "Stat5": 18},
         "types": {
           "signature": {},
-          "general": {}
+          "prime": {
+            "base_state": {"Stat1": 76, "Stat2": 76, "Stat3": 75, "Stat4": 66, "Stat5": 72},
+            "tier_increase": { "Stat1": 18, "Stat2": 18, "Stat3": 17, "Stat4": 12, "Stat5": 15}
+          },
+          "regular": {}
         }
       }
     ]
