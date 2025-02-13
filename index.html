@@ -274,7 +274,7 @@
                     <td><input type="checkbox" checked></td>
                     <td>特別訓練</td>
                     <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td><input type="number" value="0" class="number-font"></td> <td>
-                        <select class="number-font">
+                        <select id="special-training-select" class="number-font">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -722,7 +722,50 @@
 
         // 新增函數：自動設定＂特別訓練＂行的能力值
         function updateSpecialTrainingValues() {
+            const specialTrainingDropdown = document.getElementById('special-training-select');
+            const selectedValue = parseInt(specialTrainingDropdown.value, 10); // 將字串轉為數字
+
+            let values = [0, 0, 0];
+            if(selectedValue >= 9) {
+                values = [12, 10, 4];
+            } else if(selectedValue >= 8) {
+                values = [10, 8, 2];
+            } else if(selectedValue >= 7) {
+                values = [8, 6, 0];
+            } else if(selectedValue >= 5) {
+                values = [6, 4, 0];
+            } else if(selectedValue >= 4) {
+                values = [6, 2, 0];
+            } else if(selectedValue >= 3) {
+                values = [4, 2, 0];
+            } else if(selectedValue >= 2) {
+                values = [4, 0, 0];
+            } else if(selectedValue >= 1) {
+                values = [2, 0, 0];
+            }
             
+            const specialTrainingSums = [0, 0, 0, 0, 0];
+            const baseStatValues = baseStatInputs.map(input => parseFloat(input.value) || 0);
+            const enhanceStatValues = Array.from(document.querySelectorAll('tr')[6].querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]')).map(input => parseFloat(input.value) || 0);
+            for (let i = 0; i < 5; i++) {
+                specialTrainingSums[i] += enhanceStatValues[i];
+                specialTrainingSums[i] += 0.01*baseStatValues[i];
+                specialTrainingSums[i] += 0.0001*(5-i);
+            }
+            const topThreeIndexes = specialTrainingSums
+                .map((value, index) => ({ value, index })) // 組合值和索引
+                .sort((a, b) => b.value - a.value)        // 按值排序（降序）
+                .slice(0, 3)                              // 取前三個
+                .map(item => item.index);                 // 取出索引
+
+            const inputs = document.querySelectorAll('tr')[11].querySelectorAll('td input[type="number"]');
+
+            for (let i = 0; i < 3; i++) {
+                const input = inputs[topThreeIndexes[i]];
+                const num = values[i];
+                input.value = num;
+                updateNumberColor2(input, num);
+            }
         }
 
         // 新增函數：自動設定＂黑鑽＂行的能力值
@@ -960,6 +1003,9 @@
             });
         });
 
+        const specialTrainingSelect = document.getElementById('special-training-select');
+        specialTrainingSelect.addEventListener('change', updateSpecialTrainingValues);
+        
         // **新增事件監聽器：監聽 "指導球員" 和 "狀態" 下拉選單的 change 事件 (維持不變)**
         const coachingPlayerSelect = document.getElementById('coaching-player-select');
         coachingPlayerSelect.addEventListener('change', updateCoachingPlayerValues);
