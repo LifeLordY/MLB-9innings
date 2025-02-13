@@ -488,7 +488,11 @@
                     }
 
                     const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
-                    const positionFilterPass = !selectedPosition || player.position === selectedPosition; // 沒有選擇位置或位置符合
+                    const positionFilterPass = !selectedPosition || 
+                        (Array.isArray(player.position)
+                            ? player.position.includes(selectedPosition)
+                            : player.position === selectedPosition);
+
 
                     if (playerTypeMatch && teamFilterPass && positionFilterPass) {
                         filteredPlayers.push({ name: player.name, team: teamCode, position: player.position }); // 儲存球員名稱和所屬球隊代碼, 位置
