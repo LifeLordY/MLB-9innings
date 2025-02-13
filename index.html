@@ -755,23 +755,23 @@
                     generalLineupStatSums[i] += baseCorrectionStatValues[i];
                 }
                 generalLineupStatSums[i] += tierStatValues[i];
-                if(baseCorrectionCheckbox.checked) {
-                generalLineupStatSums[i] += enhanceStatValues[i];
+                if(enhanceStatCheckbox.checked) {
+                    generalLineupStatSums[i] += enhanceStatValues[i];
                 }
-                if(baseCorrectionCheckbox.checked) {
-                generalLineupStatSums[i] += coachStatValues[i];
-                    }
-                if(baseCorrectionCheckbox.checked) {
-                generalLineupStatSums[i] += specialTrainingValue[i];
-                    }
-                if(baseCorrectionCheckbox.checked) {
-                generalLineupStatSums[i] += coachingPlayerValue[i];
-                    }
-                if(baseCorrectionCheckbox.checked) {
-                generalLineupStatSums[i] += blackDiamondStatValues[i];
+                if(coachStatCheckbox.checked) {
+                    generalLineupStatSums[i] += coachStatValues[i];
                 }
-                if(baseCorrectionCheckbox.checked) {
-                generalLineupStatSums[i] += teamBonusValue[i];
+                if(specialTrainingCheckbox.checked) {
+                    generalLineupStatSums[i] += specialTrainingValue[i];
+                }
+                if(coachingPlayerCheckbox.checked) {
+                    generalLineupStatSums[i] += coachingPlayerValue[i];
+                }
+                if(blackDiamondStatCheckbox.checked) {
+                    generalLineupStatSums[i] += blackDiamondStatValues[i];
+                }
+                if(teamBonusCheckbox.checked) {
+                    generalLineupStatSums[i] += teamBonusValue[i];
                 }
 
                 const sum = generalLineupStatSums[i].toFixed(0); // 顯示整數
