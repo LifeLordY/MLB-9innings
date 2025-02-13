@@ -1058,6 +1058,9 @@
         // **網頁初始化時，也呼叫一次 updateContainerColor，設定初始顏色**
         updateContainerColor();
 
+        baseStatInputs.forEach((input, index) => {
+            updateNumberColor(input, 0);
+        });
         updateBaseAverage();
         updateTierSum();
         updateEnhanceSum();
