@@ -75,7 +75,7 @@
             font-weight: bold;
         }
 
-        tr:nth-child(0), tr:nth-child(-n+2), tr:nth-child(12), tr:nth-child(17) {
+        tr:nth-child(-n+2), tr:nth-child(12), tr:nth-child(17) {
             background-color: #112;
         }
         tr:nth-child(n+3):nth-child(-n+11), tr:nth-child(n+13):nth-child(-n+16) {
@@ -148,7 +148,7 @@
         <div class="filters">
             <button id="clear-all-button" type="button">清除所有</button>
             <label for="type">類型:</label>
-            <select id="type" name="type">
+            <select value="general" id="type" name="type">
                 <option value="general">一般</option>
                 <option value="classic">經典</option>
                 <option value="prime">全盛</option>
@@ -373,6 +373,7 @@
         const teamSelect = document.getElementById('team');
         const positionSelect = document.getElementById('position');
         const playerSelect = document.getElementById('player-select');
+        const tierSelect = document.getElementById('tier');
         const baseAverageDisplay = document.getElementById('base-average');
         const tierSumDisplay = document.getElementById('tier-sum');
         const enhanceSumDisplay = document.getElementById('enhance-sum');
@@ -424,6 +425,28 @@
                 containerElement.style.backgroundColor = '#1e1e1e'; // 如果沒有對應顏色，設定回預設顏色 (或你希望的預設顏色)
             }
         }
+
+        // 新增函數：更新表格顏色
+        function updateTableColor() {
+          // 取得 tier 的值
+          const tierValue = document.getElementById('tier').value;
+          let bgColor = '';
+        
+          // 根據 tier 值決定顏色
+          if (tierValue === '黑鑽') {
+            bgColor = '#112';
+          } else if (tierValue === '白金') {
+            bgColor = '#00d';
+          }
+        
+          // 選取 th, 前兩列, 第12列, 第17列的元素
+          const elements = document.querySelectorAll('th, tr:nth-child(-n+2), tr:nth-child(12), tr:nth-child(17)');
+        
+          // 更新背景顏色
+          elements.forEach(el => {
+            el.style.backgroundColor = bgColor;
+          });
+        }
 
         // Function to update player dropdown based on filters
         function updatePlayerDropdown() {
@@ -746,6 +769,9 @@
             populateTable(selectedPlayerName);
         });
 
+        tierSelect.addEventListener('change', () => {
+            updateTableColor();
+        });
 
         // Event listeners for input changes - 使用陣列和迴圈簡化 (維持不變)
         baseStatInputs.forEach(input => {
