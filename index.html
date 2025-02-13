@@ -409,7 +409,7 @@
 
         // Function to fetch data from data.json
         function loadPlayerData(callback) {
-            fetch('data.json')
+            fetch('data.json?timestamp=' + new Date().getTime())
                 .then(response => response.json())
                 .then(data => {
                     playerData = data;
@@ -473,19 +473,15 @@
                     const playerTypes = player.types;
                     let playerTypeMatch = false;
 
-                    if (selectedType === 'general') {
-                        playerTypeMatch = player.types.general !== undefined; // 修正:  只檢查 general type 是否存在
-                    } else if (selectedType === 'classic') {
-                        playerTypeMatch = player.types.classic !== undefined; // 修正:  只檢查 classic type 是否存在 (如果需要)
-                    } else if (selectedType === 'prime') {
-                        playerTypeMatch = player.types.prime !== undefined; // 全盛類型只需判斷是否有 prime type 定義
-                    } else if (selectedType === 'signature') {
-                        playerTypeMatch = player.types.signature !== undefined; // 修正:  只檢查 signature type 是否存在 (如果需要)
-                    } else if (selectedType === 'legend') {
-                        playerTypeMatch = player.types.legend !== undefined; // 修正:  只檢查 legend type 是否存在 (如果需要)
-                    } else if (selectedType === 'epic') {
-                        playerTypeMatch = player.types.epic !== undefined; // 史詩類型只需判斷是否有 epic type 定義
-                    }
+                    const typeKeyMap = {
+                        general: 'general',
+                        classic: 'classic',
+                        prime: 'prime',
+                        signature: 'signature',
+                        legend: 'legend',
+                        epic: 'epic'
+                    };
+                    let playerTypeMatch = player.types[typeKeyMap[selectedType]] !== undefined;
 
                     const teamFilterPass = !selectedTeam || teamCode === selectedTeam; // 沒有選擇球隊或球隊符合
                     const positionFilterPass = !selectedPosition || 
