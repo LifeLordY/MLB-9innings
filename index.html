@@ -530,10 +530,14 @@
                 }
 
                 baseStatInputs.forEach((input, index) => {
-                    input.value = playerBaseState[`Stat${index + 1}`] || 0;
+                    const num = playerBaseState[`Stat${index + 1}`] || 0;
+                    input.value = num;
+                    updateNumberColor(input, num);
                 });
                 tierStatInputs.forEach((input, index) => {
-                    input.value = playerTierIncrease[`Stat${index + 1}`] || 0;
+                    const num = playerTierIncrease[`Stat${index + 1}`] || 0;
+                    input.value = num;
+                    updateNumberColor2(input, num);
                 });
                 
                 updateBaseAverage(); // 更新基本能力值平均
@@ -671,6 +675,8 @@
             inputs.forEach(input => {
                 input.value = selectedValue;
             });
+
+            updateGeneralLineupAbilityValue();
         }
 
         // 新增函數：自動設定 "狀態" 行的能力值
