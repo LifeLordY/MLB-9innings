@@ -160,6 +160,7 @@
 
             <label for="team">球隊:</label>
             <select id="team" name="team">
+                <option value="">-- 請選擇 --</option>
                 <option value="NYY">NYY</option>
                 <option value="OAK">OAK</option>
                 <option value="HOU">HOU</option>
@@ -206,8 +207,8 @@
                     </td>
                     <td>
                         <select id="tier" name="tier">
-                            <option value="白金">白金</option>
                             <option value="黑鑽">黑鑽</option>
+                            <option value="白金">白金</option>
                         </select>
                     </td>
                 </tr>
@@ -427,7 +428,7 @@
 
         // Function to update player dropdown based on filters
         function updatePlayerDropdown() {
-            playerSelect.innerHTML = '<option value="">-- 或選擇球員 --</option>'; // 清空球員選單並保留預設選項
+            playerSelect.innerHTML = '<option value="">-- 選擇球員 --</option>'; // 清空球員選單並保留預設選項
 
             const selectedType = typeSelect.value;
             const selectedTeam = teamSelect.value;
