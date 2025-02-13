@@ -215,11 +215,11 @@
                 <tr>
                     <td><input type="checkbox" checked></td>
                     <td class="highlight-font">項目</td>
-                    <td class="highlight-font">Stat1</td>
-                    <td class="highlight-font">Stat2</td>
-                    <td class="highlight-font">Stat3</td>
-                    <td class="highlight-font">Stat4</td>
-                    <td class="highlight-font">Stat5</td>
+                    <td class="highlight-font">接觸</td>
+                    <td class="highlight-font">力量</td>
+                    <td class="highlight-font">選球</td>
+                    <td class="highlight-font">速度</td>
+                    <td class="highlight-font">守備</td>
                     <td class="highlight-font">值</td>
                 </tr>
                 <tr>
@@ -573,6 +573,22 @@
                 updateBlackDiamondSum();// 更新黑鑽總和
                 updateSpecialTrainingValues(); //更新特別訓練值
                 updateAllAbilityValue();
+            }
+        }
+
+        function updateStatNames() {
+            const selectedOption = positionSelect.options[positionSelect.selectedIndex];
+            const groupLabel = selectedOption.parentElement.tagName === 'OPTGROUP' ? selectedOption.parentElement.label : null;
+
+            const batterStatNames = ["接觸", "力量", "選球", "速度", "守備"];
+            const pitcherStatNames = ["控球", "球威", "體力", "直球", "變化"];
+            const statNameDisplays = document.querySelectorAll('tr')[2].querySelectorAll('td:nth-child(n+3):nth-child(-n+7)');
+            for (let i = 0; i < 5; i++) {
+                if (groupLabel === "投手") {
+                    statNameDisplays[i].textContent = pitcherStatNames[i];
+                } else {
+                    statNameDisplays[i].textContent = batterStatNames[i];
+                }
             }
         }
 
