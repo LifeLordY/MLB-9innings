@@ -859,6 +859,7 @@
             updatePlayerDropdown();
             updateBlackDiamondValues();
             updateTeamBonusValues();
+            updateGeneralLineupAbilityValue();
         });
         teamSelect.addEventListener('change', updatePlayerDropdown);
         positionSelect.addEventListener('change', updatePlayerDropdown);
@@ -874,6 +875,7 @@
         tierSelect.addEventListener('change', () => {
             updateBlackDiamondValues();
             updateTeamBonusValues();
+            updateGeneralLineupAbilityValue();
             updateTableColor();
         });
 
