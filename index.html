@@ -839,7 +839,7 @@
         
         // Load player data and initialize dropdown (維持不變)
         loadPlayerData();
-        updatePlayerDropdown();
+        setTimeout(updatePlayerDropdown, 0);
         // **網頁初始化時，也呼叫一次 updateContainerColor，設定初始顏色**
         updateContainerColor();
 
