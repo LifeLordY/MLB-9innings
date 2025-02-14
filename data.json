@@ -155,7 +155,7 @@
       },
       {
         "name": "G.Nettles '77",
-        "position": "OF",
+        "position": "3B",
         "base_state": {"Stat1": 70, "Stat2": 79, "Stat3": 73, "Stat4": 62, "Stat5": 71},
         "tier_increase": { "Stat1": 17, "Stat2": 19, "Stat3": 16, "Stat4": 10, "Stat5": 16},
         "types": {
