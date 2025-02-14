@@ -298,9 +298,6 @@
         "tier_increase": { "Stat1": 16, "Stat2": 11, "Stat3": 16, "Stat4": 16, "Stat5": 16},
         "types": {
           "signature": {},
-          "prime": {
-            "tier_increase": { "Stat1": 15, "Stat2": 21, "Stat3": 17, "Stat4": 13, "Stat5": 14}
-          },
           "regular": {}
         }
       },
