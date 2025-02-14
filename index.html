@@ -28,6 +28,7 @@
             min-width: 500px;
             margin: 20px;
             overflow: auto; /* 若內容超出容器，可捲動 */
+            flex-shrink: 0; /* 防止 flex 自動縮小 */
         }
 
         h2 {
@@ -138,7 +139,7 @@
 
         #player-input,
         #player-select {
-            width: 150px; /* 設定固定的寬度，您可以根據需要調整數值 */
+            width: 180px; /* 設定固定的寬度，您可以根據需要調整數值 */
             box-sizing: border-box; /* 確保 padding 和 border 包含在 width 內 */
         }
 
