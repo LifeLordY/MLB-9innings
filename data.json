@@ -145,7 +145,7 @@
       },
       {
         "name": "DJ LeMahieu '19",
-        "position": "2B",
+        "position": ["2B", "3B"],
         "base_state": {"Stat1": 78, "Stat2": 73, "Stat3": 69, "Stat4": 63, "Stat5": 74},
         "tier_increase": { "Stat1": 19, "Stat2": 16, "Stat3": 13, "Stat4": 10, "Stat5": 17},
         "types": {
@@ -205,7 +205,7 @@
       },
       {
         "name": "DJ LeMahieu '20",
-        "position": "2B",
+        "position": ["2B", "3B"],
         "base_state": {"Stat1": 81, "Stat2": 75, "Stat3": 71, "Stat4": 62, "Stat5": 54},
         "tier_increase": { "Stat1": 22, "Stat2": 19, "Stat3": 16, "Stat4": 11, "Stat5": 7},
         "types": {
@@ -453,7 +453,7 @@
         "base_state": {"Stat1": 73, "Stat2": 62, "Stat3": 74, "Stat4": 72, "Stat5": 67},
         "tier_increase": { "Stat1": 18, "Stat2": 11, "Stat3": 19, "Stat4": 18, "Stat5": 14},
         "types": {
-          "prime": {},
+          "prime": {}
         }
       },
       {
@@ -462,7 +462,7 @@
         "base_state": {"Stat1": 69, "Stat2": 74, "Stat3": 53, "Stat4": 73, "Stat5": 69},
         "tier_increase": { "Stat1": 17, "Stat2": 20, "Stat3": 7, "Stat4": 20, "Stat5": 16},
         "types": {
-          "prime": {},
+          "prime": {}
         }
       }
     ]
