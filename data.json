@@ -135,7 +135,7 @@
       },
       {
         "name": "M.Stanley '93",
-        "position": "OF",
+        "position": "C",
         "base_state": {"Stat1": 78, "Stat2": 77, "Stat3": 72, "Stat4": 63, "Stat5": 66},
         "tier_increase": { "Stat1": 19, "Stat2": 18, "Stat3": 15, "Stat4": 11, "Stat5": 12},
         "types": {
