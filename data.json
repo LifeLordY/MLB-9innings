@@ -500,5 +500,110 @@
         }
       }
     ]
+  },
+  {
+    "HOU": [
+      {
+        "name": "J.Bagwell '94",
+        "position": "1B",
+        "base_state": {"Stat1": 79, "Stat2": 82, "Stat3": 74, "Stat4": 63, "Stat5": 64},
+        "tier_increase": { "Stat1": 19, "Stat2": 20, "Stat3": 15, "Stat4": 10, "Stat5": 11},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
+        "name": "A.Bregman '19",
+        "position": ["3B", "SS"],
+        "base_state": {"Stat1": 76, "Stat2": 82, "Stat3": 82, "Stat4": 64, "Stat5": 73},
+        "tier_increase": { "Stat1": 16, "Stat2": 18, "Stat3": 18, "Stat4": 10, "Stat5": 13},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 17, "Stat2": 19, "Stat3": 19, "Stat4": 10, "Stat5": 15}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "J.Altuve '16",
+        "position": "2B",
+        "base_state": {"Stat1": 75, "Stat2": 72, "Stat3": 75, "Stat4": 68, "Stat5": 76},
+        "tier_increase": { "Stat1": 16, "Stat2": 14, "Stat3": 16, "Stat4": 12, "Stat5": 17},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      }
+    ]
+  },
+  {
+    "WSH": [
+      {
+        "name": "A.Dawson '83",
+        "position": "OF",
+        "base_state": {"Stat1": 76, "Stat2": 76, "Stat3": 67, "Stat4": 69, "Stat5": 62},
+        "tier_increase": { "Stat1": 19, "Stat2": 18, "Stat3": 13, "Stat4": 14, "Stat5": 11},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
+        "name": "J.Soto '20",
+        "position": "OF",
+        "base_state": {"Stat1": 78, "Stat2": 81, "Stat3": 79, "Stat4": 65, "Stat5": 69},
+        "tier_increase": { "Stat1": 17, "Stat2": 18, "Stat3": 18, "Stat4": 10, "Stat5": 12},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "B.Harper '16",
+        "position": "OF",
+        "base_state": {"Stat1": 72, "Stat2": 75, "Stat3": 81, "Stat4": 65, "Stat5": 72},
+        "tier_increase": { "Stat1": 15, "Stat2": 16, "Stat3": 19, "Stat4": 11, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      }
+    ]
+  },
+  {
+    "STL": [
+      {
+        "name": "O.Smith '87",
+        "position": "SS",
+        "base_state": {"Stat1": 76, "Stat2": 62, "Stat3": 78, "Stat4": 74, "Stat5": 79},
+        "tier_increase": { "Stat1": 16, "Stat2": 9, "Stat3": 17, "Stat4": 15, "Stat5": 18},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
+        "name": "R.Hornsby '25",
+        "position": "2B",
+        "base_state": {"Stat1": 83, "Stat2": 82, "Stat3": 79, "Stat4": 61, "Stat5": 50},
+        "tier_increase": { "Stat1": 21, "Stat2": 21, "Stat3": 19, "Stat4": 10, "Stat5": 4},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
+        "name": "P.Goldschmidt '22",
+        "position": "1B",
+        "base_state": {"Stat1": 78, "Stat2": 78, "Stat3": 72, "Stat4": 62, "Stat5": 71},
+        "tier_increase": { "Stat1": 18, "Stat2": 18, "Stat3": 15, "Stat4": 10, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "prime": {
+            "base_state": {"Stat1": 81, "Stat2": 78, "Stat3": 72, "Stat4": 62, "Stat5": 63},
+            "tier_increase": { "Stat1": 22, "Stat2": 20, "Stat3": 16, "Stat4": 11, "Stat5": 11}
+          },
+          "regular": {}
+        }
+      }
+    ]
   }
 ]
