@@ -605,5 +605,75 @@
         }
       }
     ]
+  },
+  {
+    "LAD": [
+      {
+        "name": "R.Campanella '53",
+        "position": "C",
+        "base_state": {"Stat1": 77, "Stat2": 82, "Stat3": 75, "Stat4": 59, "Stat5": 66},
+        "tier_increase": { "Stat1": 18, "Stat2": 20, "Stat3": 17, "Stat4": 8, "Stat5": 12},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
+        "name": "M.Machado '18",
+        "position": ["SS", "3B"],
+        "base_state": {"Stat1": 76, "Stat2": 77, "Stat3": 72, "Stat4": 68, "Stat5": 79},
+        "tier_increase": { "Stat1": 15, "Stat2": 17, "Stat3": 13, "Stat4": 12, "Stat5": 18},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "C.Bellinger '19",
+        "position": "OF",
+        "base_state": {"Stat1": 76, "Stat2": 84, "Stat3": 77, "Stat4": 65, "Stat5": 71},
+        "tier_increase": { "Stat1": 15, "Stat2": 20, "Stat3": 17, "Stat4": 10, "Stat5": 13},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 16, "Stat2": 21, "Stat3": 18, "Stat4": 11, "Stat5": 14}
+          },
+          "regular": {}
+        }
+      }
+    ]
+  },
+  {
+    "SD": [
+      {
+        "name": "F.Tatis Jr. '20",
+        "position": "SS",
+        "base_state": {"Stat1": 75, "Stat2": 83, "Stat3": 68, "Stat4": 73, "Stat5": 76},
+        "tier_increase": { "Stat1": 15, "Stat2": 19, "Stat3": 12, "Stat4": 14, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "M.Machado '20",
+        "position": "3B",
+        "base_state": {"Stat1": 77, "Stat2": 80, "Stat3": 71, "Stat4": 70, "Stat5": 73},
+        "tier_increase": { "Stat1": 17, "Stat2": 18, "Stat3": 13, "Stat4": 13, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "G.Vaughn '98",
+        "position": "OF",
+        "base_state": {"Stat1": 74, "Stat2": 86, "Stat3": 72, "Stat4": 64, "Stat5": 70},
+        "tier_increase": { "Stat1": 16, "Stat2": 21, "Stat3": 15, "Stat4": 10, "Stat5": 13},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      }
+    ]
   }
 ]
