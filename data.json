@@ -1561,6 +1561,266 @@
           },
           "regular": {}
         }
+      },
+      {
+        "name": "D.Sutton '72",
+        "position": "SP",
+        "base_state": {"Stat1": 77, "Stat2": 73, "Stat3": 80, "Stat4": 75, "Stat5": 73},
+        "tier_increase": { "Stat1": 16, "Stat2": 14, "Stat3": 17, "Stat4": 15, "Stat5": 13},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
+        "name": "D.Drysdale '62",
+        "position": "SP",
+        "base_state": {"Stat1": 76, "Stat2": 70, "Stat3": 77, "Stat4": 73, "Stat5": 71},
+        "tier_increase": { "Stat1": 17, "Stat2": 13, "Stat3": 17, "Stat4": 15, "Stat5": 13},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
+        "name": "C.Kershaw '16",
+        "position": "SP",
+        "base_state": {"Stat1": 83, "Stat2": 78, "Stat3": 76, "Stat4": 78, "Stat5": 77},
+        "tier_increase": { "Stat1": 17, "Stat2": 15, "Stat3": 15, "Stat4": 14, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "C.Kershaw '15",
+        "position": "SP",
+        "base_state": {"Stat1": 80, "Stat2": 79, "Stat3": 76, "Stat4": 77, "Stat5": 77},
+        "tier_increase": { "Stat1": 16, "Stat2": 16, "Stat3": 15, "Stat4": 14, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "C.Kershaw '14",
+        "position": "SP",
+        "base_state": {"Stat1": 81, "Stat2": 78, "Stat3": 77, "Stat4": 75, "Stat5": 76},
+        "tier_increase": { "Stat1": 17, "Stat2": 16, "Stat3": 14, "Stat4": 14, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 18, "Stat2": 17, "Stat3": 16, "Stat4": 14, "Stat5": 15}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "B.Singer '69",
+        "position": "SP",
+        "base_state": {"Stat1": 77, "Stat2": 72, "Stat3": 77, "Stat4": 74, "Stat5": 74},
+        "tier_increase": { "Stat1": 16, "Stat2": 13, "Stat3": 16, "Stat4": 15, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
+        "name": "M.Scherzer '21",
+        "position": "SP",
+        "base_state": {"Stat1": 80, "Stat2": 79, "Stat3": 72, "Stat4": 71, "Stat5": 72},
+        "tier_increase": { "Stat1": 18, "Stat2": 17, "Stat3": 14, "Stat4": 13, "Stat5": 13},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 19, "Stat2": 18, "Stat3": 15, "Stat4": 14, "Stat5": 14}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "A.Wood '17",
+        "position": "SP",
+        "base_state": {"Stat1": 77, "Stat2": 74, "Stat3": 71, "Stat4": 71, "Stat5": 73},
+        "tier_increase": { "Stat1": 17, "Stat2": 16, "Stat3": 14, "Stat4": 14, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 18, "Stat2": 17, "Stat3": 15, "Stat4": 14, "Stat5": 16}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "H.Ryu '19",
+        "position": "SP",
+        "base_state": {"Stat1": 79, "Stat2": 72, "Stat3": 73, "Stat4": 69, "Stat5": 74},
+        "tier_increase": { "Stat1": 18, "Stat2": 14, "Stat3": 14, "Stat4": 13, "Stat5": 16},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 19, "Stat2": 16, "Stat3": 15, "Stat4": 13, "Stat5": 17}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "J.Flaherty '24",
+        "position": "SP",
+        "base_state": {"Stat1": 77, "Stat2": 75, "Stat3": 71, "Stat4": 71, "Stat5": 71},
+        "tier_increase": { "Stat1": 17, "Stat2": 16, "Stat3": 14, "Stat4": 14, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "J.Reuss '80",
+        "position": "SP",
+        "base_state": {"Stat1": 77, "Stat2": 68, "Stat3": 73, "Stat4": 74, "Stat5": 74},
+        "tier_increase": { "Stat1": 17, "Stat2": 12, "Stat3": 14, "Stat4": 16, "Stat5": 16},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
+        "name": "T.Gonsolin '20",
+        "position": "SP",
+        "base_state": {"Stat1": 80, "Stat2": 75, "Stat3": 70, "Stat4": 73, "Stat5": 70},
+        "tier_increase": { "Stat1": 18, "Stat2": 16, "Stat3": 13, "Stat4": 15, "Stat5": 13},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 18, "Stat2": 17, "Stat3": 16, "Stat4": 14, "Stat5": 15}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "W.Buehler '19",
+        "position": "SP",
+        "base_state": {"Stat1": 78, "Stat2": 74, "Stat3": 73, "Stat4": 73, "Stat5": 68},
+        "tier_increase": { "Stat1": 18, "Stat2": 16, "Stat3": 15, "Stat4": 14, "Stat5": 12},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 19, "Stat2": 17, "Stat3": 16, "Stat4": 15, "Stat5": 13}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "W.Buehler '18",
+        "position": "SP",
+        "base_state": {"Stat1": 78, "Stat2": 76, "Stat3": 71, "Stat4": 71, "Stat5": 72},
+        "tier_increase": { "Stat1": 17, "Stat2": 17, "Stat3": 13, "Stat4": 13, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "C.Park '00",
+        "position": "SP",
+        "base_state": {"Stat1": 71, "Stat2": 73, "Stat3": 74, "Stat4": 77, "Stat5": 69},
+        "tier_increase": { "Stat1": 15, "Stat2": 16, "Stat3": 16, "Stat4": 19, "Stat5": 14},
+        "types": {
+          "prime": {}
+        }
+      },
+      {
+        "name": "E.Gagne '03",
+        "position": "CP",
+        "base_state": {"Stat1": 77, "Stat2": 80, "Stat3": 50, "Stat4": 80, "Stat5": 77},
+        "tier_increase": { "Stat1": 17, "Stat2": 19, "Stat3": 4, "Stat4": 19, "Stat5": 16},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 18, "Stat2": 20, "Stat3": 4, "Stat4": 20, "Stat5": 18}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "K.Jansen '17",
+        "position": "CP",
+        "base_state": {"Stat1": 77, "Stat2": 77, "Stat3": 50, "Stat4": 77, "Stat5": 75},
+        "tier_increase": { "Stat1": 18, "Stat2": 18, "Stat3": 4, "Stat4": 18, "Stat5": 17},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 19, "Stat2": 19, "Stat3": 5, "Stat4": 19, "Stat5": 18}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "K.Jansen '16",
+        "position": "CP",
+        "base_state": {"Stat1": 77, "Stat2": 77, "Stat3": 50, "Stat4": 78, "Stat5": 71},
+        "tier_increase": { "Stat1": 19, "Stat2": 19, "Stat3": 4, "Stat4": 18, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "K.Jansen '15",
+        "position": "CP",
+        "base_state": {"Stat1": 76, "Stat2": 75, "Stat3": 50, "Stat4": 75, "Stat5": 70},
+        "tier_increase": { "Stat1": 19, "Stat2": 18, "Stat3": 5, "Stat4": 18, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "T.Niedenfuer '85",
+        "position": "CP",
+        "base_state": {"Stat1": 74, "Stat2": 71, "Stat3": 53, "Stat4": 75, "Stat5": 72},
+        "tier_increase": { "Stat1": 18, "Stat2": 16, "Stat3": 6, "Stat4": 19, "Stat5": 16},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
+        "name": "B.Treinen '21",
+        "position": "RP",
+        "base_state": {"Stat1": 72, "Stat2": 72, "Stat3": 53, "Stat4": 70, "Stat5": 74},
+        "tier_increase": { "Stat1": 18, "Stat2": 17, "Stat3": 6, "Stat4": 15, "Stat5": 19},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "E.Phillips '22",
+        "position": "RP",
+        "base_state": {"Stat1": 72, "Stat2": 72, "Stat3": 53, "Stat4": 77, "Stat5": 69},
+        "tier_increase": { "Stat1": 17, "Stat2": 17, "Stat3": 6, "Stat4": 20, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "J.Howell '88",
+        "position": "CP",
+        "base_state": {"Stat1": 72, "Stat2": 71, "Stat3": 51, "Stat4": 75, "Stat5": 69},
+        "tier_increase": { "Stat1": 18, "Stat2": 17, "Stat3": 5, "Stat4": 20, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
+        "name": "H.Kuo '10",
+        "position": "RP",
+        "base_state": {"Stat1": 74, "Stat2": 75, "Stat3": 54, "Stat4": 75, "Stat5": 73},
+        "tier_increase": { "Stat1": 19, "Stat2": 19, "Stat3": 7, "Stat4": 18, "Stat5": 17},
+        "types": {
+          "prime": {}
+        }
       }
     ]
   },
