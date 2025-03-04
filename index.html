@@ -753,6 +753,7 @@
         // 新增函數：自動設定 "裝備" 行的能力值
         function updateEquipmentValues() {
             const equipmentDropdown = document.getElementById('equipment-select');
+            const selectedType = typeSelect.value;
             const selectedValue = equipmentDropdown.value;
             const equipmentRow = document.getElementById('equipment-row');
             const inputs = equipmentRow.querySelectorAll('td:nth-child(n+3):nth-child(-n+7) input[type="number"]');
@@ -766,6 +767,9 @@
                 equipmentValue = 3;
             } else if(selectedValue === "diamond") {
                 equipmentValue = 5;
+            }
+            if (selectedType === 'supreme') {
+                equipmentValue *= 2;
             }
             for (let i = 0; i < 5; i++) {
                 if(i < 3) {
