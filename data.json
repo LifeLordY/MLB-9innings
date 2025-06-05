@@ -2,6 +2,24 @@
   {
     "NYY": [
       {
+        "name": "DEREK JETER",
+        "position": "SS",
+        "base_state": {"Stat1": 84, "Stat2": 72, "Stat3": 74, "Stat4": 70, "Stat5": 75},
+        "tier_increase": { "Stat1": 19, "Stat2": 13, "Stat3": 15, "Stat4": 12, "Stat5": 16},
+        "types": {
+          "supreme": {}
+        }
+      },
+      {
+        "name": "JOE DIMAGGIO",
+        "position": "OF",
+        "base_state": {"Stat1": 88, "Stat2": 81, "Stat3": 79, "Stat4": 65, "Stat5": 68},
+        "tier_increase": { "Stat1": 20, "Stat2": 17, "Stat3": 17, "Stat4": 10, "Stat5": 11},
+        "types": {
+          "supreme": {}
+        }
+      },
+      {
         "name": "L.Gehring '36",
         "position": "1B",
         "base_state": {"Stat1": 80, "Stat2": 84, "Stat3": 84, "Stat4": 60, "Stat5": 73},
@@ -41,6 +59,16 @@
         }
       },
       {
+        "name": "J.DiMaggio '39",
+        "position": "OF",
+        "base_state": {"Stat1": 88, "Stat2": 79, "Stat3": 76, "Stat4": 62, "Stat5": 68},
+        "tier_increase": { "Stat1": 21, "Stat2": 17, "Stat3": 16, "Stat4": 9, "Stat5": 12},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
         "name": "J.Soto '24",
         "position": "OF",
         "base_state": {"Stat1": 77, "Stat2": 81, "Stat3": 81, "Stat4": 65, "Stat5": 69},
@@ -50,6 +78,16 @@
           "prime": {
             "tier_increase": { "Stat1": 18, "Stat2": 19, "Stat3": 19, "Stat4": 11, "Stat5": 13}
           },
+          "regular": {}
+        }
+      },
+      {
+        "name": "D.Jeter '09",
+        "position": "SS",
+        "base_state": {"Stat1": 82, "Stat2": 69, "Stat3": 72, "Stat4": 68, "Stat5": 75},
+        "tier_increase": { "Stat1": 19, "Stat2": 13, "Stat3": 15, "Stat4": 12, "Stat5": 16},
+        "types": {
+          "signature": {},
           "regular": {}
         }
       },
