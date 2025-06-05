@@ -47,6 +47,9 @@
         "tier_increase": { "Stat1": 17, "Stat2": 18, "Stat3": 18, "Stat4": 10, "Stat5": 12},
         "types": {
           "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 18, "Stat2": 19, "Stat3": 19, "Stat4": 11, "Stat5": 13}
+          },
           "regular": {}
         }
       },
@@ -411,6 +414,10 @@
         "tier_increase": { "Stat1": 17, "Stat2": 21, "Stat3": 5, "Stat4": 16, "Stat5": 16},
         "types": {
           "signature": {},
+          "prime": {
+            "base_state": {"Stat1": 71, "Stat2": 79, "Stat3": 50, "Stat4": 72, "Stat5": 72},
+            "tier_increase": { "Stat1": 18, "Stat2": 22, "Stat3": 5, "Stat4": 18, "Stat5": 17}
+          },
           "regular": {}
         }
       },
@@ -523,6 +530,16 @@
         }
       },
       {
+        "name": "M.McGwire '96",
+        "position": "1B",
+        "base_state": {"Stat1": 78, "Stat2": 94, "Stat3": 81, "Stat4": 57, "Stat5": 59},
+        "tier_increase": { "Stat1": 17, "Stat2": 24, "Stat3": 19, "Stat4": 7, "Stat5": 8},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
         "name": "M.Olson '21",
         "position": "1B",
         "base_state": {"Stat1": 75, "Stat2": 81, "Stat3": 74, "Stat4": 59, "Stat5": 70},
@@ -553,6 +570,10 @@
         "tier_increase": { "Stat1": 17, "Stat2": 16, "Stat3": 15, "Stat4": 10, "Stat5": 17},
         "types": {
           "signature": {},
+          "prime": {
+            "base_state": {"Stat1": 73, "Stat2": 72, "Stat3": 72, "Stat4": 62, "Stat5": 75},
+            "tier_increase": { "Stat1": 18, "Stat2": 16, "Stat3": 16, "Stat4": 11, "Stat5": 19}
+          },
           "regular": {}
         }
       },
@@ -630,6 +651,15 @@
         }
       },
       {
+        "name": "C.Hunter '74",
+        "position": "SP",
+        "base_state": {"Stat1": 77, "Stat2": 67, "Stat3": 78, "Stat4": 72, "Stat5": 72},
+        "tier_increase": { "Stat1": 17, "Stat2": 12, "Stat3": 18, "Stat4": 14, "Stat5": 14},
+        "types": {
+          "legend": {}
+        }
+      },
+      {
         "name": "V.Blue '71",
         "position": "SP",
         "base_state": {"Stat1": 77, "Stat2": 76, "Stat3": 79, "Stat4": 80, "Stat5": 73},
@@ -695,6 +725,9 @@
         "tier_increase": { "Stat1": 17, "Stat2": 16, "Stat3": 16, "Stat4": 14, "Stat5": 12},
         "types": {
           "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 19, "Stat2": 17, "Stat3": 16, "Stat4": 15, "Stat5": 13}
+          },
           "regular": {}
         }
       },
@@ -873,6 +906,16 @@
         }
       },
       {
+        "name": "T.Raines '87",
+        "position": "OF",
+        "base_state": {"Stat1": 82, "Stat2": 71, "Stat3": 79, "Stat4": 72, "Stat5": 69},
+        "tier_increase": { "Stat1": 19, "Stat2": 14, "Stat3": 17, "Stat4": 13, "Stat5": 12},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
         "name": "J.Soto '19",
         "position": "OF",
         "base_state": {"Stat1": 75, "Stat2": 79, "Stat3": 77, "Stat4": 65, "Stat5": 72},
@@ -992,6 +1035,19 @@
         "tier_increase": { "Stat1": 18, "Stat2": 17, "Stat3": 14, "Stat4": 10, "Stat5": 16},
         "types": {
           "signature": {},
+          "regular": {}
+        }
+      },
+      {
+        "name": "O.Cabrera '03",
+        "position": "SS",
+        "base_state": {"Stat1": 77, "Stat2": 69, "Stat3": 71, "Stat4": 65, "Stat5": 70},
+        "tier_increase": { "Stat1": 19, "Stat2": 14, "Stat3": 16, "Stat4": 12, "Stat5": 14},
+        "types": {
+          "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 20, "Stat2": 15, "Stat3": 17, "Stat4": 13, "Stat5": 15}
+          },
           "regular": {}
         }
       },
@@ -1118,6 +1174,16 @@
         }
       },
       {
+        "name": "M.Langston '89",
+        "position": "SP",
+        "base_state": {"Stat1": 74, "Stat2": 73, "Stat3": 77, "Stat4": 75, "Stat5": 69},
+        "tier_increase": { "Stat1": 16, "Stat2": 14, "Stat3": 17, "Stat4": 16, "Stat5": 12},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
         "name": "S.Strasburg '16",
         "position": "SP",
         "base_state": {"Stat1": 77, "Stat2": 75, "Stat3": 73, "Stat4": 71, "Stat5": 70},
@@ -1190,6 +1256,9 @@
         "tier_increase": { "Stat1": 18, "Stat2": 18, "Stat3": 6, "Stat4": 19, "Stat5": 14},
         "types": {
           "signature": {},
+          "prime": {
+            "tier_increase": { "Stat1": 20, "Stat2": 18, "Stat3": 7, "Stat4": 20, "Stat5": 15}
+          },
           "regular": {}
         }
       },
@@ -1313,6 +1382,16 @@
         }
       },
       {
+        "name": "A.Beltre '04",
+        "position": "3B",
+        "base_state": {"Stat1": 82, "Stat2": 82, "Stat3": 70, "Stat4": 60, "Stat5": 77},
+        "tier_increase": { "Stat1": 19, "Stat2": 19, "Stat3": 13, "Stat4": 18, "Stat5": 16},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
         "name": "M.Machado '18",
         "position": ["SS", "3B"],
         "base_state": {"Stat1": 76, "Stat2": 77, "Stat3": 72, "Stat4": 68, "Stat5": 79},
@@ -1320,6 +1399,16 @@
         "types": {
           "signature": {},
           "regular": {}
+        }
+      },
+      {
+        "name": "D.Snider '53",
+        "position": "OF",
+        "base_state": {"Stat1": 82, "Stat2": 80, "Stat3": 74, "Stat4": 66, "Stat5": 69},
+        "tier_increase": { "Stat1": 19, "Stat2": 18, "Stat3": 15, "Stat4": 11, "Stat5": 12},
+        "types": {
+          "signature": {},
+          "vintage": {}
         }
       },
       {
@@ -1469,6 +1558,10 @@
         "tier_increase": { "Stat1": 19, "Stat2": 17, "Stat3": 12, "Stat4": 15, "Stat5": 12},
         "types": {
           "signature": {},
+          "prime": {
+            "base_state": {"Stat1": 82, "Stat2": 74, "Stat3": 67, "Stat4": 70, "Stat5": 63},
+            "tier_increase": { "Stat1": 22, "Stat2": 18, "Stat3": 13, "Stat4": 16, "Stat5": 11}
+          },
           "regular": {}
         }
       },
@@ -1811,6 +1904,20 @@
         "types": {
           "signature": {},
           "vintage": {}
+        }
+      },
+      {
+        "name": "S.Miller '23",
+        "position": "RP",
+        "base_state": {"Stat1": 68, "Stat2": 71, "Stat3": 54, "Stat4": 69, "Stat5": 66},
+        "tier_increase": { "Stat1": 17, "Stat2": 19, "Stat3": 8, "Stat4": 16, "Stat5": 15},
+        "types": {
+          "signature": {},
+          "prime": {
+            "base_state": {"Stat1": 68, "Stat2": 70, "Stat3": 54, "Stat4": 69, "Stat5": 66},
+            "tier_increase": { "Stat1": 18, "Stat2": 19, "Stat3": 8, "Stat4": 19, "Stat5": 16}
+          },
+          "regular": {}
         }
       },
       {
