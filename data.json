@@ -1393,6 +1393,26 @@
         }
       },
       {
+        "name": "M.McGwire '98",
+        "position": "1B",
+        "base_state": {"Stat1": 76, "Stat2": 98, "Stat3": 83, "Stat4": 57, "Stat5": 59},
+        "tier_increase": { "Stat1": 15, "Stat2": 26, "Stat3": 19, "Stat4": 7, "Stat5": 8},
+        "types": {
+          "signature": {},
+          "vintage": {}
+        }
+      },
+      {
+        "name": "S.Rolen '04",
+        "position": "3B",
+        "base_state": {"Stat1": 79, "Stat2": 80, "Stat3": 73, "Stat4": 59, "Stat5": 75},
+        "tier_increase": { "Stat1": 18, "Stat2": 19, "Stat3": 14, "Stat4": 8, "Stat5": 16},
+        "types": {
+          "signature": {},
+          "regular": {}
+        }
+      },
+      {
         "name": "P.Goldschmidt '22",
         "position": "1B",
         "base_state": {"Stat1": 78, "Stat2": 78, "Stat3": 72, "Stat4": 62, "Stat5": 71},
@@ -1402,6 +1422,20 @@
           "prime": {
             "base_state": {"Stat1": 81, "Stat2": 78, "Stat3": 72, "Stat4": 62, "Stat5": 63},
             "tier_increase": { "Stat1": 22, "Stat2": 20, "Stat3": 16, "Stat4": 11, "Stat5": 11}
+          },
+          "regular": {}
+        }
+      },
+      {
+        "name": "P.DeJong '19",
+        "position": "SS",
+        "base_state": {"Stat1": 71, "Stat2": 76, "Stat3": 68, "Stat4": 68, "Stat5": 80},
+        "tier_increase": { "Stat1": 15, "Stat2": 17, "Stat3": 12, "Stat4": 12, "Stat5": 19},
+        "types": {
+          "signature": {},
+          "prime": {
+            "base_state": {"Stat1": 67, "Stat2": 76, "Stat3": 68, "Stat4": 66, "Stat5": 77},
+            "tier_increase": { "Stat1": 14, "Stat2": 19, "Stat3": 14, "Stat4": 13, "Stat5": 20}
           },
           "regular": {}
         }
