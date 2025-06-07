@@ -170,7 +170,7 @@
             <select id="team" name="team">
                 <option value="">-- 請選擇 --</option>
                 <option value="NYY">NYY</option>
-                <option value="OAK">OAK</option>
+                <option value="ATH">ATH</option>
                 <option value="HOU">HOU</option>
                 <option value="WSH">WSH</option>
                 <option value="STL">STL</option>
@@ -394,7 +394,7 @@
         // **球隊顏色對應表**
         const teamColors = {
             "NYY": "#0C2340",
-            "OAK": "#003831",
+            "ATH": "#003831",
             "HOU": "#EB6E1F",
             "WSH": "#AB0003",
             "STL": "#C41E3A",
@@ -476,7 +476,7 @@
 
             let filteredPlayers = [];
             playerData.forEach(teamData => {
-                const teamCode = Object.keys(teamData)[0]; // 取得球隊代碼 (NYY, OAK...)
+                const teamCode = Object.keys(teamData)[0]; // 取得球隊代碼 (NYY, ATH...)
                 const players = teamData[teamCode];
                 players.forEach(player => {
                     const playerTypes = player.types;
