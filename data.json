@@ -1117,7 +1117,7 @@
       },
       {
         "name": "C.Biggio '97",
-        "position": "1B",
+        "position": "2B",
         "base_state": {"Stat1": 78, "Stat2": 71, "Stat3": 73, "Stat4": 69, "Stat5": 74},
         "tier_increase": { "Stat1": 18, "Stat2": 14, "Stat3": 15, "Stat4": 13, "Stat5": 15},
         "types": {
